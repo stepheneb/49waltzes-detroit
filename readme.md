@@ -7,7 +7,7 @@ The transcoded video files are not included in this repository.
 Download the zip file containing the transcoded video files and expand
 it in the working directory created when this repository is cloned.
 
-This will create a folder named video with the following to folders
+This will create a folder named video with the following two folders
 
     video/
     |-- mp4-480x270-500k
