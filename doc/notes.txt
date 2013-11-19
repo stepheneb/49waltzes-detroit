@@ -1,0 +1,93 @@
+
+http://eshop.macsales.com/item/Other%20World%20Computing/SSDAP12K480/
+http://everymac.com/systems/apple/macbook_pro/specs/macbook-pro-core-i7-2.3-15-mid-2012-retina-display-specs.html
+
+git archive HEAD | gzip > ../49waltzes-detroit-20131119.tar.gz
+
+scp -c arcfour ../49waltzes-detroit-20131119.tar.gz deploy@server.labframework.org:/var/www/app/public/49waltzes
+
+scp notes.txt deploy@server.labframework.org:/var/www/app/public/49waltzes
+
+scp -c arcfour remote@remote:~/bigfile .
+
+rsync –archive –delete –compress-level=1 –rsh=”ssh -c arcfour” ../49waltzes-detroit-20131119.tar.gz deploy@server.labframework.org:/var/www/app/public/49waltzes
+
+rsync -v -e ssh /www/backup.tar.gz jerry@openbsd.nixcraft.in:~
+
+file:///Users/stephen/Desktop/49-waltzes/detroit/detroit-waltzes.html
+
+D3.js:
+
+https://github.com/mbostock/d3/wiki/API-Reference
+https://github.com/mbostock/d3/wiki/Arrays
+http://bost.ocks.org/mike/selection/
+http://stackoverflow.com/questions/10710327/best-way-to-rebind-data-in-d3-js
+
+http://bl.ocks.org/mbostock/3808218 (General Update Pattern)
+
+http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.html
+
+HTML5 Video:
+
+http://www.html5rocks.com/en/tutorials/video/basics/
+http://diveintohtml5.info/video.html
+https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_HTML5_audio_and_video
+
+Local Storage:
+
+http://diveintohtml5.info/storage.html
+https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage
+http://www.webdesignerdepot.com/2013/04/how-to-use-local-storage-for-javascript/
+http://coding.smashingmagazine.com/2010/10/11/local-storage-and-how-to-use-it/
+
+SVG Filters:
+
+http://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html#filters
+
+
+DOMContentLoaded:
+
+https://developer.mozilla.org/en-US/docs/Web/Reference/Events/DOMContentLoaded
+http://ablogaboutcode.com/2011/06/14/how-javascript-loading-works-domcontentloaded-and-onload/
+
+Popup Windows:
+
+http://stackoverflow.com/questions/6787258/most-elegant-way-to-create-a-javascript-popup
+http://stackoverflow.com/questions/14643040/allow-window-open-to-open-new-window-and-not-popup
+http://stackoverflow.com/questions/4885765/window-opener-alternatives
+http://stackoverflow.com/questions/tagged/window.opener
+https://developer.mozilla.org/en-US/docs/Web/API/window.opener?redirectlocale=en-US&redirectslug=DOM%2Fwindow.opener
+http://stackoverflow.com/questions/16169004/js-communicate-between-popup-to-main-window
+http://bytes.com/topic/javascript/insights/913606-javascript-communication-between-browser-windows-tabs
+
+Window resize events
+
+https://developer.mozilla.org/en-US/docs/Web/API/Window.onresize
+http://stackoverflow.com/questions/641857/javascript-window-resize-event
+
+
+FFMPEG:
+
+
+http://wiki.multimedia.cx/index.php?title=FFmpeg_Metadata
+http://jonhall.info/how_to/dump_and_load_metadata_with_ffmpeg
+
+
+https://trac.ffmpeg.org/wiki
+
+https://trac.ffmpeg.org/wiki/AACEncodingGuide
+
+https://trac.ffmpeg.org/wiki/x264EncodingGuide
+http://mewiki.project357.com/wiki/X264_Encoding_Suggestions
+http://stackoverflow.com/questions/8273322/theatrical-quality-ffmpeg-x264-encoding-of-a-high-motion-1080p-video
+
+https://trac.ffmpeg.org/wiki/FilteringGuide
+
+https://trac.ffmpeg.org/wiki/Creating%20multiple%20outputs
+http://stackoverflow.com/questions/12041077/ffmpeg-output-to-multiple-files-simultaneously
+
+http://rodrigopolo.com/ffmpeg/cheats.php
+
+
+
+

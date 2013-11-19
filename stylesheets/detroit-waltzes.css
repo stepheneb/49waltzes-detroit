@@ -1,0 +1,97 @@
+html {
+  margin: 0em;
+  padding: 0em;
+}
+
+body {
+  height: 100%;
+  min-height: 100%;
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 0.5em;
+  font: 12px sans-serif;
+  background: lightgray;
+  border: 0px;
+  border-radius: 0.5em;
+  pointer-events: none;
+  z-index: 3;
+}
+
+div.videoContainer {
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 0.5em;
+  font: 12px sans-serif;
+  background: #ddd;
+  border: 0px;
+  border-radius: 0.5em;
+  pointer-events: none;
+  z-index: 2;
+}
+
+div.videoContainer video{
+  position: inherit;
+  padding: 0.5em;
+  width: 95%;
+  height: auto;
+}
+
+#video-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top:0;
+  left: 0;
+}
+
+#video {
+  position: inherit;
+  width: 100%;
+  height: auto;
+}
+
+#map-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top:0;
+  left: 0;
+}
+
+.map-svg {
+  position: inherit;
+}
+
+#map-image {
+  position: inherit;
+  width: 100%;
+  height: auto;
+}
+
+svg.map-svg circle.location {
+  fill: #ff7f0e;
+  fill-opacity: 0.4;
+  stroke: #666666;
+  stroke-width: 1.5; }
+  svg.map-svg circle.selected {
+    fill: #ff7f0e;
+    stroke: #ff7f0e; }
+  svg.map-svg circle:hover {
+    fill: #ff7f0e;
+    fill-opacity: 0.1;
+    stroke: #444444;
+    stroke-width: 2;
+    stroke-opacity: 1.0; }
+  svg.map-svg circle.selected:hover {
+    fill: #ff7f0e;
+    stroke: #ff7f0e; }
