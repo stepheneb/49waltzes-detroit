@@ -91,7 +91,7 @@ svg.map-svg circle.location {
   svg.map-svg circle.selected {
     fill: #ff7f0e;
     fill-opacity: 0.1;
-    stroke: #444444;
+    stroke: #ff7f0e;
     stroke-opacity: 1.0; }
   svg.map-svg circle:hover {
     fill: #ff7f0e;

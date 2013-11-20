@@ -88,11 +88,18 @@ function setup() {
 
 function updateCircles() {
   circle
-    .classed("selected", function(d) { selected === d ? true : false })
+    .classed("selected", function(d) {
+      return selected === d ? true : false })
     .attr("cx", function(d) { return d.x })
     .attr("cy", function(d) { return d.y })
     .attr("r", circleRadius)
-    .style("stroke-width", circleStrokeWidth);
+    .style("stroke-width", function(d) {
+      if (selected === d) {
+        return circleStrokeWidth * 1.5;
+      } else {
+        return circleStrokeWidth;
+      }
+    })
 }
 
 function handleResize() {
@@ -150,34 +157,52 @@ function showTooltip(d) {
       cy = +cnode.getAttribute('cy'),
       ctm = cnode.getCTM(),
       xpos = ctm.e + cx*ctm.a,
-      ypos = ctm.f + cy*ctm.d;
+      ypos = ctm.f + cy*ctm.d,
+      html,
+      height,
+      width;
 
   d3.event = null;
-  function tooltipPosX() {
+  function tooltipPosLeft(width) {
     if (d3.event) {
       return d3.event.pageX + 8;
     } else {
-      return xpos + 8;
+      if (xpos + 8 + width > mapWidth ) {
+        return mapWidth - width;
+      } else if (xpos + 8 < 0) {
+        return 0;
+      } else {
+        return xpos + 8;
+      }
     }
   }
 
-  function tooltipPosY() {
+  function tooltipPosTop(height) {
     if (d3.event) {
       return d3.event.pageY - 28;
     } else {
-      return ypos - 28;
+      if (ypos - 28 < 0) {
+        return 0;
+      } else if (ypos - 28 + height > mapHeight) {
+        return mapHeight - height;
+      } else {
+        return ypos - 28;
+      }
     }
   }
 
   tooltip.transition()
      .duration(200)
      .style("opacity", .9);
-  tooltip.html(d.index + ": " + d.waltz + d.movement +
+  html = tooltip.html(d.index + ": " + d.waltz + d.movement +
          "<br/>" + d.address +
          "<br/>" + latLonFormatter(d.latitude) + ", " + latLonFormatter(d.longitude) +
-         "<br/>" + pixelFormatter(d.x) + ", " + pixelFormatter(d.y))
-     .style("left", tooltipPosX() + "px")
-     .style("top", tooltipPosY() + "px");
+         "<br/>" + pixelFormatter(d.x) + ", " + pixelFormatter(d.y));
+  height = html.node().clientHeight;
+  width = html.node().clientWidth;
+  html
+     .style("left", tooltipPosLeft(width) + "px")
+     .style("top", tooltipPosTop(height) + "px");
 }
 
 function hideTooltip(d) {
@@ -186,7 +211,12 @@ function hideTooltip(d) {
      .style("opacity", 0)
 }
 
+// oldCircle = d3.select('circle[data-index="' + selected.index + '"]');
+// newCircle = d3.select('circle[data-index="' + newIndex + '"]');
+
 function handleKeyboardEvents(evt) {
+  var newIndex;
+
   evt = (evt) ? evt : ((window.event) ? event : null);
   if (evt) {
     switch (evt.keyCode) {
@@ -194,7 +224,7 @@ function handleKeyboardEvents(evt) {
       if (!selected) {
         selected = locationdata[locationdata.length - 1]
       } else {
-        var newIndex = locationdata.indexOf(selected) - 1;
+        newIndex = locationdata.indexOf(selected) - 1;
         if (newIndex < 0) {
           newIndex = locationdata.length - 1;
         }
@@ -219,7 +249,7 @@ function handleKeyboardEvents(evt) {
       if (!selected) {
         selected = locationdata[0]
       } else {
-        var newIndex = locationdata.indexOf(selected) + 1;
+        newIndex = locationdata.indexOf(selected) + 1;
         if (newIndex + 1 > locationdata.length) {
           newIndex = 0;
         }
@@ -236,6 +266,19 @@ function handleKeyboardEvents(evt) {
 
       case 40:                    // down arrow
       evt.preventDefault();
+      break;
+
+      case 27:                   // ESC
+      evt.preventDefault();
+      if (selected) {
+        hideTooltip(selected);
+        hideVideo(selected);
+        videoContainer.selectAll('video').remove();
+        videoContainer.style("opacity", 0)
+        selected = null;
+        updateCircles();
+      }
+      break;
     }
   }
 }
@@ -294,11 +337,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
       .on("mousedown", function(d) {
         d3.event.preventDefault();
         d3.event.stopPropagation();
-        d3.select(this).classed("selected", true);
         selected = d;
         if (video) {
           video.remove();
         }
+        updateCircles();
         showTooltip(d);
         showVideo(d);
       })
