@@ -3,7 +3,7 @@ require 'open-uri'
 require 'nokogiri'
 require 'json'
 
-@doc = Nokogiri::XML(open('detroit-waltzes-real-final-13.kml'))
+@doc = Nokogiri::XML(open('detroit-waltzes-real-final-b.kml'))
 
 @locations = []
 
