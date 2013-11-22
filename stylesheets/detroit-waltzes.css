@@ -55,8 +55,8 @@ div.tooltip {
   width: auto;
   height: auto;
   color: black;
-  padding: 0.5em;
-  font: 12px sans-serif;
+  padding: 0.3em 0.5em;
+  font-size: 0.95em;
   background: #eee;
   border: 1px;
   border-color: #444;
@@ -65,47 +65,61 @@ div.tooltip {
   z-index: 3;
 }
 
-div.videoContainer {
-  position: absolute;
-  width: auto;
-  height: auto;
-  padding: 0em;
-  margin: 0em;
-  font: 12px sans-serif;
-  background: #ddd;
-  border: 0px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-div.videoContainer video{
-  position: inherit;
-  padding: 0em;
-  margin: 0em;
-  width: 100%;
-  height: auto;
-  z-index: 1;
-}
-
-#video-container {
+#svg-container {
   position: fixed;
   height: 100%;
   width: 100%;
   top:0;
   left: 0;
+  fill: #fff;
+  fill-opacity: 0;
 }
 
-#video {
+div#video-container {
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 0em;
+  margin: 0em;
+  background: #ddd;
+  border: 0px;
+  fill-opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+div#video-container video {
   position: inherit;
+  padding: 0em;
+  margin: 0em;
   width: 100%;
   height: auto;
+  z-index: 1;
+}
+
+div#full-video-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  top:0;
+  left: 0;
+}
+
+div#full-video-container video {
+  position: inherit;
+  padding: 0em;
+  margin: 0em;
+  width: 100%;
+  height: auto;
+  z-index: 1;
 }
 
 #map-container {
   position: fixed;
   height: 100%;
   width: 100%;
-  top:0;
+  top: 0;
   left: 0;
 }
 
