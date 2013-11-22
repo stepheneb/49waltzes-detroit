@@ -82,7 +82,7 @@ function generateVideoKeyStr(location) {
 
 function showVideo(d) {
   videoContainer.transition()
-     .duration(500)
+     .duration(300)
      .style("opacity", 1.0)
      .each("end", function(d) {
        video.node().play();
@@ -100,7 +100,7 @@ function showVideo(d) {
 
 function hideVideo(d) {
   videoContainer.transition()
-     .duration(500)
+     .duration(300)
      .style("opacity", 0)
      .each("end", function(d) {
        videoContainer.selectAll('video').remove();
@@ -342,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           videoContainer.selectAll('video').remove();
           videoContainer.style("opacity", 0);
           showTooltip(d);
-          showVideo(d);
+          // showVideo(d);
           saveLocation(d);
         }
       })
