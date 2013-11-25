@@ -301,81 +301,82 @@ function handleResize() {
 
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
-  mapImage = document.getElementById('map-image');
   localStorage.setItem("videoPath", "");
-  setup();
+  mapImage = document.getElementById('map-image');
+  mapImage.addEventListener('load', function() {
+    setup();
 
-  svgContainer = d3.select('body').append("div")
-      .attr("id", "svg-container");
+    svgContainer = d3.select('body').append("div")
+        .attr("id", "svg-container");
 
-  svg = svgContainer.append("svg")
-      .attr("class", "map-svg");
+    svg = svgContainer.append("svg")
+        .attr("class", "map-svg");
 
-  resizeSVG();
+    resizeSVG();
 
-  tooltip = d3.select("body")
-      .append("div")
-      .attr("class", "tooltip")
-      .style("opacity", 0)
-      .style("z-index", 3);
+    tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0)
+        .style("z-index", 3);
 
-  videoContainer = d3.select("body")
-      .append("div")
-      .attr("id", "video-container")
-      .style("opacity", 0)
-      .style("z-index", 1);
+    videoContainer = d3.select("body")
+        .append("div")
+        .attr("id", "video-container")
+        .style("opacity", 0)
+        .style("z-index", 1);
 
-  resizeVideoContainer();
+    resizeVideoContainer();
 
-  circle = svg.selectAll("circle")
-    .data(locationdata, function (d) { return d.index });
+    circle = svg.selectAll("circle")
+      .data(locationdata, function (d) { return d.index });
 
-  circle.enter().append("circle")
-      .attr("class", "location")
-      .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; })
-      .attr("data-index", function(d) { return d.index; })
-      .attr("r", circleRadius)
-      .style("stroke-width", circleStrokeWidth)
-      .style("z-index", 2)
-      .on("mouseover", function(d) {
-        if (!selected) {
-          videoContainer.selectAll('video').remove();
-          videoContainer.style("opacity", 0);
+    circle.enter().append("circle")
+        .attr("class", "location")
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; })
+        .attr("data-index", function(d) { return d.index; })
+        .attr("r", circleRadius)
+        .style("stroke-width", circleStrokeWidth)
+        .style("z-index", 2)
+        .on("mouseover", function(d) {
+          if (!selected) {
+            videoContainer.selectAll('video').remove();
+            videoContainer.style("opacity", 0);
+            showTooltip(d);
+            // showVideo(d);
+            saveLocation(d);
+          }
+        })
+        .on("mouseout", function(d) {
+          if (!selected) {
+            hideVideo(d);
+            hideTooltip(d);
+          }
+        })
+        .on("mousedown", function(d) {
+          d3.event.preventDefault();
+          d3.event.stopPropagation();
+          selected = d;
+          if (video) {
+            video.remove();
+          }
+          updateCircles();
           showTooltip(d);
           // showVideo(d);
           saveLocation(d);
-        }
-      })
-      .on("mouseout", function(d) {
-        if (!selected) {
-          hideVideo(d);
-          hideTooltip(d);
-        }
-      })
-      .on("mousedown", function(d) {
-        d3.event.preventDefault();
-        d3.event.stopPropagation();
-        selected = d;
-        if (video) {
-          video.remove();
-        }
-        updateCircles();
-        showTooltip(d);
-        // showVideo(d);
-        saveLocation(d);
-      })
+        })
 
-  d3.select(window).on("mousedown", function () {
-    if (selected) {
-      hideVideo(selected);
-      hideTooltip(selected);
-    }
-    selected = null;
-    updateCircles();
-  });
+    d3.select(window).on("mousedown", function () {
+      if (selected) {
+        hideVideo(selected);
+        hideTooltip(selected);
+      }
+      selected = null;
+      updateCircles();
+    });
 
-  window.onresize = handleResize;
-  document.onkeydown = handleKeyboardEvents;
-
+    window.onresize = handleResize;
+    document.onkeydown = handleKeyboardEvents;
+  })
 });

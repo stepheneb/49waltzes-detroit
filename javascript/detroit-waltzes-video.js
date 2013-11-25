@@ -45,7 +45,6 @@ function showVideo(d) {
       .attr("src", "video/webm-480x270-500k/" + generateVideoKeyStr(d) + "-480x270-500k.webm")
       .attr("type", 'video/webm; codecs="vp8, vorbis"');
 
-
 }
 
 function hideVideo() {
