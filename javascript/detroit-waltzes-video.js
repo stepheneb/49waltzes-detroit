@@ -27,13 +27,6 @@ function showVideo(d) {
       .attr("controls", d.testing)
       .attr("autoplay", "autoplay")
       .style("opacity", 0.0);
-  video
-    .append("source")
-      .attr("src", "video/mp4-480x270-500k/" + generateVideoKeyStr(d) + "-480x270-500k.mp4")
-      .attr("type", 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"')
-    .append("source")
-      .attr("src", "video/webm-480x270-500k/" + generateVideoKeyStr(d) + "-480x270-500k.webm")
-      .attr("type", 'video/webm; codecs="vp8, vorbis"');
 
   video.transition()
      .duration(500)
@@ -42,15 +35,20 @@ function showVideo(d) {
        video.node().play();
       })
 
+  video
+    .append("source")
+      .attr("src", "video/mp4-480x270-500k/" + generateVideoKeyStr(d) + "-480x270-500k.mp4")
+      .attr("type", 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"');
+
+  video
+    .append("source")
+      .attr("src", "video/webm-480x270-500k/" + generateVideoKeyStr(d) + "-480x270-500k.webm")
+      .attr("type", 'video/webm; codecs="vp8, vorbis"');
+
+
 }
 
 function hideVideo() {
-  // videoContainer.transition()
-  //    .duration(500)
-  //    .style("opacity", 0)
-  //    .each("end", function(d) {
-  //      videoContainer.selectAll('video').remove();
-  //    })
   video.transition()
      .duration(500)
      .style("opacity", 0.0)
@@ -60,12 +58,16 @@ function hideVideo() {
 
 }
 
+function handleResize() {
+  document.body.style.fontSize = window.innerWidth/960 * 12 + 'px';
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
+  handleResize();
   video = d3.select("#full-video");
   videoContainer = d3.select("#full-video-container");
-  locationtip = d3.select("body")
-      .append("div")
+  locationtip = videoContainer.append("div")
       .attr("class", "locationtip")
       .style("opacity", 0)
       .style("z-index", 3);
@@ -82,4 +84,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       showLocationtip(selected);
     }
   }, false);
+
+  window.onresize = handleResize;
+
 });

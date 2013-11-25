@@ -116,9 +116,9 @@ body {
 }
 
 div.locationtip {
-  position: fixed;
+  position: absolute;
   text-align: left;
-  bottom: 4em;
+  bottom: 40px;
   width: 100%;
   height: auto;
   color: #eee;
@@ -181,9 +181,12 @@ div#video-container video {
 }
 
 div#full-video-container {
-  position: fixed;
-  height: 100%;
+  position: relative;
+  display: block;
   width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
   background-color: black;
   top:0;
   left: 0;
