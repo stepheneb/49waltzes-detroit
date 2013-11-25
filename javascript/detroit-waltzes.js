@@ -159,11 +159,12 @@ function showTooltip(d) {
 
 function hideTooltip(d) {
   tooltip.transition()
-     .duration(500)
+     .duration(200)
      .style("opacity", 0)
 }
 
 function saveLocation(d) {
+  d.testing = true;
   localStorage.setItem("waltzLocation", JSON.stringify(d));
 }
 // JSON.parse(localStorage.getItem("waltzLocation"))
