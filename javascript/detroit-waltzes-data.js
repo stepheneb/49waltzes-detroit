@@ -30,7 +30,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.40155299647829,
     "longitude": -83.19715099960311,
-    "address": "Fenkell & Wisconsin"
+    "address": "Fenkell St & Wisconsin St"
   },
   {
     "index": 2,
@@ -38,7 +38,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.36351299988622,
     "longitude": -83.18004599990013,
-    "address": "Westfield & Decater"
+    "address": "Westfield St & Decater St"
   },
   {
     "index": 3,
@@ -46,7 +46,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.36852899997066,
     "longitude": -83.28872799977619,
-    "address": "Elmira & Crosley"
+    "address": "ElmiraSt & Crosley St"
   },
   {
     "index": 4,
@@ -54,7 +54,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.30464200083297,
     "longitude": -83.27319699981251,
-    "address": "Claremont & Meridan"
+    "address": "Claremont St & Meridan St"
   },
   {
     "index": 5,
@@ -62,7 +62,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.38911199948529,
     "longitude": -83.13044100005347,
-    "address": "Dexter & Waverly"
+    "address": "Dexter St & Waverly St"
   },
   {
     "index": 6,
@@ -70,7 +70,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.36357299953896,
     "longitude": -83.19176700068064,
-    "address": "Westfield & Robson"
+    "address": "Westfield St & Robson St"
   },
   {
     "index": 7,
@@ -78,7 +78,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.36031899950657,
     "longitude": -83.05527700012037,
-    "address": "E Warren & Crysler"
+    "address": "E Warren St & Crysler St"
   },
   {
     "index": 8,
@@ -94,7 +94,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.33734700024711,
     "longitude": -83.14112200006522,
-    "address": "Wagner & Florida"
+    "address": "Wagner St & Florida St"
   },
   {
     "index": 10,
@@ -102,7 +102,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.34381499973764,
     "longitude": -83.09997699995839,
-    "address": "Hancock & 24th St"
+    "address": "Hancock St & 24th St"
   },
   {
     "index": 11,
@@ -110,7 +110,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.32679199977638,
     "longitude": -83.07759100024275,
-    "address": "Newmark & 16th Street"
+    "address": "Newmark St & 16th St"
   },
   {
     "index": 12,
@@ -118,7 +118,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.33103599948328,
     "longitude": -83.03270200006187,
-    "address": "Atwater & Rivard"
+    "address": "Atwater St & Rivard St"
   },
   {
     "index": 13,
@@ -126,7 +126,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.3890459995314,
     "longitude": -83.17312400020359,
-    "address": "Compass & Ward Ave"
+    "address": "Compass St & Ward St"
   },
   {
     "index": 14,
@@ -134,7 +134,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.32452800046415,
     "longitude": -83.15650100042811,
-    "address": "Wyoming & Marvin ave"
+    "address": "Wyoming St & Marvin Ave"
   },
   {
     "index": 15,
@@ -142,7 +142,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.36268200085853,
     "longitude": -83.24716899954403,
-    "address": "Trinity & Westfield"
+    "address": "Trinity St & Westfield St"
   },
   {
     "index": 16,
@@ -150,7 +150,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.38465000231012,
     "longitude": -83.2076579988,
-    "address": "W Davison & Asbury"
+    "address": "W Davison St & Asbury St"
   },
   {
     "index": 17,
@@ -158,7 +158,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.3942710001687,
     "longitude": -83.10891800033359,
-    "address": "Woodrow Wilson & Glendale"
+    "address": "Woodrow Wilson St & Glendale"
   },
   {
     "index": 18,
@@ -166,7 +166,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.39773399776939,
     "longitude": -83.2470180005802,
-    "address": "Burt & Outer drive"
+    "address": "Burt St & Outer Drive"
   },
   {
     "index": 19,
@@ -182,7 +182,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.3633279964756,
     "longitude": -83.209312997093,
-    "address": "Westfield & Grandmont"
+    "address": "Westfield St & Grandmont St"
   },
   {
     "index": 21,
@@ -190,7 +190,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.32707599901273,
     "longitude": -83.27241600075476,
-    "address": "Telegraph & Ford Road"
+    "address": "N. Telegraph St & Ford Rd"
   },
   {
     "index": 22,
@@ -198,7 +198,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.34953000019629,
     "longitude": -83.08683799988549,
-    "address": "W Warren & 14th Street"
+    "address": "W Warren St & 14th St"
   },
   {
     "index": 23,
@@ -206,7 +206,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.33134899933064,
     "longitude": -83.10194200010609,
-    "address": "Michigan & Clark"
+    "address": " Clark St So.of Michigan St"
   },
   {
     "index": 24,
@@ -214,7 +214,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.31257300075557,
     "longitude": -83.27174399975821,
-    "address": "Cherry Hill Road & Telegraph"
+    "address": "Cherry Hill Rd & N Telegraph Rd"
   },
   {
     "index": 25,
@@ -222,7 +222,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.39124195092288,
     "longitude": -83.13968028925652,
-    "address": "Livornois & Oakman Blvd"
+    "address": "Livornois Ave & Oakman Blvd"
   },
   {
     "index": 26,
@@ -230,7 +230,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.3766869996977,
     "longitude": -83.15868200007414,
-    "address": "Grand River & Wyoming"
+    "address": "Grand River Ave & Wyoming St"
   },
   {
     "index": 27,
@@ -238,7 +238,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.4061200001986,
     "longitude": -83.15877499979793,
-    "address": "Mmidland & Kentucky St"
+    "address": "Midland St & Kentucky St"
   },
   {
     "index": 28,
@@ -246,7 +246,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.35151700133084,
     "longitude": -83.27137200270901,
-    "address": "Belton & Riverview Drive"
+    "address": "Belton Ave & Riverview Drive"
   },
   {
     "index": 29,
@@ -254,7 +254,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.3186730002659,
     "longitude": -83.07603500006113,
-    "address": "Fort & St. Anne"
+    "address": "W Fort St & St. Anne St"
   },
   {
     "index": 30,
@@ -262,7 +262,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.36248452650962,
     "longitude": -83.27162816607407,
-    "address": "West Chicago & Dale"
+    "address": "W Chicago St & Dale St"
   },
   {
     "index": 31,
@@ -270,7 +270,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.44167900045184,
     "longitude": -83.00496400012469,
-    "address": "Hoover & E. State Fair, Detroit, MI"
+    "address": "Hoover  St & E. State Fair St"
   },
   {
     "index": 32,
@@ -278,7 +278,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.38318000020946,
     "longitude": -83.09315499995122,
-    "address": "Hamilton & W Chicago"
+    "address": "Hamilton St & W Chicago Blvd"
   },
   {
     "index": 33,
@@ -286,7 +286,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.44730200043431,
     "longitude": -83.08345799992043,
-    "address": "Dequindre & 8 Mile Rd"
+    "address": "Dequindre St & 8 Mile Rd"
   },
   {
     "index": 34,
@@ -302,7 +302,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.41711999951693,
     "longitude": -83.02667800005048,
-    "address": "Eldon & Doyle"
+    "address": "Eldon St & Doyle St"
   },
   {
     "index": 36,
@@ -310,7 +310,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.40310100042002,
     "longitude": -82.96011199989404,
-    "address": "Linville & Manistique "
+    "address": "Linville St & Manistique St"
   },
   {
     "index": 37,
@@ -318,7 +318,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.44006000070473,
     "longitude": -83.083100000006,
-    "address": "State Fair & Dequindre"
+    "address": "State Fair St & Dequindre St"
   },
   {
     "index": 38,
@@ -326,7 +326,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.41530200004881,
     "longitude": -83.07927899997847,
-    "address": "St Auben & Modern St"
+    "address": "St Auben St & Modern St"
   },
   {
     "index": 39,
@@ -334,7 +334,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.43737200033976,
     "longitude": -83.01506600017426,
-    "address": "Bliss St & Outer Drive Detroit"
+    "address": "Bliss St & Outer Drive "
   },
   {
     "index": 40,
@@ -342,7 +342,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.42094900023979,
     "longitude": -83.05492799986715,
-    "address": "Nancy & Healey"
+    "address": "Nancy St & Healey St"
   },
   {
     "index": 41,
@@ -350,7 +350,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.40970400053666,
     "longitude": -83.0998889999185,
-    "address": "Sears & Woodward"
+    "address": "Sears St & Woodward"
   },
   {
     "index": 42,
@@ -358,7 +358,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.38104900028463,
     "longitude": -82.93412399986933,
-    "address": "Balfour & St Paul"
+    "address": "Balfour Rd & St Paul Ave"
   },
   {
     "index": 43,
@@ -374,7 +374,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.38019499971277,
     "longitude": -83.01567500013722,
-    "address": "Ferry & Van Dyke"
+    "address": "Ferry St & Van Dyke St"
   },
   {
     "index": 45,
@@ -382,7 +382,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.34659099999806,
     "longitude": -82.95889300000916,
-    "address": "Blue Heron Lagoon, Belle Isle, Detroit, M"
+    "address": "Blue Heron Lagoon, Belle Isle"
   },
   {
     "index": 46,
@@ -390,7 +390,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.34625200024194,
     "longitude": -83.03919400001928,
-    "address": "Winder & Market St"
+    "address": "Winder St & Market St"
   },
   {
     "index": 47,
@@ -398,7 +398,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.39040000014592,
     "longitude": -83.06192800001301,
-    "address": "Holbrook & St Aubin St Detroit MI"
+    "address": "Holbrook St & St Aubin St "
   },
   {
     "index": 48,
@@ -406,7 +406,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.44572500058302,
     "longitude": -82.91680600011784,
-    "address": "Harper Ave & Vernier"
+    "address": "Harper Ave & Vernier Rd"
   },
   {
     "index": 49,
@@ -414,7 +414,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.44958199972849,
     "longitude": -82.98567299963199,
-    "address": "8 mile Rd & Schoenherr"
+    "address": "8 mile Rd & Schoenherr St"
   },
   {
     "index": 50,
@@ -422,7 +422,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.38531299979817,
     "longitude": -83.11679700003356,
-    "address": "Linwood & Monterey"
+    "address": "Linwood St & Monterey St"
   },
   {
     "index": 51,
@@ -430,7 +430,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.30715999990805,
     "longitude": -83.10488099992986,
-    "address": "Orleans & Fisher Hwy"
+    "address": "Orleans St & Fisher Hwy"
   },
   {
     "index": 52,
@@ -438,7 +438,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.4210849996162,
     "longitude": -82.9631910001606,
-    "address": "Whittier & Kelly"
+    "address": "Houston Whittier Ave & Kelly Rd"
   },
   {
     "index": 53,
@@ -446,7 +446,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.44517099961777,
     "longitude": -83.06483199984756,
-    "address": "Binder & Winchester"
+    "address": "Binder St & Winchester Ave"
   },
   {
     "index": 54,
@@ -454,7 +454,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.41784699978387,
     "longitude": -82.91959500005777,
-    "address": "Linville & Canyon"
+    "address": "Linville  St & Canyon Ave"
   },
   {
     "index": 55,
@@ -462,7 +462,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.34127599969346,
     "longitude": -83.1262329999358,
-    "address": "McGraw and Military, Detroit MI"
+    "address": "McGraw St and Military"
   },
   {
     "index": 56,
@@ -470,7 +470,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.38099200007549,
     "longitude": -82.98667800015205,
-    "address": "East Canfield and Montclair, Detroit MI"
+    "address": "East Canfield & Montclair St"
   },
   {
     "index": 57,
@@ -478,7 +478,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.41861799987407,
     "longitude": -83.07258800006339,
-    "address": "Joeseph Campau and McNichols, Detroit MI"
+    "address": "Joeseph Campau St and McNichols Rd "
   },
   {
     "index": 58,
@@ -486,7 +486,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.33651696121481,
     "longitude": -82.98561937184266,
-    "address": "Belle Isle, Conservatory Drive, Detroit, MI"
+    "address": "Belle Isle, Conservatory Drive"
   },
   {
     "index": 59,
@@ -494,7 +494,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.32745999953098,
     "longitude": -83.07138499988446,
-    "address": "Vermont & Bagley"
+    "address": "Vermont St & Bagley Ave"
   },
   {
     "index": 60,
@@ -502,7 +502,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.44286700014818,
     "longitude": -82.94667400008134,
-    "address": "State Fair & Kelly"
+    "address": "State Fair St & Kelly Rd"
   },
   {
     "index": 61,
@@ -510,7 +510,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.42583399976355,
     "longitude": -83.06861200019804,
-    "address": "E Nevada and Conant"
+    "address": "E Nevada St and Conant St"
   },
   {
     "index": 62,
@@ -518,7 +518,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.35073899983907,
     "longitude": -83.08296500012449,
-    "address": "W Warren & rosa Parks Blvd"
+    "address": "W Warren & Rosa Parks Blvd"
   },
   {
     "index": 63,
@@ -526,7 +526,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.41598400029419,
     "longitude": -83.19930999824338,
-    "address": "McNichols & Greenfield"
+    "address": "McNichols Rd & Greenfield Rd"
   },
   {
     "index": 64,
@@ -534,7 +534,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.39628400029622,
     "longitude": -83.10203100016876,
-    "address": "Hamilton & Glendale"
+    "address": "Hamilton Ave & Glendale St"
   },
   {
     "index": 65,
@@ -542,7 +542,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.39750300058596,
     "longitude": -83.03756599994571,
-    "address": "Mt.Elliott & Huber"
+    "address": "Mt.Elliott St & Huber St"
   },
   {
     "index": 66,
@@ -550,7 +550,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.39698500179107,
     "longitude": -83.18870800158433,
-    "address": "Hubell &  Eaton "
+    "address": "Hubell St &  Eaton Ave"
   },
   {
     "index": 67,
@@ -558,7 +558,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.36162599972247,
     "longitude": -83.11471300019893,
-    "address": "Vicksberg & Holmur "
+    "address": "Vicksberg  St & Holmur St"
   },
   {
     "index": 68,
@@ -566,7 +566,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.33869959914298,
     "longitude": -83.14405574461176,
-    "address": "Florida & Kirkwood "
+    "address": "Florida St & Kirkwood St"
   },
   {
     "index": 69,
@@ -574,7 +574,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.32923699922333,
     "longitude": -83.19029099762243,
-    "address": "Ford road & Mead ave "
+    "address": "Ford Rd  & Mead Ave"
   },
   {
     "index": 70,
@@ -582,7 +582,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.36903199994403,
     "longitude": -83.07690100015705,
-    "address": "West Grand & 2nd Ave Detroit MI"
+    "address": "West Grand Blvd  & 2nd Ave I"
   },
   {
     "index": 71,
@@ -590,7 +590,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.40429339892395,
     "longitude": -83.02412715482878,
-    "address": "Van Dyke & Lynch"
+    "address": "Van Dyke Ave & Lynch Rd"
   },
   {
     "index": 72,
@@ -598,7 +598,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.36193800005716,
     "longitude": -83.06497100022261,
-    "address": "John R & Ferry St "
+    "address": "John R St & Ferry St"
   },
   {
     "index": 73,
@@ -606,7 +606,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.41734900020686,
     "longitude": -83.1281380002241,
-    "address": "McNichols & Linwood Detroit MI"
+    "address": "McNichols Rd & Linwood "
   },
   {
     "index": 74,
@@ -614,7 +614,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.38217425758403,
     "longitude": -83.2158281921073,
-    "address": "Glendale Street & Archdale st"
+    "address": "Glendale St & Archdale St"
   },
   {
     "index": 75,
@@ -622,7 +622,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.41197399965843,
     "longitude": -83.0381110000215,
-    "address": "Charles & Mt Elliot  "
+    "address": "Charles St & Mt Elliot St"
   },
   {
     "index": 76,
@@ -630,7 +630,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.33938269187551,
     "longitude": -83.15226212774512,
-    "address": "St. Lawrence & Kirkwood"
+    "address": "St. Lawrence St & Kirkwood St"
   },
   {
     "index": 77,
@@ -638,7 +638,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.3851899997126,
     "longitude": -83.11670999998597,
-    "address": "Linwood & Monterey  Detroit MI"
+    "address": "Linwood  & Monterey Ave  "
   },
   {
     "index": 78,
@@ -646,7 +646,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.44198277528118,
     "longitude": -83.1487169079399,
-    "address": "Norfolk St & Santa Barbara drive"
+    "address": "Norfolk St & Santa Barbara Drive"
   },
   {
     "index": 79,
@@ -654,7 +654,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.42326699990885,
     "longitude": -83.03850100001917,
-    "address": "Davison & Mt.Elliot"
+    "address": "Davison St & Mt.Elliot St"
   },
   {
     "index": 80,
@@ -662,7 +662,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.43984499978433,
     "longitude": -83.09181799984513,
-    "address": "Cardoni & State Fair"
+    "address": "Cardoni St & State Fair"
   },
   {
     "index": 81,
@@ -670,7 +670,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.42901500039066,
     "longitude": -83.18755999993472,
-    "address": "Mark Twain & Clarita"
+    "address": "Mark Twain St & Clarita Ave"
   },
   {
     "index": 82,
@@ -678,7 +678,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.44256499871326,
     "longitude": -83.22124500066663,
-    "address": "Hessell & Ashton"
+    "address": "Hessell Ave & Ashton Ave"
   },
   {
     "index": 83,
@@ -694,7 +694,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.33600100097579,
     "longitude": -83.22540000006823,
-    "address": "Paul Drive & Artesian"
+    "address": "Paul Drive & Artesian St"
   },
   {
     "index": 85,
@@ -702,7 +702,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.33031200058889,
     "longitude": -83.06614699990772,
-    "address": "Trumball & Leverette"
+    "address": "Trumball St & Leverette St"
   },
   {
     "index": 86,
@@ -710,7 +710,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.35166400024188,
     "longitude": -83.06072199993076,
-    "address": "Woodward & Willis"
+    "address": "Woodward Ave & Willis Ave"
   },
   {
     "index": 87,
@@ -718,7 +718,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.33103599948328,
     "longitude": -83.03270200006187,
-    "address": "Atwater & Rivard"
+    "address": "Atwater St & Rivard St"
   },
   {
     "index": 88,
@@ -734,7 +734,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.28868300001316,
     "longitude": -83.14464499982302,
-    "address": "Fort st & Powell"
+    "address": "Fort St & Powell St"
   },
   {
     "index": 90,
@@ -742,7 +742,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.44074200041899,
     "longitude": -83.05299299964948,
-    "address": "Outer Dr & Conley"
+    "address": "Outer Drive & Conley St"
   },
   {
     "index": 91,
@@ -758,7 +758,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.35091000060028,
     "longitude": -83.1954999990981,
-    "address": "Yinger & Tireman"
+    "address": "Yinger St  & Tireman St"
   },
   {
     "index": 93,
@@ -766,7 +766,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.37511700017556,
     "longitude": -83.10288599996463,
-    "address": "Clairmount & 14th St"
+    "address": "Clairmount St & 14th St"
   },
   {
     "index": 94,
@@ -774,7 +774,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.34127599969346,
     "longitude": -83.1262329999358,
-    "address": "McGraw & Military"
+    "address": "McGraw St & Military"
   },
   {
     "index": 95,
@@ -782,7 +782,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.44768199992901,
     "longitude": -83.04407599992142,
-    "address": "8 mile & Mound"
+    "address": "8 mile & Mound Rd"
   },
   {
     "index": 96,
@@ -790,7 +790,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.37938099968073,
     "longitude": -83.11622300008086,
-    "address": "Collingwood & Lawton"
+    "address": "Collingwood St & Lawton St"
   },
   {
     "index": 97,
@@ -798,7 +798,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.36143100024103,
     "longitude": -83.04543300004686,
-    "address": "Dequindre & E. Forest"
+    "address": "Dequindre St & E. Forest Ave"
   },
   {
     "index": 98,
@@ -806,7 +806,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.33321899975826,
     "longitude": -83.14639899998575,
-    "address": "Lonyo & McGraw"
+    "address": "Lonyo St & McGraw St"
   },
   {
     "index": 99,
@@ -814,7 +814,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.37415200025217,
     "longitude": -83.1203370001711,
-    "address": "Rochester & Dexter"
+    "address": "Rochester St & Dexter Ave"
   },
   {
     "index": 100,
@@ -822,7 +822,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.43374799949756,
     "longitude": -83.02448800019964,
-    "address": "7 mile & Van Dyke"
+    "address": "7 mile & Van Dyke St"
   },
   {
     "index": 101,
@@ -838,7 +838,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.38361900012613,
     "longitude": -83.15996599992485,
-    "address": "Washburn & W Buena Vista"
+    "address": "Washburn St & W Buena Vista St"
   },
   {
     "index": 103,
@@ -846,7 +846,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.3948270002257,
     "longitude": -83.1787889998597,
-    "address": "Lyndon & Schaeffer"
+    "address": "Lyndon St & Schaeffer Hwy"
   },
   {
     "index": 104,
@@ -862,7 +862,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.40309700047916,
     "longitude": -83.10937100016581,
-    "address": "Kendell & Lincoln"
+    "address": "Kendell St & Lincoln St"
   },
   {
     "index": 106,
@@ -894,7 +894,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.43608900000307,
     "longitude": -83.04351999984296,
-    "address": "Mound & Emory"
+    "address": "Mound Rd & Emory"
   },
   {
     "index": 110,
@@ -902,7 +902,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.37415200025217,
     "longitude": -83.1203370001711,
-    "address": "Rochester & Dexter"
+    "address": "Rochester St & Dexter Ave"
   },
   {
     "index": 111,
@@ -926,7 +926,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.35642199953367,
     "longitude": -83.06422800006143,
-    "address": "Warren & Woodward"
+    "address": "Warren & Woodward Ave"
   },
   {
     "index": 114,
@@ -950,7 +950,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.3728745419579,
     "longitude": -83.12005356812321,
-    "address": "Chicago & Dexter "
+    "address": "Chicago & Dexter"
   },
   {
     "index": 117,
@@ -958,7 +958,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.44607999992481,
     "longitude": -83.14212000022992,
-    "address": "8 mile & livernois"
+    "address": "8 mile & Livernois Ave"
   },
   {
     "index": 118,
@@ -966,7 +966,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.42094900023979,
     "longitude": -83.05492799986715,
-    "address": "Nancy & Healy"
+    "address": "Nancy St & Healy St"
   },
   {
     "index": 119,
@@ -990,7 +990,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.40224099954452,
     "longitude": -83.16940400005706,
-    "address": "Fenkell & Meyers"
+    "address": "Fenkell St & Meyers"
   },
   {
     "index": 122,
@@ -1006,7 +1006,7 @@ locationdata = [
     "movement": "C",
     "latitude": 42.39034699968187,
     "longitude": -83.13959000017277,
-    "address": "Oakman & Livernois"
+    "address": "Oakman Blvd & Livernois Ave"
   },
   {
     "index": 124,
@@ -1022,7 +1022,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.36294699911957,
     "longitude": -83.04748799996298,
-    "address": "Dequindre & E Warren"
+    "address": "Dequindre St & E Warren"
   },
   {
     "index": 126,
@@ -1046,7 +1046,7 @@ locationdata = [
     "movement": "B",
     "latitude": 42.42101800018857,
     "longitude": -83.05175800005826,
-    "address": "Nancy & Conley"
+    "address": "Nancy St & Conley St"
   },
   {
     "index": 129,
@@ -1086,7 +1086,7 @@ locationdata = [
     "movement": "A",
     "latitude": 42.33137100056508,
     "longitude": -83.07642699978604,
-    "address": "14th Street & Michigan"
+    "address": "14th St & Michigan"
   },
   {
     "index": 134,
@@ -1164,17 +1164,17 @@ locationdata = [
     "index": 143,
     "waltz": 48,
     "movement": "B",
-    "latitude": 42.32679199977638,
-    "longitude": -83.07759100024275,
-    "address": "Newmark & 16th Street"
+    "latitude": 42.37528499980619,
+    "longitude": -83.05578599998296,
+    "address": "Orleans & Milwaukee"
   },
   {
     "index": 144,
     "waltz": 48,
     "movement": "C",
-    "latitude": 42.37528499980619,
-    "longitude": -83.05578599998296,
-    "address": "Orleans & Milwaukee"
+    "latitude": 42.32679199977638,
+    "longitude": -83.07759100024275,
+    "address": "Newmark St & 16th Street"
   },
   {
     "index": 145,
