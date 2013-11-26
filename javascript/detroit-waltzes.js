@@ -24,50 +24,24 @@ var xScale,
     svgContainer,
     circle,
     tooltip,
-    video,
-    videoContainer,
+
     selected = null,
+
+    locations,
+    movements,
 
     waltzFormatter = d3.format("03d"),
     pixelFormatter = d3.format("f"),
     latLonFormatter = d3.format(".3f");
 
-function findByIndex(index) {
-  return locationdata.filter(function(obj) {
-      // coerce both obj.index and index to numbers for val & type comparison
-      return +obj.index === +index;
-  })[ 0 ];
-}
-
-function originalPixelLocation(index) {
-  var location = findByIndex(index),
-      xPixel = xScale.invert(location.longitude),
-      yPixel = yScale.invert(location.latitude);
-  return [xPixel, yPixel];
-}
-
-function actualPixelLocation(index) {
-  var location = originalPixelLocation(index);
-  return [location[0]*mapScaleFactorX, location[1]*mapScaleFactorY];
-}
-
-function updateActualPositions() {
-  locationdata.forEach(function(location) {
-    var pos = actualPixelLocation(location.index);
-    location.x = pos[0];
-    location.y = pos[1];
-  })
-}
-
 function updateCircles() {
   circle
-    .classed("selected", function(d) {
-      return selected === d ? true : false })
-    .attr("cx", function(d) { return d.x })
-    .attr("cy", function(d) { return d.y })
+    .classed("selected", function(loc) { return selected && selected.location === loc ? true : false })
+    .attr("cx", function(loc) { return loc.x })
+    .attr("cy", function(loc) { return loc.y })
     .attr("r", circleRadius)
-    .style("stroke-width", function(d) {
-      if (selected === d) {
+    .style("stroke-width", function(loc) {
+      if (selected && selected.location === loc) {
         return circleStrokeWidth * 1.5;
       } else {
         return circleStrokeWidth;
@@ -75,40 +49,20 @@ function updateCircles() {
     })
 }
 
-function generateVideoKeyStr(location) {
-  var istr = waltzFormatter(location.index)
-  return istr + "-" + location.waltz + location.movement
+function findMovementByIndex(index) {
+  return movements.filter(function(obj) {
+      // coerce both obj.index and index to numbers for val & type comparison
+      return +obj.index === +index;
+  })[ 0 ];
 }
 
-function showVideo(d) {
-  videoContainer.transition()
-     .duration(300)
-     .style("opacity", 1.0)
-     .each("end", function(d) {
-       video.node().play();
-      })
-
-  video = videoContainer.append("video");
-  video
-    .append("source")
-      .attr("src", "video/mp4-480x270-500k/" + generateVideoKeyStr(d) + "-480x270-500k.mp4")
-      .attr("type", 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"')
-    .append("source")
-      .attr("src", "video/webm-480x270-500k/" + generateVideoKeyStr(d) + "-480x270-500k.webm")
-      .attr("type", 'video/webm; codecs="vp8, vorbis"');
+function getMovementFromLocation(loc) {
+  var index = loc.movements[loc.movementIndex];
+  return findMovementByIndex(index);
 }
 
-function hideVideo(d) {
-  videoContainer.transition()
-     .duration(300)
-     .style("opacity", 0)
-     .each("end", function(d) {
-       videoContainer.selectAll('video').remove();
-     })
-}
-
-function resizeTooltip(d) {
-  var cnode = d3.select('circle[data-index="' + d.index + '"]').node(),
+function resizeTooltip(loc) {
+  var cnode = d3.select('circle[data-address="' + loc.address + '"]').node(),
       cx = +cnode.getAttribute('cx'),
       cy = +cnode.getAttribute('cy'),
       ctm = cnode.getCTM(),
@@ -118,7 +72,6 @@ function resizeTooltip(d) {
       height,
       width;
 
-  d3.event = null;
   function tooltipPosLeft(width) {
     if (xpos + 8 + width > mapWidth ) {
       return mapWidth - width;
@@ -146,52 +99,93 @@ function resizeTooltip(d) {
       .style("top", tooltipPosTop(height) + "px");
 }
 
-function showTooltip(d) {
-  tooltip.html(d.index + ": " + d.waltz + d.movement +
-         "<br/>" + d.address +
-         "<br/>" + latLonFormatter(d.latitude) + ", " + latLonFormatter(d.longitude) +
-         "<br/>" + pixelFormatter(d.x) + ", " + pixelFormatter(d.y));
-  resizeTooltip(d);
+function showTooltip(loc) {
+  var movement = getMovementFromLocation(loc);
+  tooltip.html(movement.index + ": " + movement.waltz + movement.movement +
+         "<br/>" + loc.address +
+         "<br/>" + latLonFormatter(loc.latitude) + ", " + latLonFormatter(loc.longitude) +
+         "<br/>" + pixelFormatter(loc.x) + ", " + pixelFormatter(loc.y));
+  resizeTooltip(loc);
   tooltip.transition()
      .duration(200)
      .style("opacity", .9);
 }
 
-function hideTooltip(d) {
+function hideTooltip() {
   tooltip.transition()
      .duration(200)
      .style("opacity", 0)
 }
 
-function saveLocation(d) {
-  d.testing = true;
-  localStorage.setItem("waltzLocation", JSON.stringify(d));
+function saveLocation(loc) {
+  loc.testing = true;
+  localStorage.setItem("waltzLocation", JSON.stringify(loc));
+  // how to read these data: loc = JSON.parse(localStorage.getItem("waltzLocation"))
 }
-// JSON.parse(localStorage.getItem("waltzLocation"))
+
+function resetSelection() {
+  var loc = locations[0];
+  loc.movementIndex = 0;
+  selected = {};
+  selected.location = loc;
+  selected.movement = movements[loc.movements[0]];
+  return selected;
+}
+
+function incrementSelection() {
+  var i, movement;
+  if (!selected) {
+    resetSelection();
+  } else {
+    i = movements.indexOf(selected.movement) + 1;
+    if (i >= movements.length) {
+      i = 0;
+    }
+    movement = movements[i];
+    selected.movement = movement;
+    selected.location = locations[movement.location];
+    selected.location.movementIndex = selected.location.movements.indexOf(movement.index);
+  }
+  updateCircles();
+  showTooltip(selected.location);
+  saveLocation(selected.location);
+}
+
+function decrementSelection() {
+  var i, movement;
+  if (!selected) {
+    resetSelection();
+  } else {
+    i = movements.indexOf(selected.movement) - 1;
+    if (i < 0) {
+      i = movements.length - 1;
+    }
+    movement = movements[i];
+    selected.movement = movement;
+    selected.location = locations[movement.location];
+    selected.location.movementIndex = selected.location.movements.indexOf(movement.index);
+  }
+  updateCircles();
+  showTooltip(selected.location);
+  saveLocation(selected.location);
+}
+
+function stepThroughMovementsForThisLocation(loc) {
+  if (loc.movements.length > 1) {
+    loc.movementIndex++;
+    if (loc.movementIndex >= loc.movements.length) {
+      loc.movementIndex = 0;
+    }
+  }
+}
 
 function handleKeyboardEvents(evt) {
-  var newIndex;
+  var newIndex, loc;
   evt = (evt) ? evt : ((window.event) ? event : null);
   if (evt) {
     switch (evt.keyCode) {
       case 37:                    // left arrow
-      if (!selected) {
-        selected = locationdata[locationdata.length - 1]
-      } else {
-        newIndex = locationdata.indexOf(selected) - 1;
-        if (newIndex < 0) {
-          newIndex = locationdata.length - 1;
-        }
-        hideTooltip(selected);
-        hideVideo(selected);
-        videoContainer.selectAll('video').remove();
-        videoContainer.style("opacity", 0)
-        selected = locationdata[newIndex];
-        saveLocation(selected);
-      }
-      updateCircles();
-      showTooltip(selected);
-      // showVideo(selected);
+      decrementSelection();
       evt.preventDefault();
       break;
 
@@ -200,24 +194,8 @@ function handleKeyboardEvents(evt) {
       break;
 
       case 39:                    // right arrow
+      incrementSelection();
       evt.preventDefault();
-      if (!selected) {
-        selected = locationdata[0]
-      } else {
-        newIndex = locationdata.indexOf(selected) + 1;
-        if (newIndex + 1 > locationdata.length) {
-          newIndex = 0;
-        }
-        hideTooltip(selected);
-        hideVideo(selected);
-        videoContainer.selectAll('video').remove();
-        videoContainer.style("opacity", 0)
-        selected = locationdata[newIndex];
-      }
-      updateCircles();
-      showTooltip(selected);
-      // showVideo(selected);
-      saveLocation(selected);
       break;
 
       case 40:                    // down arrow
@@ -227,10 +205,7 @@ function handleKeyboardEvents(evt) {
       case 27:                   // ESC
       evt.preventDefault();
       if (selected) {
-        hideTooltip(selected);
-        hideVideo(selected);
-        videoContainer.selectAll('video').remove();
-        videoContainer.style("opacity", 0)
+        hideTooltip();
         selected = null;
         updateCircles();
       }
@@ -238,6 +213,27 @@ function handleKeyboardEvents(evt) {
     }
   }
 }
+
+function resizeDocumentFont() {
+  document.body.style.fontSize = mapWidth/960 * 12 + 'px';
+}
+
+function initializeLocations() {
+  locations = locationAndMovementData.locations;
+  locations.forEach(function (loc) {
+    var xPixel = xScale.invert(loc.longitude),
+        yPixel = yScale.invert(loc.latitude);
+
+    loc.x = xPixel*mapScaleFactorX;
+    loc.y = yPixel*mapScaleFactorY;
+    loc.movementIndex = 0;
+  });
+}
+
+function initializeMovements() {
+  movements = locationAndMovementData.movements;
+}
+
 
 function setup() {
   mapWidth = mapImage.offsetWidth;
@@ -264,9 +260,10 @@ function setup() {
 
   mapContainer = d3.select('#map-container');
 
-  document.body.style.fontSize = mapWidth/960 * 12 + 'px';
+  resizeDocumentFont();
 
-  updateActualPositions();
+  initializeMovements();
+  initializeLocations();
 }
 
 function resizeSVG() {
@@ -295,7 +292,7 @@ function handleResize() {
   updateCircles();
   resizeVideoContainer();
   if (selected) {
-    resizeTooltip(selected);
+    resizeTooltip(selected.location);
   }
 }
 
@@ -305,7 +302,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
   mapImage = document.getElementById('map-image');
   mapImage.addEventListener('load', function() {
     setup();
-
     svgContainer = d3.select('body').append("div")
         .attr("id", "svg-container");
 
@@ -329,48 +325,46 @@ document.addEventListener("DOMContentLoaded", function(event) {
     resizeVideoContainer();
 
     circle = svg.selectAll("circle")
-      .data(locationdata, function (d) { return d.index });
+      .data(locations, function (loc) {
+        console.log(loc.address);
+        return getMovementFromLocation(loc).index; });
 
     circle.enter().append("circle")
         .attr("class", "location")
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; })
-        .attr("data-index", function(d) { return d.index; })
+        .attr("cx", function(loc) {
+          return loc.x; })
+        .attr("cy", function(loc) { return loc.y; })
+        .attr("data-address", function(loc) { return loc.address; })
         .attr("r", circleRadius)
         .style("stroke-width", circleStrokeWidth)
         .style("z-index", 2)
-        .on("mouseover", function(d) {
+        .on("mouseover", function(loc) {
           if (!selected) {
-            videoContainer.selectAll('video').remove();
-            videoContainer.style("opacity", 0);
-            showTooltip(d);
-            // showVideo(d);
-            saveLocation(d);
+            showTooltip(loc);
+            saveLocation(loc);
+            stepThroughMovementsForThisLocation(loc);
           }
         })
-        .on("mouseout", function(d) {
+        .on("mouseout", function(loc) {
           if (!selected) {
-            hideVideo(d);
-            hideTooltip(d);
+            hideTooltip();
           }
         })
-        .on("mousedown", function(d) {
+        .on("mousedown", function(loc) {
           d3.event.preventDefault();
           d3.event.stopPropagation();
-          selected = d;
-          if (video) {
-            video.remove();
-          }
+          selected = {};
+          selected.location = loc;
+          selected.movement = getMovementFromLocation(loc);
           updateCircles();
-          showTooltip(d);
-          // showVideo(d);
-          saveLocation(d);
+          showTooltip(loc);
+          saveLocation(loc);
+          stepThroughMovementsForThisLocation(loc);
         })
 
     d3.select(window).on("mousedown", function () {
       if (selected) {
-        hideVideo(selected);
-        hideTooltip(selected);
+        hideTooltip();
       }
       selected = null;
       updateCircles();
