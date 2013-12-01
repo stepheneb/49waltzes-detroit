@@ -10,8 +10,16 @@ var map,
     circle,
     label,
     waltzLine,
+    renderedWaltzes = [],
     tooltip,
     selected = null;
+
+function updateWaltzes() {
+  waltzLine
+      .attr("stroke-width", fontSizeInPixels/6 + "px")
+      .attr("opacity", function(waltz) { return waltz.opacity; })
+      .attr("points", function(waltz) { return waltz.points });
+}
 
 function updateLocationCircles() {
   nodeEnter
@@ -41,19 +49,26 @@ function updateLocationCircles() {
       return selected && selected.location === loc ? true : false
     });
 
-  waltzLine.data(waltzes);
-  waltzLine
-      .attr("stroke-width", fontSizeInPixels/6 + "px")
-      .attr("points", function(waltz) {
-        return waltz.points
-      });
+  updateWaltzes();
 }
 
-function renderWaltzTriangle(loc) {
-  var waltz = waltzForLocation(loc),
-      triangle = d3.select('polygon[data-waltz="' + waltz + '"]');
-  triangle
-    .attr("opacity", 1);
+function updateWaltzOpacity(loc) {
+  var waltzNum = waltzForLocation(loc),
+      waltzOpacity = 1,
+      i;
+  renderedWaltzes.unshift(waltzNum);
+  if (renderedWaltzes.length > numberOfWaltzes) {
+    renderedWaltzes.length = numberOfWaltzes;
+  }
+  for(i = 0; i < renderedWaltzes.length; i++) {
+    waltzNum = renderedWaltzes[i];
+    waltzes[waltzNum-1].opacity = waltzOpacity;
+    waltzOpacity -= 1/numberOfWaltzes;
+    if (waltzOpacity < 0) {
+      waltzOpacity = 0;
+    }
+  }
+  updateWaltzes();
 }
 
 function resizeTooltip(loc) {
@@ -150,7 +165,7 @@ function updateWaltz() {
   var loc = selected.location;
   updateLocationCircles();
   showTooltip(loc);
-  renderWaltzTriangle(loc);
+  updateWaltzOpacity(loc);
   saveLocation(loc);
   stepThroughMovementsForThisLocation(loc);
 }
@@ -262,6 +277,7 @@ function resizeSVG() {
 
 function handleResize() {
   setup();
+  resetWaltzPoints();
   resizeSVG();
   updateLocationCircles();
   if (selected) {
@@ -307,6 +323,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   mapImage = document.getElementById('map-image');
   mapImage.addEventListener('load', function() {
     setup();
+    resetWaltzPoints();
     setupFullScreenSupport();
 
     fullScreenLink = d3.select('body').append("div")

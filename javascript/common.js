@@ -22,15 +22,22 @@ var contentContainer,
 
     fontSizeInPixels,
 
+    numberOfWaltzes = 49,
     waltzMovements,
     waltzLocations,
     waltzes = [],
+    waltzList = [],
 
     selected,
 
     waltzFormatter = d3.format("03d"),
     pixelFormatter = d3.format("f"),
     latLonFormatter = d3.format(".3f");
+
+for(var i = 1; i <= numberOfWaltzes; i++) {
+  waltzes[i-1] = { waltz: i, opacity: 0 };
+  waltzList[i-1] = [i-1];
+}
 
 function resizeDocumentFont() {
   fontSizeInPixels = contentWidth/960 * 12;
@@ -55,16 +62,18 @@ function initializeMovements() {
     mov.interview = interviewForMovement(mov);
   });
 }
-function initializeWaltzes() {
-  var i;
-  for(i = 1; i <= 47; i++) {
-    var waltz = {},
-        points = locationsForWaltz(i).map(function(loc) { return [loc.x, loc.y].join(",") }).join(" ");
-    waltz.waltz = i;
-    waltz.points = points;
+
+function resetWaltzOpacity() {
+  waltzes.forEach(function (waltz) {
     waltz.opacity = 0;
-    waltzes[i-1] = waltz;
-  }
+  });
+}
+
+function resetWaltzPoints() {
+  waltzes.forEach(function (waltz) {
+    var waltzNum = waltz.waltz;
+    waltz.points = locationsForWaltz(waltzNum).map(function(loc) { return [loc.x, loc.y].join(",") }).join(" ");
+  });
 }
 
 function setup() {
@@ -96,7 +105,6 @@ function setup() {
 
   initializeMovements();
   initializeLocations();
-  initializeWaltzes();
 }
 
 // relational functions
