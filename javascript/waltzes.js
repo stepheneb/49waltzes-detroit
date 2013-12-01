@@ -24,7 +24,7 @@ function updateLocationCircles() {
       return selected && selected.location === loc;
     })
     .classed("waltz", function(loc) {
-      return waltzForLocation(loc) === selected.movement.waltz
+      return selected && selected.movement.waltz === waltzForLocation(loc);
     })
     .attr("r", circleRadius)
     .style("stroke-width", function(loc) {
