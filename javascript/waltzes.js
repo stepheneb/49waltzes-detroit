@@ -40,6 +40,13 @@ function updateLocationCircles() {
     .classed("selected", function(loc) {
       return selected && selected.location === loc ? true : false
     });
+
+  waltzLine.data(waltzes);
+  waltzLine
+      .attr("stroke-width", fontSizeInPixels/6 + "px")
+      .attr("points", function(waltz) {
+        return waltz.points
+      });
 }
 
 function renderWaltzTriangle(loc) {

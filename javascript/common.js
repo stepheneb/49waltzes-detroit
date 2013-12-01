@@ -24,7 +24,7 @@ var contentContainer,
 
     waltzMovements,
     waltzLocations,
-    waltzes,
+    waltzes = [],
 
     selected,
 
@@ -57,14 +57,13 @@ function initializeMovements() {
 }
 function initializeWaltzes() {
   var i;
-  waltzes = [];
   for(i = 1; i <= 47; i++) {
     var waltz = {},
         points = locationsForWaltz(i).map(function(loc) { return [loc.x, loc.y].join(",") }).join(" ");
     waltz.waltz = i;
     waltz.points = points;
     waltz.opacity = 0;
-    waltzes.push(waltz);
+    waltzes[i-1] = waltz;
   }
 }
 
