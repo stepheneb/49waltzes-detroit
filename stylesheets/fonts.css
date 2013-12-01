@@ -1,0 +1,101 @@
+/* Lato */
+
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 300;
+  src: url("fonts/lato-fontfacekit/Lato-Lig-webfont.eot"), url("fonts/lato-fontfacekit/Lato-Lig-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Lato";
+  font-style: italic;
+  font-weight: normal;
+  src: url("fonts/lato-fontfacekit/Lato-LigIta-webfont.eot"), url("fonts/lato-fontfacekit/Lato-LigIta-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: normal;
+  src: url("fonts/lato-fontfacekit/Lato-Reg-webfont.eot"), url("fonts/lato-fontfacekit/Lato-Reg-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Lato";
+  font-style: italic;
+  font-weight: normal;
+  src: url("fonts/lato-fontfacekit/Lato-RegIta-webfont.eot"), url("fonts/lato-fontfacekit/Lato-RegIta-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: bold;
+  src: url("fonts/lato-fontfacekit/Lato-Bol-webfont.eot"), url("fonts/lato-fontfacekit/Lato-Bol-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Lato";
+  font-style: italic;
+  font-weight: bold;
+  src: url("fonts/lato-fontfacekit/Lato-BolIta-webfont.eot"), url("fonts/lato-fontfacekit/Lato-BolIta-webfont.ttf") format("truetype"); }
+
+/* Noto Sans */
+
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: normal;
+  src: url("fonts/noto-sans-fontfacekit/web-fonts/notosans_regular_macroman/NotoSans-Regular-webfont.eot"), url("fonts/noto-sans-fontfacekit/web-fonts/notosans_regular_macroman/NotoSans-Regular-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Noto Sans";
+  font-style: italic;
+  font-weight: normal;
+  src: url("fonts/noto-sans-fontfacekit/web-fonts/notosans_italic_macroman/NotoSans-Italic-webfont.eot"), url("fonts/noto-sans-fontfacekit/web-fonts/notosans_italic_macroman/NotoSans-Italic-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: bold;
+  src: url("fonts/noto-sans-fontfacekit/web-fonts/notosans_bold_macroman/NotoSans-Bold-webfont.eot"), url("fonts/noto-sans-fontfacekit/web-fonts/notosans_bold_macroman/NotoSans-Bold-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Noto Sans";
+  font-style: italic;
+  font-weight: bold;
+  src: url("fonts/noto-sans-fontfacekit/web-fonts/notosans_bolditalic_macroman/NotoSans-BoldItalic-webfont.eot"), url("fonts/noto-sans-fontfacekit/web-fonts/notosans_regular_macroman/NotoSans-Regular-webfont.ttf") format("truetype"); }
+
+/* Roboto */
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: normal;
+  src: url("fonts/roboto-fontfacekit/web-fonts/roboto_regular_macroman/Roboto-Regular-webfont.eot"), url("fonts/roboto-fontfacekit/web-fonts/roboto_regular_macroman/Roboto-Regular-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: normal;
+  src: url("fonts/roboto-fontfacekit/web-fonts/roboto_italic_macroman/Roboto-Italic-webfont.eot"), url("fonts/roboto-fontfacekit/web-fonts/roboto_italic_macroman/Roboto-Italic-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: bold;
+  src: url("fonts/roboto-fontfacekit/web-fonts/roboto_bold_macroman/Roboto-Bold-webfont.eot"), url("fonts/roboto-fontfacekit/web-fonts/roboto_bold_macroman/Roboto-Bold-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: bold;
+  src: url("fonts/roboto-fontfacekit/web-fonts/roboto_bolditalic_macroman/Roboto-BoldItalic-webfont.eot"), url("fonts/roboto-fontfacekit/web-fonts/roboto_bolditalic_macroman/Roboto-BoldItalic-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 900;
+  src: url("fonts/roboto-fontfacekit/web-fonts/roboto_black_macroman/Roboto-Black-webfont.eot"), url("fonts/roboto-fontfacekit/web-fonts/roboto_black_macroman/Roboto-Black-webfont.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 900;
+  src: url("fonts/roboto-fontfacekit/web-fonts/roboto_blackitalic_macroman/Roboto-BlackItalic-webfont.eot"), url("fonts/roboto-fontfacekit/web-fonts/roboto_blackitalic_macroman/Roboto-BlackItalic-webfont.ttf") format("truetype"); }

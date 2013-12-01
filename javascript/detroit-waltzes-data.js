@@ -70,7 +70,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/6.jpg"
     },
     "waltz": 6,
-    "movement": null
+    "movement": "B"
   },
   "7": {
     "path": {
@@ -102,7 +102,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/10.jpg"
     },
     "waltz": 10,
-    "movement": null
+    "movement": "B"
   },
   "11": {
     "path": {
@@ -110,7 +110,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/11.jpg"
     },
     "waltz": 11,
-    "movement": null
+    "movement": "A"
   },
   "12": {
     "path": {
@@ -118,7 +118,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/12.jpg"
     },
     "waltz": 12,
-    "movement": null
+    "movement": "B"
   },
   "13": {
     "path": {
@@ -134,7 +134,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/14.jpg"
     },
     "waltz": 14,
-    "movement": null
+    "movement": "A"
   },
   "15": {
     "path": {
@@ -142,7 +142,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/15.jpg"
     },
     "waltz": 15,
-    "movement": null
+    "movement": "A"
   },
   "16": {
     "path": {
@@ -150,7 +150,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/16.jpg"
     },
     "waltz": 16,
-    "movement": null
+    "movement": "A"
   },
   "17": {
     "path": {
@@ -158,7 +158,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/17.jpg"
     },
     "waltz": 17,
-    "movement": null
+    "movement": "B"
   },
   "18": {
     "path": {
@@ -174,7 +174,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/19.jpg"
     },
     "waltz": 19,
-    "movement": null
+    "movement": "A"
   },
   "20": {
     "path": {
@@ -198,7 +198,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/22.jpg"
     },
     "waltz": 22,
-    "movement": null
+    "movement": "B"
   },
   "23": {
     "path": {
@@ -206,7 +206,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/23.jpg"
     },
     "waltz": 23,
-    "movement": null
+    "movement": "B"
   },
   "24": {
     "path": {
@@ -214,7 +214,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/24.jpg"
     },
     "waltz": 24,
-    "movement": null
+    "movement": "C"
   },
   "25": {
     "path": {
@@ -230,7 +230,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/26.jpg"
     },
     "waltz": 26,
-    "movement": null
+    "movement": "B"
   },
   "27": {
     "path": {
@@ -238,7 +238,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/27.jpg"
     },
     "waltz": 27,
-    "movement": null
+    "movement": "B"
   },
   "28": {
     "path": {
@@ -246,7 +246,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/28.jpg"
     },
     "waltz": 28,
-    "movement": null
+    "movement": "A"
   },
   "29": {
     "path": {
@@ -254,7 +254,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/29.jpg"
     },
     "waltz": 29,
-    "movement": null
+    "movement": "C"
   },
   "30": {
     "path": {
@@ -262,7 +262,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/30.jpg"
     },
     "waltz": 30,
-    "movement": null
+    "movement": "A"
   },
   "31": {
     "path": {
@@ -286,7 +286,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/33.jpg"
     },
     "waltz": 33,
-    "movement": null
+    "movement": "A"
   },
   "34": {
     "path": {
@@ -302,7 +302,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/35.jpg"
     },
     "waltz": 35,
-    "movement": null
+    "movement": "B"
   },
   "36": {
     "path": {
@@ -326,7 +326,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/38.jpg"
     },
     "waltz": 38,
-    "movement": null
+    "movement": "B"
   },
   "39": {
     "path": {
@@ -334,7 +334,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/39.jpg"
     },
     "waltz": 39,
-    "movement": null
+    "movement": "C"
   },
   "40": {
     "path": {
@@ -342,7 +342,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/40.jpg"
     },
     "waltz": 40,
-    "movement": null
+    "movement": "A"
   },
   "41": {
     "path": {
@@ -350,7 +350,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/41.jpg"
     },
     "waltz": 41,
-    "movement": null
+    "movement": "B"
   },
   "42": {
     "path": {
@@ -366,7 +366,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/43.jpg"
     },
     "waltz": 43,
-    "movement": null
+    "movement": "C"
   },
   "44": {
     "path": {
@@ -374,7 +374,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/44.jpg"
     },
     "waltz": 44,
-    "movement": null
+    "movement": "B"
   },
   "45": {
     "path": {
@@ -382,7 +382,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/45.jpg"
     },
     "waltz": 45,
-    "movement": null
+    "movement": "C"
   },
   "46": {
     "path": {
@@ -390,7 +390,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/46.jpg"
     },
     "waltz": 46,
-    "movement": null
+    "movement": "A"
   },
   "47": {
     "path": {
@@ -398,7 +398,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/47.jpg"
     },
     "waltz": 47,
-    "movement": null
+    "movement": "A"
   },
   "48": {
     "path": {
@@ -406,7 +406,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/48.jpg"
     },
     "waltz": 48,
-    "movement": null
+    "movement": "A"
   },
   "49": {
     "path": {
@@ -414,7 +414,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/49.jpg"
     },
     "waltz": 49,
-    "movement": null
+    "movement": "A"
   }
 };
 
@@ -496,7 +496,7 @@ interviewData = {
   }
 };
 
-locationAndMovementData = {
+waltzLocationAndMovementData = {
   "locations": [
     {
       "address": "Fenkell St & Wisconsin St",
