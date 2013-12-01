@@ -1,0 +1,45 @@
+.fullscreen {
+  position: absolute;
+  height: 4em;
+  width: 4em;
+  bottom: 0.2em;
+  right: 0.1em;
+  z-index: 4;
+  background-repeat: no-repeat;
+  background-size: 90%;
+  background-image: url("images/fullscreen.svg"); }
+
+.fullscreen:hover {
+  background-repeat: no-repeat;
+  background-size: 90%;
+  background-image: url("images/fullscreen-dark.svg"); }
+
+body:-moz-full-screen .fullscreen {
+  opacity: 0;
+  background-repeat: no-repeat;
+  background-size: 90%;
+  background-image: url("images/fullscreen-exit.svg"); }
+  body:-moz-full-screen .fullscreen:hover {
+    background-repeat: no-repeat;
+    background-size: 90%;
+    background-image: url("images/fullscreen-exit-dark.svg"); }
+
+body:-webkit-full-screen .fullscreen {
+  opacity: 0;
+  background-repeat: no-repeat;
+  background-size: 90%;
+  background-image: url("images/fullscreen-exit.svg"); }
+  body:-webkit-full-screen .fullscreen:hover {
+    background-repeat: no-repeat;
+    background-size: 90%;
+    background-image: url("images/fullscreen-exit-dark.svg"); }
+
+body:fullscreen .fullscreen {
+  opacity: 0;
+  background-repeat: no-repeat;
+  background-size: 90%;
+  background-image: url("images/fullscreen-exit.svg"); }
+  body:fullscreen .fullscreen:hover {
+    background-repeat: no-repeat;
+    background-size: 90%;
+    background-image: url("images/fullscreen-exit-dark.svg"); }
