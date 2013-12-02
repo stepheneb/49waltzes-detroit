@@ -14,6 +14,46 @@ body {
   background-color: white;
 }
 
+code {
+  font-size: 90%;
+}
+
+h1 {
+  color: #333;
+  font-family: 'Lato';
+  font-weight: 600;
+  font-size: 1.4em;
+}
+h2 {
+  color: #555;
+  font-family: 'Lato';
+  font-weight: 600;
+  font-size: 1.15em;
+  margin-top: 0;
+}
+h3 {
+  color: #777;
+  font-family: 'Lato';
+  font-weight: 600;
+  font-size: 1.1em;
+}
+a {
+  text-decoration: none;
+}
+p {
+  margin: 1.0em 1.0em;
+  font-size: 0.95em;
+}
+ul {
+  list-style-type: none;
+  margin: 1em 0em 1em 0em;
+  padding: 0em 0em 0em 0em;
+}
+ul li {
+  margin: 0.3em 0.2em 0.3em 1.2em;
+  padding: 0em 0em 0em 0em;
+}
+
 div.tooltip {
   position: absolute;
   text-align: left;

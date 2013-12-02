@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <title>49 Waltzes transcoding notes for video tests</title>
+    <link href="../stylesheets/fonts.css" rel="stylesheet" type="text/css">
+    <link href="../stylesheets/waltzes.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+      body {
+        margin: 1.0em;
+        font-size: 1em;
+        font-family: 'Lato';
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      Creating video test files in ./test directory from: 1A-10-BIT-UNCOMP-truncated.mov
+    </p>
+    <p>
+      The uncompressed video file used for these transcoding tests has been truncated to 1/3 the
+      length of the original (640 instead of the original 1920 frames).
+    </p>
+
+    <code><pre>
+cd ../../uncompressed-video
+ffmpeg -i 1A-10-BIT-UNCOMP.mov -frames 640 -codec: copy 1A-10-BIT-UNCOMP-truncated.mov
+    </pre></code>
+
+    <p>
+      The transcoding operations in the following ffmpeg schell scripts were invoked in the ./test directory.
+    </p>
+
+    <h3>mp4</h3>
+    <code><pre>
+ffmpeg -i ../uncompressed-video/1A-10-BIT-UNCOMP-truncated.mov -c:v libx264 -tune film -pix_fmt yuv420p -crf 21 -profile:v baseline -s 480x270 -c:a libfdk_aac -b:a 48k -movflags faststart -r 29.97 -y test/001-1A-truncated-480x270-500k.mp4
+
+ffmpeg -i ../uncompressed-video/1A-10-BIT-UNCOMP-truncated.mov -c:v libx264 -tune film -pix_fmt yuv420p -crf 20 -profile:v baseline -s 960x540 -c:a libfdk_aac -b:a 48k -movflags faststart -r 29.97 -y test/001-1A-truncated-960x540-2M.mp4
+
+ffmpeg -i ../uncompressed-video/1A-10-BIT-UNCOMP-truncated.mov -c:v libx264 -tune film -pix_fmt yuv420p -crf 20 -profile:v baseline -s 1920x1080 -c:a libfdk_aac -b:a 48k -movflags faststart -r 29.97 -y test/001-1A-truncated-1920x1080-10M.mp4
+  </pre></code>
+
+    <h3>webm</h3>
+    <code><pre>
+ffmpeg -i ../uncompressed-video/1A-10-BIT-UNCOMP-truncated.mov -threads 4 -c:v libvpx -pix_fmt yuv420p -crf 10 -b:v 500k -s 480x270 -c:a libvorbis -aq 5 -movflags faststart -r 29.97 -y test/001-1A-truncated-480x270-500k.webm
+
+ffmpeg -i ../uncompressed-video/1A-10-BIT-UNCOMP-truncated.mov -threads 8 -c:v libvpx -pix_fmt yuv420p -crf 10 -b:v 2M -s 960x540 -c:a libvorbis -aq 5 -movflags faststart -r 29.97 -y test/001-1A-truncated-960x540-2M.webm
+
+ffmpeg -i ../uncompressed-video/1A-10-BIT-UNCOMP-truncated.mov -threads 8 -c:v libvpx -pix_fmt yuv420p -crf 10 -b:v 10M -s 1920x1080 -c:a libvorbis -aq 5 -movflags faststart -r 29.97 -y test/001-1A-truncated-1920x1080-10M.webm
+    </pre></code>
+
+  </body>
+</html>
+
