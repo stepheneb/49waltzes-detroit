@@ -1,5 +1,13 @@
 // common variables and functions
 
+var videoResolution = "960x540";
+
+    // Available video resolutions:
+    //   "480x270"
+    //   "960x540"
+    //   "1920x1080"
+
+
 var contentContainer,
     contentWidth,
     contentHeight,
@@ -27,17 +35,16 @@ var contentContainer,
     waltzLocations,
     waltzes = [],
     waltzList = [],
+    waltzLocation,
+    currentWaltz,
 
     selected,
 
     waltzFormatter = d3.format("03d"),
     pixelFormatter = d3.format("f"),
-    latLonFormatter = d3.format(".3f");
+    latLonFormatter = d3.format(".3f"),
 
-for(var i = 1; i <= numberOfWaltzes; i++) {
-  waltzes[i-1] = { waltz: i, opacity: 0 };
-  waltzList[i-1] = [i-1];
-}
+    testing = true;
 
 function resizeDocumentFont() {
   fontSizeInPixels = contentWidth/960 * 12;
@@ -76,6 +83,13 @@ function resetWaltzPoints() {
   });
 }
 
+function calculateNumOfVideosForwaltz() {
+  waltzes.forEach(function (waltz) {
+    var waltzNum = waltz.waltz;
+    waltz.numOfVideos = 3 + interviewsForWaltz(waltzNum-1);
+  });
+}
+
 function setup() {
   contentContainer = d3.select('#content-container');
   contentWidth = contentContainer.node().offsetWidth;
@@ -105,13 +119,10 @@ function setup() {
 
   initializeMovements();
   initializeLocations();
+  calculateNumOfVideosForwaltz();
 }
 
 // relational functions
-
-function interviewForMovement(movement) {
-  return interviewData[movement.waltz + movement.movement]
-}
 
 function movementByIndex(index) {
   return waltzMovements.filter(function(obj) {
@@ -148,3 +159,63 @@ function locationsForWaltz(waltz) {
     return movementForLocation(loc).waltz === waltz;
   })
 }
+
+function interviewForMovement(movement) {
+  return interviewData[movement.waltz + movement.movement]
+}
+
+function interviewsForWaltz(waltz) {
+  var locs = locationsForWaltz(waltz),
+      mov,
+      interviews = [],
+      i;
+  for(i = 0; i < locs.length; i++) {
+    mov = movementForLocation(locs[i]);
+    if (mov.interview) {
+      interviews.push(mov.interview);
+    }
+  }
+  return interviews;
+}
+
+function waltzKeyForMovement(mov) {
+  return "" + mov.waltz + mov.movement;
+}
+
+function movementForWaltz(waltzNum, movLetter) {
+  var movements;
+  movements = waltzMovements.filter(function(mov) {
+    return (mov.waltz === waltzNum && mov.movement === movLetter);
+  })
+  if (movements.length > 0) {
+    return movements[0];
+  } else {
+    return false;
+  }
+}
+
+
+// local storage functions
+
+function saveWaltzLocation(loc, eventType, eventData) {
+  loc.testing = testing;
+  loc.eventType = eventType;
+  loc.eventData = eventData;
+  loc.videoResolution = videoResolution;
+  localStorage.setItem("waltzLocation", JSON.stringify(loc));
+  // how to read these data: loc = JSON.parse(localStorage.getItem("waltzLocation"))
+}
+
+// waltzes initialization when source file is loaded
+
+(function () {
+  for(var i = 1; i <= numberOfWaltzes; i++) {
+    waltzes[i-1] = {
+      waltz: i,
+      opacity: 0,
+      movementsPlayed: [],
+      interviewsPlayed: []
+    };
+    waltzList[i-1] = [i-1];
+  }
+})();

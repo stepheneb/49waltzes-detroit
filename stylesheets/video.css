@@ -14,7 +14,7 @@ body {
   background-color: white;
 }
 
-div.waltzLocationtip {
+div.waltzLocationTip {
   position: absolute;
   text-align: left;
   bottom: 40px;
@@ -28,7 +28,7 @@ div.waltzLocationtip {
   letter-spacing: 0.05em;
   background: rgba(64, 64, 64, 0.2);
   pointer-events: none;
-  z-index: 3;
+  z-index: 5;
 }
 
 #svg-container {
@@ -93,5 +93,5 @@ div#content-container img {
   width: 100%;
   opacity: 1;
   height: auto;
-  z-index: 10;
+  z-index: 2;
 }

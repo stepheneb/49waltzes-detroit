@@ -9,15 +9,17 @@ var video,
 
 function showLocationTip(selection) {
   var loc = selection.location,
-      mov = selection.movement;
-  waltzLocationtip.html(mov.index + ": " + mov.waltz + mov.movement + ", "+ loc.address);
-  waltzLocationtip.transition()
+      mov = selection.movement,
+      htmlContent = waltzKeyForMovement(mov) + " (" + mov.index + "): " +
+                    loc.address + ", " + waltzLocation.videoResolution;
+  waltzLocationTip.html(htmlContent);
+  waltzLocationTip.transition()
      .duration(200)
      .style("opacity", .9);
 }
 
 function hideLocationtip() {
-  waltzLocationtip.transition()
+  waltzLocationTip.transition()
      .duration(200)
      .style("opacity", 0)
 }
@@ -26,7 +28,7 @@ function updateLocationTip() {
   if (waltzLocation.testing) {
     showLocationTip(selected);
   } else {
-    hideLocationtip()
+    hideLocationtip();
   }
 }
 
@@ -113,35 +115,22 @@ function transitionVideoOn() {
        videoNode.play();
        video.attr("controls", waltzLocation.testing ? "controls" : null );
        waltzLocation.videoEvent = "started";
-       localStorage.setItem("waltzLocation", JSON.stringify(waltzLocation));
+       saveWaltzLocation(waltzLocation, "videoEvent");
       })
 }
 
 function videoEnded() {
   waltzLocation.videoEvent = "ended";
-  localStorage.setItem("waltzLocation", JSON.stringify(waltzLocation));
+  saveWaltzLocation(waltzLocation, "videoEvent");
 }
 
-function showVideo(selection) {
-  var movement = selection.movement;
+function showVideo() {
   if (videoNode.readyState < 4) {
     videoNode.addEventListener('canplaythrough', transitionVideoOn);
   } else {
     transitionVideoOn();
   }
-  if (movement.interview) {
-    videoNode.addEventListener('ended', function () {
-      loadVideoInterview(selection);
-      if (videoNode.readyState < 4) {
-        videoNode.addEventListener('canplaythrough', transitionVideoOn);
-      } else {
-        transitionVideoOn();
-      }
-      videoNode.addEventListener('ended', videoEnded);
-    });
-  } else {
-    videoNode.addEventListener('ended', videoEnded);
-  }
+  videoNode.addEventListener('ended', videoEnded);
 }
 
 function hideVideo() {
@@ -158,6 +147,30 @@ function stopVideo() {
   videoNode.pause();
 }
 
+function handleKeyboardEvents(evt) {
+  var newIndex, loc;
+  // evt.ctrlKey
+  // evt.shiftKey
+  // evt.metaKey   Mac OS X command key and Windows key
+  // evt.altKey    Mac OS X option key
+
+  evt = (evt) ? evt : ((window.event) ? event : null);
+  if (evt) {
+    switch (evt.keyCode) {
+      case 84:                    // "t"
+      if (evt.ctrlKey || evt.altKey) {          // control or alt-t, toggle testing flag
+        evt.preventDefault();
+        testing = !testing;
+        waltzLocation.testing = testing;
+        updateLocationTip();
+        video.attr("controls", waltzLocation.testing ? "controls" : null );
+        saveWaltzLocation(waltzLocation, "testing");
+      }
+      break;
+    }
+  }
+}
+
 function resizeContentContainer() {
   // var paddingWidth = mapWidth/160,
   //     paddingHeight = paddingWidth,
@@ -165,7 +178,7 @@ function resizeContentContainer() {
   //     videoHeight = videoWidth * 9/16,
   //     videoLeft = Math.min(mapWidth, window.innerWidth) - (videoWidth + paddingWidth),
   //     videoTop =  Math.min(mapHeight, window.innerHeight) - (videoHeight + paddingHeight);
-  // 
+  //
   // videoContainer
   //     .style("left", videoLeft + "px")
   //     .style("top", videoTop + "px")
@@ -213,8 +226,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
      .duration(200)
      .style("opacity", 1.0);
 
-  waltzLocationtip = contentContainer.append("div")
-      .attr("class", "waltzLocationtip")
+  waltzLocationTip = contentContainer.append("div")
+      .attr("class", "waltzLocationTip")
       .style("opacity", 0)
       .style("z-index", 3);
 
@@ -222,40 +235,57 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var movement, stillImageDatum;
     console.log("handling storage event: video window");
     if (e && e.key === "waltzLocation") {
-      videoNode.removeEventListener('canplaythrough', transitionVideoOn);
-      if (stillImage) {
-        stillImage.remove();
-      }
-      stopVideo();
-      hideVideo();
-      selected = {};
       waltzLocation = JSON.parse(e.newValue);
-      movement = movementForLocation(waltzLocation);
-      selected.location = waltzLocation;
-      selected.movement = movement;
-      console.log("waltzLocation: " + movement.index + ": " + movement.waltz + movement.movement);
-      stillImageDatum = stillImageForMovement(movement);
-      interview = interviewForMovement(movement);
-      loadVideo(selected);
-      if (stillImageDatum) {
-        stillImage = contentContainer.append("img")
-            .attr("src", stillImageDatum.path["1920x1080"]);
+      switch (waltzLocation.eventType) {
 
-        stillImage.transition()
-            .duration(5000)
-            .remove()
-            .each("end", function() {
-              showVideo(selected);
-              updateLocationTip();
-            })
-      } else {
-        showVideo(selected);
+        case "testing":
         updateLocationTip();
+        video.attr("controls", waltzLocation.testing ? "controls" : null );
+        break;
+
+        case "movement":
+        videoNode.removeEventListener('canplaythrough', transitionVideoOn);
+        if (stillImage) {
+          stillImage.remove();
+        }
+        stopVideo();
+        hideVideo();
+        selected = {};
+        movement = movementForLocation(waltzLocation);
+        selected.location = waltzLocation;
+        selected.movement = movement;
+        console.log("waltzLocation: " + movement.index + ": " + movement.waltz + movement.movement);
+        stillImageDatum = stillImageForMovement(movement);
+        interview = interviewForMovement(movement);
+        updateLocationTip();
+        loadVideo(selected);
+        if (stillImageDatum) {
+          stillImage = contentContainer.append("img")
+              .attr("src", stillImageDatum.path["1920x1080"]);
+
+          stillImage.transition()
+              .duration(5000)
+              .remove()
+              .each("end", function() {
+                showVideo();
+              })
+        } else {
+          showVideo();
+        }
+        break;
+
+        case "interview":
+        videoNode.removeEventListener('canplaythrough', transitionVideoOn);
+        stopVideo();
+        hideVideo();
+        loadVideoInterview(selected);
+        showVideo();
+        break;
       }
     }
   }, false);
 
   window.onresize = handleResize;
   addFullScreenChangeListener(handleResize);
-
+  document.onkeydown = handleKeyboardEvents;
 });

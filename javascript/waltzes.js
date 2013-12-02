@@ -1,5 +1,3 @@
-var testing = false;
-
 var map,
     mapImage,
 
@@ -16,7 +14,7 @@ var map,
 
 function updateWaltzes() {
   waltzLine
-      .attr("stroke-width", fontSizeInPixels/6 + "px")
+      .attr("stroke-width", fontSizeInPixels/5 + "px")
       .attr("opacity", function(waltz) { return waltz.opacity; })
       .attr("points", function(waltz) { return waltz.points });
 }
@@ -110,16 +108,13 @@ function resizeTooltip(loc) {
 }
 
 function showTooltip(loc) {
-  var movement = movementForLocation(loc),
-      htmlContent;
+  var mov = movementForLocation(loc),
+      htmlContent = waltzKeyForMovement(mov) + ": " + loc.address;
 
   if (testing) {
-    htmlContent = movement.index + ": " + movement.waltz + movement.movement +
-       "<br/>" + loc.address +
+    htmlContent = waltzKeyForMovement(mov) + " (" + mov.index + "): " + loc.address +
        "<br/>" + latLonFormatter(loc.latitude) + ", " + latLonFormatter(loc.longitude) +
        "<br/>" + pixelFormatter(loc.x) + ", " + pixelFormatter(loc.y)
-  } else {
-    htmlContent = movement.waltz + movement.movement + ": " + loc.address;
   }
   tooltip.html(htmlContent);
   resizeTooltip(loc);
@@ -134,13 +129,6 @@ function hideTooltip() {
      .duration(200)
      .style("opacity", 0)
      .style("background-color", "rgba(255,255,255, 0)");
-}
-
-function saveLocation(loc) {
-  loc.testing = testing;
-  loc.videoResolution = "960x540"
-  localStorage.setItem("waltzLocation", JSON.stringify(loc));
-  // how to read these data: loc = JSON.parse(localStorage.getItem("waltzLocation"))
 }
 
 function resetSelection() {
@@ -161,15 +149,6 @@ function randomSelection() {
   return selected;
 }
 
-function updateWaltz() {
-  var loc = selected.location;
-  updateLocationCircles();
-  showTooltip(loc);
-  updateWaltzOpacity(loc);
-  saveLocation(loc);
-  stepThroughMovementsForThisLocation(loc);
-}
-
 function incrementSelection() {
   var i, movement;
   if (!selected) {
@@ -184,7 +163,7 @@ function incrementSelection() {
     selected.location = waltzLocations[movement.location];
     selected.location.movementIndex = selected.location.movements.indexOf(movement.index);
   }
-  updateWaltz();
+  updateWaltz("movement");
 }
 
 function decrementSelection() {
@@ -201,7 +180,7 @@ function decrementSelection() {
     selected.location = waltzLocations[movement.location];
     selected.location.movementIndex = selected.location.movements.indexOf(movement.index);
   }
-  updateWaltz();
+  updateWaltz("movement");
 }
 
 function stepThroughMovementsForThisLocation(loc) {
@@ -242,19 +221,22 @@ function handleKeyboardEvents(evt) {
       break;
 
       case 82:                    // "r"
-      if (evt.ctrlKey) {          // control-r, random movement
+      if (evt.altKey) {          // alt or option--r, new random movement
         evt.preventDefault();
         randomSelection();
-        updateWaltz();
+        updateWaltz("movement");
       }
       break;
 
       case 84:                    // "t"
-      if (evt.ctrlKey) {          // control-t, toggle testing flag
+      if (evt.altKey) {          // alt or option-t, toggle testing flag
         evt.preventDefault();
         testing = !testing;
         showTooltip(selected.location);
-        saveLocation(selected.location);
+        saveWaltzLocation(selected.location, "testing");
+        evt.stop();
+        evt.returnValue = false;
+        return false;
       }
       break;
 
@@ -303,23 +285,132 @@ function findClosestLocation(clickPos) {
   return waltzLocations[index];
 }
 
-function setupVideoEventListener() {
+function updateWaltzOpacity(loc) {
+  var waltzNum = waltzForLocation(loc),
+      waltzOpacity = 1,
+      i;
+  renderedWaltzes.unshift(waltzNum);
+  if (renderedWaltzes.length > numberOfWaltzes) {
+    renderedWaltzes.length = numberOfWaltzes;
+  }
+  for(i = 0; i < renderedWaltzes.length; i++) {
+    waltzNum = renderedWaltzes[i];
+    waltzes[waltzNum-1].opacity = waltzOpacity;
+    waltzOpacity -= 1/numberOfWaltzes;
+    if (waltzOpacity < 0) {
+      waltzOpacity = 0;
+    }
+  }
+  updateWaltzes();
+}
+
+
+function updateWaltz(eventType, eventData) {
+  var loc = selected.location;
+  // currentWaltz = waltzes[waltzForLocation(loc)-1];
+  // currentWaltz.movementsPlayed.push(movementForLocation(selected.location).movement);
+  updateLocationCircles();
+  showTooltip(loc);
+  updateWaltzOpacity(loc);
+  saveWaltzLocation(loc, eventType, eventData);
+  stepThroughMovementsForThisLocation(loc);
+}
+
+function nextMovement() {
+  var loc,
+      mov,
+      waltzNum,
+      currentWaltz,
+      movLetter,
+      movementsPlayed,
+      interviewsPlayed,
+      numOfVideos,
+      eventType,
+      i;
+
+  function nextMovLetter(letter) {
+    switch (letter) {
+      case "A":
+      return "B";
+      break;
+
+      case "B":
+      return "C";
+      break;
+
+      case "C":
+      return "A";
+      break;
+    }
+  }
+
+  if (!selected) {
+    randomSelection();
+    updateWaltz("movement");
+  } else {
+    loc = selected.location;
+    mov = movementForLocation(loc);
+    movLetter = mov.movement;
+    currentWaltz = waltzes[mov.waltz-1];
+    numOfVideos = currentWaltz.numOfVideos;
+    movementsPlayed = currentWaltz.movementsPlayed;
+    interviewsPlayed = currentWaltz.interviewsPlayed;
+
+    if (mov.interview && interviewsPlayed.indexOf(movLetter) === -1) {
+      eventType = "interview";
+      interviewsPlayed.push(movLetter);
+    } else if (movementsPlayed.length < 3) {
+      eventType = "movement";
+      movementsPlayed.push(movLetter);
+      movLetter = nextMovLetter(movLetter);
+      mov = movementForWaltz(mov.waltz, movLetter);
+    } else {
+      movementsPlayed.length = 0;
+      interviewsPlayed.length = 0;
+      waltzNum = mov.waltz + 1;
+      if (waltzNum > numberOfWaltzes) {
+        waltzNum = 1;
+      }
+      movLetter = "A";
+      mov = movementForWaltz(waltzNum, movLetter);
+      currentWaltz = waltzes[waltzNum-1];
+      currentWaltz.movementsPlayed.push(movLetter);
+      eventType = "movement";
+    }
+    selected.movement = mov;
+    selected.location = waltzLocations[mov.location];
+    selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
+    updateWaltz(eventType, movLetter);
+  }
+}
+
+function setupStorageEventListener() {
   window.addEventListener("storage", function(e) {
-    var videoEvent;
+    var movement, stillImageDatum;
     console.log("handling storage event: main window");
     if (e && e.key === "waltzLocation") {
-      videoEvent = JSON.parse(e.newValue).videoEvent;
-      console.log("videoEvent: " + videoEvent);
-      if (videoEvent == "ended") {
-        incrementSelection();
+      waltzLocation = JSON.parse(e.newValue);
+      switch (waltzLocation.eventType) {
+      case "testing":
+        testing = waltzLocation.testing;
+        showTooltip(selected.location);
+        break;
+
+      case "videoEvent":
+        videoEvent = waltzLocation.videoEvent;
+        console.log("videoEvent: " + videoEvent);
+        if (videoEvent == "ended") {
+          nextMovement();
+        }
+        break;
       }
     }
-  })
+  });
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
-  setupVideoEventListener();
+  setupStorageEventListener();
   mapImage = document.getElementById('map-image');
   mapImage.addEventListener('load', function() {
     setup();
@@ -356,10 +447,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
       .enter().append("polygon")
         .attr("class", "waltz")
         .attr("data-waltz", function(waltz) { return waltz.waltz; })
-        .attr("stroke","#28c")
-        .attr("opacity", function(waltz) { return waltz.opacity; })
-        .attr("stroke-width", fontSizeInPixels/6 + "px")
-        .attr("points", function(waltz) { return waltz.points });
+        .attr("stroke","#17e")
+        .attr("stroke-linejoin", "round");
+
+    updateWaltzes();
 
     node = svg.selectAll("g")
         .data(waltzLocations);
@@ -395,14 +486,34 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     svg.on("mousedown", function (e) {
       var clickPos = d3.mouse(this),
-          loc = findClosestLocation(clickPos);
+          loc = findClosestLocation(clickPos),
+          mov,
+          waltzNum,
+          currentWaltz,
+          movLetter,
+          movementsPlayed,
+          interviewsPlayed,
+          numOfVideos,
+          eventType,
+          i;
+
       hideTooltip();
       if (loc !== selected) {
-        selected = {};
-        selected.location = loc;
-        selected.movement = movementForLocation(loc);
         console.log(loc);
-        updateWaltz();
+        selected = {};
+        mov = movementForLocation(loc);
+        movLetter = mov.movement;
+        currentWaltz = waltzes[mov.waltz-1];
+        numOfVideos = currentWaltz.numOfVideos;
+        movementsPlayed = currentWaltz.movementsPlayed;
+        interviewsPlayed = currentWaltz.interviewsPlayed;
+        movementsPlayed.length = 0;
+        interviewsPlayed.length = 0;
+        movementsPlayed.push(movLetter);
+        selected.movement = mov;
+        selected.location = waltzLocations[mov.location];
+        selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
+        updateWaltz("movement", movLetter);
       }
     });
 
