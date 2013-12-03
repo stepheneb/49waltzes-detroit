@@ -94,6 +94,7 @@ end
 def process_original_video_batch_outputs(input_path, movement_code, index_str, outputs, subfolder=false, force=false)
   cmd = "ffmpeg -i '#{input_path}' -threads 8 \\\n"
   output_needed = false
+  output_paths = []
   outputs.each do |output|
     output_format, bitrate, output_size = output
     output_dir = "video/#{output_format}-#{output_size}-#{bitrate}"
@@ -102,6 +103,7 @@ def process_original_video_batch_outputs(input_path, movement_code, index_str, o
     end
     FileUtils.mkdir_p output_dir unless File.exists? output_dir
     output_path = "#{output_dir}/#{index_str}#{movement_code}-#{output_size}-#{bitrate}.#{output_format}"
+    output_paths << output_path
 
     next if File.exists?(output_path)
     output_needed = true
@@ -115,7 +117,14 @@ def process_original_video_batch_outputs(input_path, movement_code, index_str, o
   end
   if output_needed
     cmd = cmd[0..-4]
-    run_cmd(cmd)
+    begin
+      run_cmd(cmd)
+    rescue Interrupt
+      output_paths.each do |output_path|
+        FileUtils.rm(output_path) if File.exists?(output_path)
+      end
+      raise Interrupt
+    end
   else
     puts "transcoded video files already exist"
   end
