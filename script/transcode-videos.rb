@@ -17,7 +17,7 @@ OUTPUT_DESCRIPTIONS = [
 
 def run_cmd(cmd)
   puts cmd
-  # system(cmd)
+  system(cmd)
 end
 
 def movement_code(filename)
