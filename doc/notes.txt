@@ -2,9 +2,17 @@
 http://eshop.macsales.com/item/Other%20World%20Computing/SSDAP12K480/
 http://everymac.com/systems/apple/macbook_pro/specs/macbook-pro-core-i7-2.3-15-mid-2012-retina-display-specs.html
 
+https://calomel.org/rsync_tips.html
+
 git archive HEAD | gzip > ../49waltzes-detroit-20131119.tar.gz
 
 scp -c arcfour ../49waltzes-detroit-20131119.tar.gz deploy@server.labframework.org:/var/www/app/public/49waltzes
+
+scp -c arcfour video.zip deploy@server.labframework.org:/var/www/app/public/49waltzes
+
+rsync --partial --progress --rsh=ssh -c arcfour deploy@server.labframework.org:/var/www/app/public/49waltzes/video.zip video.zip
+
+rsync --partial --progress --rsh=ssh user@host:/path/remote_file local_file
 
 scp notes.txt deploy@server.labframework.org:/var/www/app/public/49waltzes
 
