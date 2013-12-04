@@ -1,4 +1,54 @@
 
+interesting chrome command-line switches
+
+http://www.chromium.org/developers/how-tos/run-chromium-with-flags
+http://peter.sh/experiments/chromium-command-line-switches/
+
+--allow-file-access-from-files
+By default, file:// URIs cannot read other file:// URIs. This is an override for developers who need the old behavior for testing
+
+--disable-web-security
+Don't enforce the same-origin policy. (Used by people testing their sites.)
+
+--disk-cache-dir
+Use a specific disk cache location, rather than one derived from the UserDatadir.
+
+--disk-cache-size
+Forces the maximum disk space to be used by the disk cache, in bytes.
+
+-enable-service-worker
+Enable support for ServiceWorker. See https://github.com/slightlyoff/ServiceWorker for more information.
+
+--enable-simplified-fullscreen[11]
+Enables a simplified fullscreen UI on Mac.
+
+--enable-usermedia-screen-capturing
+Enable screen capturing support for MediaStream API. 
+
+--kiosk
+Enable Kiosk mode.
+
+--high-dpi-support
+Enables/Disables High DPI support (windows)
+
+--precache-config-settings-url
+The URL that provides the PrecacheConfigurationSettings proto.
+
+--precache-manifest-url-prefix
+recache manifests will be served from URLs with this prefix.
+
+--use-simple-cache-backend
+Uses experimental simple cache backend if possible.
+
+--user-data-dir
+Specifies the user data directory, which is where the browser will look for all of its state.
+
+--video-threads
+Set number of threads to use for video decoding.
+
+
+
+
 http://eshop.macsales.com/item/Other%20World%20Computing/SSDAP12K480/
 http://everymac.com/systems/apple/macbook_pro/specs/macbook-pro-core-i7-2.3-15-mid-2012-retina-display-specs.html
 
