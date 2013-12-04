@@ -1,12 +1,24 @@
 // common variables and functions
+//
+// Available video resolutions:
+//
+//   "480x270"
+//   "960x540"
+//   "1920x1080"
 
 var videoResolution = "960x540";
 
-    // Available video resolutions:
-    //   "480x270"
-    //   "960x540"
-    //   "1920x1080"
+// When testing = true
+// A label with waltz/movement, address, and video resolution
+// is displayed on the video page along with playback controls.
+// Additional information is also included in the movement popup
+// labels that appear on the map.
+//
+// When testing = false
+// No label or controls appear on the video page and simpler
+// movement popup labels appear on the map page.
 
+var testing = true;
 
 var contentContainer,
     contentWidth,
@@ -42,9 +54,7 @@ var contentContainer,
 
     waltzFormatter = d3.format("03d"),
     pixelFormatter = d3.format("f"),
-    latLonFormatter = d3.format(".3f"),
-
-    testing = true;
+    latLonFormatter = d3.format(".3f");
 
 function resizeDocumentFont() {
   fontSizeInPixels = contentWidth/960 * 12;
