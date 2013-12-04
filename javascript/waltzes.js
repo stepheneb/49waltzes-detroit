@@ -220,6 +220,30 @@ function handleKeyboardEvents(evt) {
       evt.preventDefault();
       break;
 
+      case 49:                    // "1"
+      if (evt.altKey) {          // alt or option--1, video-resolution: 480x270
+        evt.preventDefault();
+        videoResolution = "480x270";
+        updateWaltz("movement");
+      }
+      break;
+
+      case 50:                    // "2"
+      if (evt.altKey) {          // alt or option--2, video-resolution: 960x540
+        evt.preventDefault();
+        videoResolution = "960x540";
+        updateWaltz("movement");
+      }
+      break;
+
+      case 51:                    // "3"
+      if (evt.altKey) {          // alt or option--1, video-resolution: 1920x1080
+        evt.preventDefault();
+        videoResolution = "1920x1080";
+        updateWaltz("movement");
+      }
+      break;
+
       case 82:                    // "r"
       if (evt.altKey) {          // alt or option--r, new random movement
         evt.preventDefault();
