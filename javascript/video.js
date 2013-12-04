@@ -37,7 +37,17 @@ function generateVideoKeyStr(movement) {
   return index_str + "-" + movement.waltz + movement.movement
 }
 
-function loadVideo(selection) {
+function videoLoadError(e) {
+  var mov = movementForLocation(waltzLocation);
+  console.log("video error: " + e + " for " + generateVideoKeyStr(mov));
+}
+
+function loadVideo() {
+  videoNode.load();
+  videoNode.addEventListener('error', videoLoadError, false);
+}
+
+function loadVideoMovement(selection) {
   var location = selection.location,
       movement = selection.movement;
 
@@ -69,7 +79,7 @@ function loadVideo(selection) {
       .attr("type", 'video/mp4; codecs="avc1.42E01E,mp4a.40.2"');
     break;
   }
-  videoNode.load();
+  loadVideo();
 }
 
 function loadVideoInterview(selection) {
@@ -104,7 +114,7 @@ function loadVideoInterview(selection) {
       .attr("type", 'video/mp4; codecs="avc1.42E01E,mp4a.40.2"');
     break;
   }
-  videoNode.load();
+  loadVideo();
 }
 
 function transitionVideoOn() {
@@ -259,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         stillImageDatum = stillImageForMovement(movement);
         interview = interviewForMovement(movement);
         updateLocationTip();
-        loadVideo(selected);
+        loadVideoMovement(selected);
         if (stillImageDatum) {
           stillImage = contentContainer.append("img")
               .attr("src", stillImageDatum.path["1920x1080"]);
