@@ -210,6 +210,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   contentContainer = d3.select("#content-container");
   video = contentContainer.append("video")
       .attr("controls", null)
+      .attr("preload", "auto")
       .style("opacity", 0.0);
 
   webmSource = video.append("source")
