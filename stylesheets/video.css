@@ -1,6 +1,7 @@
 html {
   margin: 0em;
   padding: 0em;
+  background-color: #aaa;
 }
 
 body {
@@ -12,55 +13,6 @@ body {
   margin: 0;
   padding: 0;
   background-color: white;
-}
-
-div.waltzLocationTip {
-  position: absolute;
-  text-align: center;
-  bottom: 40px;
-  width: 100%;
-  height: auto;
-  color: #eee;
-  padding: 0.3em 1em 0.3em 1em;
-  font-size: 2em;
-  font-family: 'Roboto';
-  font-weight: 900;
-  letter-spacing: 0.05em;
-  background: rgba(64, 64, 64, 0.2);
-  pointer-events: none;
-  z-index: 5;
-}
-
-#svg-container {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  top:0;
-  left: 0;
-  fill: #fff;
-  fill-opacity: 0;
-}
-
-div#video-container {
-  position: absolute;
-  width: auto;
-  height: auto;
-  padding: 0em;
-  margin: 0em;
-  background: #ddd;
-  border: 0px;
-  fill-opacity: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-div#video-container video {
-  position: inherit;
-  padding: 0em;
-  margin: 0em;
-  width: 100%;
-  height: auto;
-  z-index: 1;
 }
 
 div#content-container {
@@ -84,14 +36,19 @@ div#content-container video {
   z-index: 1;
 }
 
-div#content-container img {
+div.waltzLocationTip {
   position: absolute;
-  top: 0px;
-  left: 0px;
-  padding: 0em;
-  margin: 0em;
+  text-align: center;
+  bottom: 40px;
   width: 100%;
-  opacity: 1;
   height: auto;
-  z-index: 2;
+  color: #eee;
+  padding: 0.3em 1em 0.3em 1em;
+  font-size: 2em;
+  font-family: 'Roboto';
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  background: rgba(64, 64, 64, 0.2);
+  pointer-events: none;
+  z-index: 5;
 }

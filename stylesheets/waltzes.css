@@ -1,6 +1,7 @@
 html {
   margin: 0em;
   padding: 0em;
+  background-color: #aaa;
 }
 
 body {
@@ -12,6 +13,28 @@ body {
   margin: 0;
   padding: 0;
   background-color: white;
+}
+
+div#content-container {
+  top:0px;
+  left: 0px;
+  width: 100%;
+  height: auto;
+  margin: 0px;
+  padding: 0px;
+  background-color: black;
+}
+
+div#content-container img {
+  display: block;
+  position: inherit;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  opacity: 1;
+  height: auto;
 }
 
 code {
@@ -82,66 +105,9 @@ div.tooltip {
   fill-opacity: 0;
 }
 
-div#video-container {
-  position: absolute;
-  width: auto;
-  height: auto;
-  padding: 0em;
-  margin: 0em;
-  background: #ddd;
-  border: 0px;
-  fill-opacity: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-div#video-container video {
-  position: inherit;
-  padding: 0em;
-  margin: 0em;
-  width: 100%;
-  height: auto;
-  z-index: 1;
-}
-
-div#full-video-container {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%;
-  overflow: hidden;
-  background-color: black;
-  top:0;
-  left: 0;
-}
-
-div#full-video-container video {
-  position: inherit;
-  padding: 0em;
-  margin: 0em;
-  width: 100%;
-  height: auto;
-  z-index: 1;
-}
-
-#map-container {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-}
-
 .map-svg {
   position: inherit;
   z-index: 2;
-}
-
-#map-image {
-  position: inherit;
-  width: 100%;
-  height: auto;
 }
 
 svg circle.location {
