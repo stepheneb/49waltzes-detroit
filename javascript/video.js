@@ -72,7 +72,7 @@ function loadVideoMovement(selection) {
 
   case "1920x1080":
     webmSource
-      .attr("src", "video/webm-1920x1080-10M/" + generateVideoKeyStr(movement) + "-webm-1920x1080-10M.webm")
+      .attr("src", "video/webm-1920x1080-10M/" + generateVideoKeyStr(movement) + "-1920x1080-10M.webm")
       .attr("type", 'video/webm;');
     mp4Source
       .attr("src", "video/mp4-1920x1080-10M/" + generateVideoKeyStr(movement) + "-1920x1080-10M.mp4")
