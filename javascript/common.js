@@ -6,7 +6,7 @@
 //   "960x540"
 //   "1920x1080"
 
-var videoResolution = "960x540";
+var videoResolution = "480x270";
 
 // When testing = true
 // A label with waltz/movement, address, and video resolution
