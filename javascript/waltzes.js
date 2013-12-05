@@ -408,117 +408,123 @@ function setupStorageEventListener() {
   });
 }
 
+function finshStartup() {
+  setup();
+  resetWaltzPoints();
+  setupFullScreenSupport();
+
+  fullScreenLink = d3.select('body').append("div")
+      .attr("class", "fullscreen")
+      .style("z-index", 4)
+      .on("click", function(loc) {
+        if (!isFullscreen()) {
+          requestFullscreenMethod.call(document.body);
+        } else {
+          document.cancelFullscreenMethod();
+        }
+      });
+
+  svgContainer = d3.select('body').append("div")
+      .attr("id", "svg-container");
+
+  svg = svgContainer.append("svg")
+      .attr("class", "map-svg");
+
+  resizeSVG();
+
+  tooltip = d3.select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0)
+      .style("z-index", 3);
+
+  waltzLine = svg.selectAll("polygon.waltz")
+      .data(waltzes)
+    .enter().append("polygon")
+      .attr("class", "waltz")
+      .attr("data-waltz", function(waltz) { return waltz.waltz; })
+      .attr("stroke","#17e")
+      .attr("stroke-linejoin", "round");
+
+  updateWaltzes();
+
+  node = svg.selectAll("g")
+      .data(waltzLocations);
+
+  nodeEnter = node.enter().append("g")
+      .attr("transform", function(loc) {
+        return "translate(" + loc.x + "," + loc.y + ")";
+      });
+
+  circle = nodeEnter
+      .append("circle")
+          .attr("class", "location")
+          .attr("data-address", function(loc) { return loc.address; })
+          .attr("r", circleRadius)
+          .style("stroke-width", circleStrokeWidth)
+          .style("z-index", 2)
+          .on("mouseover", function(loc) {
+          })
+          .on("mouseout", function(loc) {
+          })
+          .on("mousedown", function(loc) {
+          })
+
+  label = nodeEnter
+      .append("text")
+        .attr("class", "location")
+        .attr("transform","translate(0," + fontSizeInPixels/2 + ")")
+        .style("text-anchor","middle")
+        .text(function(loc) {
+            var mov = movementForLocation(loc);
+            return mov.interview ? "i": "";
+          })
+
+  svg.on("mousedown", function (e) {
+    var clickPos = d3.mouse(this),
+        loc = findClosestLocation(clickPos),
+        mov,
+        waltzNum,
+        currentWaltz,
+        movLetter,
+        movementsPlayed,
+        interviewsPlayed,
+        numOfVideos,
+        eventType,
+        i;
+
+    hideTooltip();
+    if (loc !== selected) {
+      console.log(loc);
+      selected = {};
+      mov = movementForLocation(loc);
+      movLetter = mov.movement;
+      currentWaltz = waltzes[mov.waltz-1];
+      numOfVideos = currentWaltz.numOfVideos;
+      movementsPlayed = currentWaltz.movementsPlayed;
+      interviewsPlayed = currentWaltz.interviewsPlayed;
+      movementsPlayed.length = 0;
+      interviewsPlayed.length = 0;
+      movementsPlayed.push(movLetter);
+      selected.movement = mov;
+      selected.location = waltzLocations[mov.location];
+      selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
+      updateWaltz("movement", movLetter);
+    }
+  });
+
+  window.onresize = handleResize;
+  addFullScreenChangeListener(handleResize);
+  document.onkeydown = handleKeyboardEvents;
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
   setupStorageEventListener();
   mapImage = document.getElementById('map-image');
-  mapImage.addEventListener('load', function() {
-    setup();
-    resetWaltzPoints();
-    setupFullScreenSupport();
-
-    fullScreenLink = d3.select('body').append("div")
-        .attr("class", "fullscreen")
-        .style("z-index", 4)
-        .on("click", function(loc) {
-          if (!isFullscreen()) {
-            requestFullscreenMethod.call(document.body);
-          } else {
-            document.cancelFullscreenMethod();
-          }
-        });
-
-    svgContainer = d3.select('body').append("div")
-        .attr("id", "svg-container");
-
-    svg = svgContainer.append("svg")
-        .attr("class", "map-svg");
-
-    resizeSVG();
-
-    tooltip = d3.select("body")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0)
-        .style("z-index", 3);
-
-    waltzLine = svg.selectAll("polygon.waltz")
-        .data(waltzes)
-      .enter().append("polygon")
-        .attr("class", "waltz")
-        .attr("data-waltz", function(waltz) { return waltz.waltz; })
-        .attr("stroke","#17e")
-        .attr("stroke-linejoin", "round");
-
-    updateWaltzes();
-
-    node = svg.selectAll("g")
-        .data(waltzLocations);
-
-    nodeEnter = node.enter().append("g")
-        .attr("transform", function(loc) {
-          return "translate(" + loc.x + "," + loc.y + ")";
-        });
-
-    circle = nodeEnter
-        .append("circle")
-            .attr("class", "location")
-            .attr("data-address", function(loc) { return loc.address; })
-            .attr("r", circleRadius)
-            .style("stroke-width", circleStrokeWidth)
-            .style("z-index", 2)
-            .on("mouseover", function(loc) {
-            })
-            .on("mouseout", function(loc) {
-            })
-            .on("mousedown", function(loc) {
-            })
-
-    label = nodeEnter
-        .append("text")
-          .attr("class", "location")
-          .attr("transform","translate(0," + fontSizeInPixels/2 + ")")
-          .style("text-anchor","middle")
-          .text(function(loc) {
-              var mov = movementForLocation(loc);
-              return mov.interview ? "i": "";
-            })
-
-    svg.on("mousedown", function (e) {
-      var clickPos = d3.mouse(this),
-          loc = findClosestLocation(clickPos),
-          mov,
-          waltzNum,
-          currentWaltz,
-          movLetter,
-          movementsPlayed,
-          interviewsPlayed,
-          numOfVideos,
-          eventType,
-          i;
-
-      hideTooltip();
-      if (loc !== selected) {
-        console.log(loc);
-        selected = {};
-        mov = movementForLocation(loc);
-        movLetter = mov.movement;
-        currentWaltz = waltzes[mov.waltz-1];
-        numOfVideos = currentWaltz.numOfVideos;
-        movementsPlayed = currentWaltz.movementsPlayed;
-        interviewsPlayed = currentWaltz.interviewsPlayed;
-        movementsPlayed.length = 0;
-        interviewsPlayed.length = 0;
-        movementsPlayed.push(movLetter);
-        selected.movement = mov;
-        selected.location = waltzLocations[mov.location];
-        selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
-        updateWaltz("movement", movLetter);
-      }
-    });
-
-    window.onresize = handleResize;
-    addFullScreenChangeListener(handleResize);
-    document.onkeydown = handleKeyboardEvents;
-  })
+  if (mapImage.complete) {
+    finshStartup()
+  } else {
+      mapImage.addEventListener('load', finishStartup);
+  }
 });
