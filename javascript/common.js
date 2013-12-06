@@ -189,10 +189,6 @@ function interviewsForWaltz(waltz) {
   return interviews;
 }
 
-function waltzKeyForMovement(mov) {
-  return "" + mov.waltz + mov.movement;
-}
-
 function movementForWaltz(waltzNum, movLetter) {
   var movements;
   movements = waltzMovements.filter(function(mov) {
@@ -205,6 +201,17 @@ function movementForWaltz(waltzNum, movLetter) {
   }
 }
 
+// string generators
+
+function generateWaltzKeyForMovement(mov) {
+  return "" + mov.waltz + mov.movement;
+}
+
+function generateLocationString(loc) {
+  var mov = movementForLocation(loc);
+  return generateWaltzKeyForMovement(mov) + " (" + mov.index + "): " +
+           loc.address + ", " + videoResolution;
+}
 
 // local storage functions
 

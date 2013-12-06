@@ -10,11 +10,11 @@ var video,
     imageNumberTip,
     interview;
 
+
 function showLocationTip(selection) {
   var loc = selection.location,
       mov = selection.movement,
-      htmlContent = waltzKeyForMovement(mov) + " (" + mov.index + "): " +
-                    loc.address + ", " + waltzLocation.videoResolution;
+      htmlContent = generateLocationString(loc);
   waltzLocationTip.html(htmlContent);
   waltzLocationTip.transition()
      .duration(200)
@@ -255,14 +255,16 @@ window.addEventListener("load", function(event) {
 
   window.addEventListener("storage", function(e) {
     var movement, stillImageDatum;
-    console.log("handling storage event: video window");
+    console.log("video: storage event: ");
     if (e && e.key === "waltzLocation") {
       waltzLocation = JSON.parse(e.newValue);
+      videoResolution = waltzLocation.videoResolution;
       switch (waltzLocation.eventType) {
 
         case "testing":
         updateLocationTip();
         video.attr("controls", waltzLocation.testing ? "controls" : null );
+        console.log("video: test mode: " + waltzLocation.testing);
         break;
 
         case "movement":
@@ -273,7 +275,7 @@ window.addEventListener("load", function(event) {
         movement = movementForLocation(waltzLocation);
         selected.location = waltzLocation;
         selected.movement = movement;
-        console.log("waltzLocation: " + movement.index + ": " + movement.waltz + movement.movement);
+        console.log("video: " + generateLocationString(waltzLocation));
         if (stillImage) {
           stillImage.remove();
         }

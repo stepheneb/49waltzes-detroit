@@ -1,6 +1,5 @@
 var map,
     mapImage,
-
     svg,
     svgContainer,
     node,
@@ -109,10 +108,10 @@ function resizeTooltip(loc) {
 
 function showTooltip(loc) {
   var mov = movementForLocation(loc),
-      htmlContent = waltzKeyForMovement(mov) + ": " + loc.address;
+      htmlContent = generateWaltzKeyForMovement(mov) + ": " + loc.address;
 
   if (testing) {
-    htmlContent = waltzKeyForMovement(mov) + " (" + mov.index + "): " + loc.address +
+    htmlContent = generateWaltzKeyForMovement(mov) + " (" + mov.index + "): " + loc.address +
        "<br/>" + latLonFormatter(loc.latitude) + ", " + latLonFormatter(loc.longitude) +
        "<br/>" + pixelFormatter(loc.x) + ", " + pixelFormatter(loc.y)
   }
@@ -134,6 +133,7 @@ function hideTooltip() {
 function resetSelection() {
   var loc = waltzLocations[0];
   loc.movementIndex = 0;
+  lastWaltzNum = 1;
   selected = {};
   selected.location = loc;
   selected.movement = waltzMovements[loc.movements[0]];
@@ -194,6 +194,13 @@ function stepThroughMovementsForThisLocation(loc) {
 
 function handleKeyboardEvents(evt) {
   var newIndex, loc;
+
+  function handled(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    return false;
+  }
+
   // evt.ctrlKey
   // evt.shiftKey
   // evt.metaKey   Mac OS X command key and Windows key
@@ -204,8 +211,8 @@ function handleKeyboardEvents(evt) {
     switch (evt.keyCode) {
       case 37:                    // left arrow
       decrementSelection();
-      evt.preventDefault();
-      evt.stopPropagation();
+      console.log("map: left-arrow");
+      return handled(evt);
       break;
 
       case 38:                    // up arrow
@@ -213,8 +220,8 @@ function handleKeyboardEvents(evt) {
 
       case 39:                    // right arrow
       nextMovement();
-      evt.preventDefault();
-      evt.stopPropagation();
+      console.log("map: right-arrow");
+      return handled(evt);
       break;
 
       case 40:                    // down arrow
@@ -222,59 +229,46 @@ function handleKeyboardEvents(evt) {
 
       case 49:                    // "1"
       if (evt.altKey) {          // alt or option--1, video-resolution: 480x270
-        evt.preventDefault();
-        evt.stopPropagation();
         videoResolution = "480x270";
         updateWaltz("movement");
+        return handled(evt);
       }
       break;
 
       case 50:                    // "2"
       if (evt.altKey) {          // alt or option--2, video-resolution: 960x540
-        evt.preventDefault();
-        evt.stopPropagation();
         videoResolution = "960x540";
         updateWaltz("movement");
+        return handled(evt);
       }
       break;
 
       case 51:                    // "3"
       if (evt.altKey) {          // alt or option--1, video-resolution: 1920x1080
-        evt.preventDefault();
-        evt.stopPropagation();
         videoResolution = "1920x1080";
         updateWaltz("movement");
+        return handled(evt);
       }
       break;
 
       case 82:                    // "r"
       if (evt.altKey) {          // alt or option--r, new random movement
-        evt.preventDefault();
-        evt.stopPropagation();
         randomSelection();
         updateWaltz("movement");
+        return handled(evt);
       }
       break;
 
       case 84:                    // "t"
       if (evt.altKey) {          // alt or option-t, toggle testing flag
-        evt.preventDefault();
-        evt.stopPropagation();
         testing = !testing;
+        if (!selected) {
+          resetSelection();
+          updateWaltz("movement");
+        }
         showTooltip(selected.location);
         saveWaltzLocation(selected.location, "testing");
-        evt.stop();
-        evt.returnValue = false;
-        return false;
-      }
-      break;
-
-      case 27:                   // ESC
-      evt.preventDefault();
-      if (selected) {
-        hideTooltip();
-        selected = null;
-        updateLocationCircles();
+        return handled(evt);
       }
       break;
     }
@@ -334,13 +328,16 @@ function updateWaltzOpacity(loc) {
 }
 
 function updateWaltz(eventType, eventData) {
-  var loc = selected.location;
+  var loc = selected.location,
+      mov = movementForLocation(loc);
   // currentWaltz = waltzes[waltzForLocation(loc)-1];
   // currentWaltz.movementsPlayed.push(movementForLocation(selected.location).movement);
   updateLocationCircles();
   showTooltip(loc);
   updateWaltzOpacity(loc);
   saveWaltzLocation(loc, eventType, eventData);
+  console.log("map: updateWaltz: eventType: " + eventType + ", eventData: " + eventData);
+  console.log("map: " + generateLocationString(loc));
 }
 
 function nextMovement() {
@@ -371,7 +368,7 @@ function nextMovement() {
   }
 
   if (!selected) {
-    randomSelection();
+    resetSelection();
     updateWaltz("movement");
   } else {
     loc = selected.location;
@@ -416,18 +413,19 @@ function nextMovement() {
 function setupStorageEventListener() {
   window.addEventListener("storage", function(e) {
     var movement, stillImageDatum;
-    console.log("handling storage event: main window");
+    console.log("map: storage event: ");
     if (e && e.key === "waltzLocation") {
       waltzLocation = JSON.parse(e.newValue);
       switch (waltzLocation.eventType) {
       case "testing":
         testing = waltzLocation.testing;
         showTooltip(selected.location);
+        console.log("map: test mode: " + waltzLocation.testing);
         break;
 
       case "videoEvent":
         videoEvent = waltzLocation.videoEvent;
-        console.log("videoEvent: " + videoEvent);
+        console.log("map: videoEvent: " + videoEvent);
         if (videoEvent == "ended") {
           nextMovement();
         }
@@ -523,8 +521,8 @@ function finishStartup() {
         i;
 
     hideTooltip();
+    console.log("map: mousedown: " + clickPos);
     if (loc !== selected) {
-      console.log(loc);
       selected = {};
       mov = movementForLocation(loc);
       movLetter = mov.movement;
