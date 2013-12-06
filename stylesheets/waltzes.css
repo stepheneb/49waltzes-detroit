@@ -1,18 +1,5 @@
 html {
-  margin: 0em;
-  padding: 0em;
   background-color: #aaa;
-}
-
-body {
-  height: 100%;
-  min-height: 100%;
-  width: 100%;
-  font-size: 1em;
-  font-family: 'Lato';
-  margin: 0;
-  padding: 0;
-  background-color: white;
 }
 
 div#content-container {
@@ -37,49 +24,10 @@ div#content-container img {
   height: auto;
 }
 
-code {
-  font-size: 90%;
-}
-
-h1 {
-  color: #333;
-  font-family: 'Lato';
-  font-weight: 600;
-  font-size: 1.4em;
-}
-h2 {
-  color: #555;
-  font-family: 'Lato';
-  font-weight: 600;
-  font-size: 1.15em;
-  margin-top: 0;
-}
-h3 {
-  color: #777;
-  font-family: 'Lato';
-  font-weight: 600;
-  font-size: 1.05em;
-}
-
-a {
-  text-decoration: none;
-}
-p {
-  margin: 1.0em 1.0em;
-  font-size: 0.95em;
-}
-ul {
-  list-style-type: none;
-  margin: 1em 0em 1em 0em;
-  padding: 0em 0em 0em 0em;
-}
-ul li {
-  margin: 0.3em 0.2em 0.3em 1.2em;
-  padding: 0em 0em 0em 0em;
-}
-
 div.tooltip {
   position: absolute;
+  left: 0;
+  top: 0;
   text-align: left;
   width: auto;
   height: auto;
