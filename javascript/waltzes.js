@@ -347,7 +347,6 @@ function nextMovement() {
   var loc,
       mov,
       waltzNum,
-      currentWaltz,
       movLetter,
       movementsPlayed,
       interviewsPlayed,
@@ -388,8 +387,8 @@ function nextMovement() {
       interviewsPlayed.push(movLetter);
     } else if (movementsPlayed.length < 3) {
       eventType = "movement";
-      movementsPlayed.push(movLetter);
       movLetter = nextMovLetter(movLetter);
+      movementsPlayed.push(movLetter);
       mov = movementForWaltz(mov.waltz, movLetter);
     } else {
       movementsPlayed.length = 0;
@@ -401,6 +400,8 @@ function nextMovement() {
       movLetter = "A";
       mov = movementForWaltz(waltzNum, movLetter);
       currentWaltz = waltzes[waltzNum-1];
+      currentWaltz.interviewsPlayed.length = 0;
+      currentWaltz.movementsPlayed.length = 0;
       currentWaltz.movementsPlayed.push(movLetter);
       eventType = "movement";
     }
