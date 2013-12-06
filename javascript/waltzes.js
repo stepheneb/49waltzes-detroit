@@ -436,7 +436,7 @@ function setupStorageEventListener() {
   });
 }
 
-function finshStartup() {
+function finishStartup() {
   setup();
   resetWaltzPoints();
   setupFullScreenSupport();
@@ -548,13 +548,13 @@ function finshStartup() {
   document.onkeydown = handleKeyboardEvents;
 }
 
-document.addEventListener("DOMContentLoaded", function(event) {
-  console.log("DOM fully loaded and parsed");
+window.addEventListener("load", function(event) {
+  console.log("DOM fully loaded and parsed, stylesheets and images loaded");
   setupStorageEventListener();
   mapImage = document.getElementById('map-image');
   if (mapImage.complete) {
-    finshStartup()
+    finishStartup();
   } else {
-      mapImage.addEventListener('load', finishStartup);
+    mapImage.addEventListener('load', finishStartup);
   }
 });

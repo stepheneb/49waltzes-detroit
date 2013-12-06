@@ -203,8 +203,8 @@ function handleResize() {
   setup();
 }
 
-document.addEventListener("DOMContentLoaded", function(event) {
-  console.log("DOM fully loaded and parsed");
+window.addEventListener("load", function(event) {
+  console.log("DOM fully loaded and parsed, stylesheets and images loaded");
   setup();
   setupFullScreenSupport();
   handleResize();
