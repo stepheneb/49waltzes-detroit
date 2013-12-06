@@ -2,9 +2,12 @@ var video,
     videoNode,
     mp4Source,
     webmSource,
-    contentContainer,
     selected = null,
+    imageContainer,
     stillImage,
+    stillImageDiv,
+    waltzLocationTip,
+    imageNumberTip,
     interview;
 
 function showLocationTip(selection) {
@@ -218,6 +221,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       });
 
   contentContainer = d3.select("#content-container");
+
   video = contentContainer.append("video")
       .attr("controls", null)
       .attr("preload", "auto")
@@ -241,6 +245,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
       .attr("class", "waltzLocationTip")
       .style("opacity", 0)
       .style("z-index", 3);
+
+  imageContainer = contentContainer.append("div")
+      .attr("class", "image-container");
+
+  imageNumberTip = imageContainer.append("div")
+      .attr("class", "imageNumberTip")
+      .style("opacity", 0);
 
   window.addEventListener("storage", function(e) {
     var movement, stillImageDatum;
@@ -273,8 +284,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         updateLocationTip();
         loadVideoMovement(selected);
         if (stillImageDatum) {
-          stillImage = contentContainer.append("img")
+          stillImage = imageContainer.append("img")
             .attr("src", stillImageDatum.path["1920x1080"]);
+          imageNumberTip
+            .style("left", stillImageDatum.numPosX)
+            .style("top", stillImageDatum.numPosY)
+            .text(movement.waltz);
           stillImage.transition()
             .duration(5000)
             .each("end", function() {
@@ -284,6 +299,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 .style("opacity", 0)
                 .remove();
             });
+          imageNumberTip.transition()
+            .duration(200)
+            .style("opacity", 1)
         } else {
           showVideo();
         }
