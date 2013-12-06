@@ -277,6 +277,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if (stillImage) {
           stillImage.remove();
         }
+        imageNumberTip.style("opacity", 0);
         if (movement.waltz !== waltzLocation.lastWaltzNum) {
           stillImageDatum = stillImageForWaltzNumber(movement.waltz);
         }
@@ -296,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
               showVideo();
               imageNumberTip.transition()
                 .duration(500)
-                .style("opacity", 0)
+                .style("opacity", 0);
               stillImage.transition()
                 .duration(200)
                 .style("opacity", 0)
