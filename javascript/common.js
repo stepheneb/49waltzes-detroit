@@ -49,6 +49,7 @@ var contentContainer,
     waltzList = [],
     waltzLocation,
     currentWaltz,
+    lastWaltzNum = 0,
 
     selected,
 
@@ -212,6 +213,7 @@ function saveWaltzLocation(loc, eventType, eventData) {
   loc.eventType = eventType;
   loc.eventData = eventData;
   loc.videoResolution = videoResolution;
+  loc.lastWaltzNum = lastWaltzNum;
   localStorage.setItem("waltzLocation", JSON.stringify(loc));
   // how to read these data: loc = JSON.parse(localStorage.getItem("waltzLocation"))
 }

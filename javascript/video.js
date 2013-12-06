@@ -256,9 +256,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         case "movement":
         videoNode.removeEventListener('canplaythrough', transitionVideoOn);
-        if (stillImage) {
-          stillImage.remove();
-        }
         stopVideo();
         hideVideo();
         selected = {};
@@ -266,20 +263,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
         selected.location = waltzLocation;
         selected.movement = movement;
         console.log("waltzLocation: " + movement.index + ": " + movement.waltz + movement.movement);
-        stillImageDatum = stillImageForMovement(movement);
+        if (stillImage) {
+          stillImage.remove();
+        }
+        if (movement.waltz !== waltzLocation.lastWaltzNum) {
+          stillImageDatum = stillImageForWaltzNumber(movement.waltz);
+        }
         interview = interviewForMovement(movement);
         updateLocationTip();
         loadVideoMovement(selected);
         if (stillImageDatum) {
           stillImage = contentContainer.append("img")
-              .attr("src", stillImageDatum.path["1920x1080"]);
-
+            .attr("src", stillImageDatum.path["1920x1080"]);
           stillImage.transition()
-              .duration(5000)
-              .remove()
-              .each("end", function() {
-                showVideo();
-              })
+            .duration(5000)
+            .each("end", function() {
+              showVideo();
+              stillImage.transition()
+                .duration(200)
+                .style("opacity", 0)
+                .remove();
+            });
         } else {
           showVideo();
         }

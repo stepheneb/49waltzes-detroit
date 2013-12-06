@@ -333,7 +333,6 @@ function updateWaltzOpacity(loc) {
   updateWaltzes();
 }
 
-
 function updateWaltz(eventType, eventData) {
   var loc = selected.location;
   // currentWaltz = waltzes[waltzForLocation(loc)-1];
@@ -342,7 +341,6 @@ function updateWaltz(eventType, eventData) {
   showTooltip(loc);
   updateWaltzOpacity(loc);
   saveWaltzLocation(loc, eventType, eventData);
-  stepThroughMovementsForThisLocation(loc);
 }
 
 function nextMovement() {
@@ -410,6 +408,7 @@ function nextMovement() {
     selected.location = waltzLocations[mov.location];
     selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
     updateWaltz(eventType, movLetter);
+    lastWaltzNum = mov.waltz;
   }
 }
 
@@ -539,6 +538,8 @@ function finshStartup() {
       selected.location = waltzLocations[mov.location];
       selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
       updateWaltz("movement", movLetter);
+      lastWaltzNum = mov.waltz;
+      stepThroughMovementsForThisLocation(loc);
     }
   });
 
