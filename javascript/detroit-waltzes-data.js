@@ -29,8 +29,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/1.jpg",
       "846x486": "images/stills-846x486-jpg/1.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "42%",
+    "numPosY": "24%",
     "waltz": 1,
     "movement": null
   },
@@ -39,8 +39,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/2.jpg",
       "846x486": "images/stills-846x486-jpg/2.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "43%",
+    "numPosY": "36%",
     "waltz": 2,
     "movement": null
   },
@@ -89,7 +89,7 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/7.jpg",
       "846x486": "images/stills-846x486-jpg/7.jpg"
     },
-    "numPosX": "55%",
+    "numPosX": "52%",
     "numPosY": "58%",
     "waltz": 7,
     "movement": null
@@ -109,8 +109,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/9.jpg",
       "846x486": "images/stills-846x486-jpg/9.jpg"
     },
-    "numPosX": "78%",
-    "numPosY": "10%",
+    "numPosX": "77%",
+    "numPosY": "12%",
     "waltz": 9,
     "movement": null
   },
@@ -139,8 +139,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/12.jpg",
       "846x486": "images/stills-846x486-jpg/12.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "9%",
+    "numPosY": "37%",
     "waltz": 12,
     "movement": "B"
   },
@@ -200,7 +200,7 @@ stillImageData = {
       "846x486": "images/stills-846x486-jpg/18.jpg"
     },
     "numPosX": "30%",
-    "numPosY": "68%",
+    "numPosY": "65%",
     "waltz": 18,
     "movement": null
   },
@@ -229,7 +229,7 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/21.jpg",
       "846x486": "images/stills-846x486-jpg/21.jpg"
     },
-    "numPosX": "20%",
+    "numPosX": "11%",
     "numPosY": "11%",
     "waltz": 21,
     "movement": null
@@ -249,8 +249,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/23.jpg",
       "846x486": "images/stills-846x486-jpg/23.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "76%",
+    "numPosY": "65%",
     "waltz": 23,
     "movement": "B"
   },
@@ -259,8 +259,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/24.jpg",
       "846x486": "images/stills-846x486-jpg/24.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "42%",
+    "numPosY": "65%",
     "waltz": 24,
     "movement": "C"
   },
@@ -269,8 +269,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/25.jpg",
       "846x486": "images/stills-846x486-jpg/25.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "11%",
+    "numPosY": "5%",
     "waltz": 25,
     "movement": null
   },
@@ -279,8 +279,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/26.jpg",
       "846x486": "images/stills-846x486-jpg/26.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "32%",
+    "numPosY": "26%",
     "waltz": 26,
     "movement": "B"
   },
@@ -289,8 +289,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/27.jpg",
       "846x486": "images/stills-846x486-jpg/27.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "74%",
+    "numPosY": "6%",
     "waltz": 27,
     "movement": "B"
   },
@@ -299,8 +299,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/28.jpg",
       "846x486": "images/stills-846x486-jpg/28.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "27%",
+    "numPosY": "68%",
     "waltz": 28,
     "movement": "A"
   },
@@ -309,8 +309,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/29.jpg",
       "846x486": "images/stills-846x486-jpg/29.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "67%",
+    "numPosY": "8%",
     "waltz": 29,
     "movement": "C"
   },
@@ -319,8 +319,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/30.jpg",
       "846x486": "images/stills-846x486-jpg/30.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "65%",
+    "numPosY": "14%",
     "waltz": 30,
     "movement": "A"
   },
@@ -329,8 +329,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/31.jpg",
       "846x486": "images/stills-846x486-jpg/31.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "71%",
+    "numPosY": "14%",
     "waltz": 31,
     "movement": null
   },
@@ -339,8 +339,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/32.jpg",
       "846x486": "images/stills-846x486-jpg/32.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "32%",
+    "numPosY": "13%",
     "waltz": 32,
     "movement": null
   },
@@ -349,8 +349,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/33.jpg",
       "846x486": "images/stills-846x486-jpg/33.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "40%",
+    "numPosY": "64%",
     "waltz": 33,
     "movement": "A"
   },
@@ -359,8 +359,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/34.jpg",
       "846x486": "images/stills-846x486-jpg/34.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "70%",
+    "numPosY": "18%",
     "waltz": 34,
     "movement": null
   },
@@ -369,8 +369,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/35.jpg",
       "846x486": "images/stills-846x486-jpg/35.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "72%",
+    "numPosY": "12%",
     "waltz": 35,
     "movement": "B"
   },
@@ -379,8 +379,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/36.jpg",
       "846x486": "images/stills-846x486-jpg/36.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "10%",
+    "numPosY": "14%",
     "waltz": 36,
     "movement": null
   },
@@ -389,8 +389,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/37.jpg",
       "846x486": "images/stills-846x486-jpg/37.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "28%",
+    "numPosY": "33%",
     "waltz": 37,
     "movement": null
   },
@@ -399,8 +399,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/38.jpg",
       "846x486": "images/stills-846x486-jpg/38.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "50%",
+    "numPosY": "13%",
     "waltz": 38,
     "movement": "B"
   },
@@ -409,8 +409,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/39.jpg",
       "846x486": "images/stills-846x486-jpg/39.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "22%",
+    "numPosY": "63%",
     "waltz": 39,
     "movement": "C"
   },
@@ -419,8 +419,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/40.jpg",
       "846x486": "images/stills-846x486-jpg/40.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "34%",
+    "numPosY": "24%",
     "waltz": 40,
     "movement": "A"
   },
@@ -429,8 +429,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/41.jpg",
       "846x486": "images/stills-846x486-jpg/41.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "35%",
+    "numPosY": "16%",
     "waltz": 41,
     "movement": "B"
   },
@@ -439,8 +439,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/42.jpg",
       "846x486": "images/stills-846x486-jpg/42.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "25%",
+    "numPosY": "50%",
     "waltz": 42,
     "movement": null
   },
@@ -449,8 +449,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/43.jpg",
       "846x486": "images/stills-846x486-jpg/43.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "69%",
+    "numPosY": "14%",
     "waltz": 43,
     "movement": "C"
   },
@@ -459,8 +459,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/44.jpg",
       "846x486": "images/stills-846x486-jpg/44.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "52%",
+    "numPosY": "36%",
     "waltz": 44,
     "movement": "B"
   },
@@ -479,8 +479,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/46.jpg",
       "846x486": "images/stills-846x486-jpg/46.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "16%",
+    "numPosY": "16%",
     "waltz": 46,
     "movement": "A"
   },
@@ -489,8 +489,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/47.jpg",
       "846x486": "images/stills-846x486-jpg/47.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "64%",
+    "numPosY": "13%",
     "waltz": 47,
     "movement": "A"
   },
@@ -499,8 +499,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/48.jpg",
       "846x486": "images/stills-846x486-jpg/48.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "62%",
+    "numPosY": "61%",
     "waltz": 48,
     "movement": "A"
   },
@@ -509,8 +509,8 @@ stillImageData = {
       "1920x1080": "images/stills-1920x1080-jpg/49.jpg",
       "846x486": "images/stills-846x486-jpg/49.jpg"
     },
-    "numPosX": "45%",
-    "numPosY": "20%",
+    "numPosX": "11%",
+    "numPosY": "6%",
     "waltz": 49,
     "movement": "A"
   }

@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             .each("end", function() {
               showVideo();
               imageNumberTip.transition()
-                .duration(200)
+                .duration(500)
                 .style("opacity", 0)
               stillImage.transition()
                 .duration(200)
