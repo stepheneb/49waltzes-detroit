@@ -93,6 +93,7 @@ div.imageNumberTip {
   font-family: 'Roboto';
   font-size: 8em;
   font-weight: 900;
+  letter-spacing: -0.025em;
   color: rgb(255, 182, 12);
   text-shadow: 2px 1px 1px #000;
   pointer-events: none;
