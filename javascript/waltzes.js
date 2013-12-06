@@ -205,24 +205,25 @@ function handleKeyboardEvents(evt) {
       case 37:                    // left arrow
       decrementSelection();
       evt.preventDefault();
+      evt.stopPropagation();
       break;
 
       case 38:                    // up arrow
-      evt.preventDefault();
       break;
 
       case 39:                    // right arrow
-      incrementSelection();
+      nextMovement();
       evt.preventDefault();
+      evt.stopPropagation();
       break;
 
       case 40:                    // down arrow
-      evt.preventDefault();
       break;
 
       case 49:                    // "1"
       if (evt.altKey) {          // alt or option--1, video-resolution: 480x270
         evt.preventDefault();
+        evt.stopPropagation();
         videoResolution = "480x270";
         updateWaltz("movement");
       }
@@ -231,6 +232,7 @@ function handleKeyboardEvents(evt) {
       case 50:                    // "2"
       if (evt.altKey) {          // alt or option--2, video-resolution: 960x540
         evt.preventDefault();
+        evt.stopPropagation();
         videoResolution = "960x540";
         updateWaltz("movement");
       }
@@ -239,6 +241,7 @@ function handleKeyboardEvents(evt) {
       case 51:                    // "3"
       if (evt.altKey) {          // alt or option--1, video-resolution: 1920x1080
         evt.preventDefault();
+        evt.stopPropagation();
         videoResolution = "1920x1080";
         updateWaltz("movement");
       }
@@ -247,6 +250,7 @@ function handleKeyboardEvents(evt) {
       case 82:                    // "r"
       if (evt.altKey) {          // alt or option--r, new random movement
         evt.preventDefault();
+        evt.stopPropagation();
         randomSelection();
         updateWaltz("movement");
       }
@@ -255,6 +259,7 @@ function handleKeyboardEvents(evt) {
       case 84:                    // "t"
       if (evt.altKey) {          // alt or option-t, toggle testing flag
         evt.preventDefault();
+        evt.stopPropagation();
         testing = !testing;
         showTooltip(selected.location);
         saveWaltzLocation(selected.location, "testing");
