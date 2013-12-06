@@ -24,11 +24,14 @@
     <h1>49 Waltzes</h1>
     <ul>
       <li>
-        <a href="detroit-waltzes.html" target='_blank'>49 Waltzes: Detroit Map</a>
+        <button id="open-both-button">49 Waltzes: Open both Video and Map pages</button>
+        <span class="parenthetical">(opens both Map and Video pages in separate windows)</span>
       </li>
       <li>
-        <a href="detroit-videos.html" target='_blank'>49 Waltzes: Detroit Video Page</a>
-        <span class="parenthetical">(open in separate window)</span>
+        <a id="map-link" href="detroit-waltzes.html" target='_blank'>49 Waltzes: Detroit Map</a>
+      </li>
+      <li>
+        <a id="video-link" href="detroit-videos.html" target='_blank'>49 Waltzes: Detroit Video</a>
       </li>
     </ul>
     <p>Currently these pages work best in the latest stable versions of Chrome (v31), Firefox (v25), Safari (7.0) and IE11</p>
@@ -57,5 +60,18 @@
         length of the original (640 instead of the original 1920 frames).
       </p>
     </div>
+    <script>
+    var mapLink = document.getElementById("map-link"),
+        mapFeatures = 'left=50,top=50,width=960,height=540,location=1,menubar=1,toolbar=1,resizable=1,scrollbars=1,status=0',
+        videoLink = document.getElementById("video-link"),
+        videoFeatures = 'left=250,top=250,width=960,height=540,location=1,menubar=1,toolbar=1,resizable=1,scrollbars=1,status=0',
+        openBothButton = document.getElementById("open-both-button");
+
+    openBothButton.onclick = function(e) {
+      window.open(videoLink.href, '49 Waltzes: Detroit Video', videoFeatures);
+      window.open(mapLink.href, '49 Waltzes: Detroit Map', mapFeatures);
+      return false;
+    }
+    </script>
   </body>
 </html>
