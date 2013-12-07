@@ -28,6 +28,7 @@ h2 {
   font-size: 1.15em;
   margin-top: 0;
 }
+
 h3 {
   color: #777;
   font-family: 'Lato';
@@ -42,8 +43,26 @@ a {
 
 button {
   margin: 0px;
-  padding: 3px 4px 4px 4px;
+  padding: 0.25em 0.5em 0.3em 0.5em;
   font-size: 0.95em;
+  font-weight: 600;
+  border-radius: 0.8em;
+  box-shadow: 2px 1px 1px #999;
+  background: -o-linear-gradient(top, #eee 0%, #bbb 100%);
+  background: -moz-linear-gradient(top, #eee 0%, #bbb 100%);
+  background: -webkit-linear-gradient(top, #eee 0%, #bbb 100%);
+  background: -ms-linear-gradient(top, #eee 0%, #bbb 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#bbb));
+  background: linear-gradient(top, #eee 0%, #bbb 100%);
+}
+
+button:hover {
+  background: -o-linear-gradient(top, #fff 0%, #ccc 100%);
+  background: -moz-linear-gradient(top, #fff 0%, #ccc 100%);
+  background: -webkit-linear-gradient(top, #fff 0%, #ccc 100%);
+  background: -ms-linear-gradient(top, #fff 0%, #ccc 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+  background: linear-gradient(top, #fff 0%, #ccc 100%);
 }
 
 p {
