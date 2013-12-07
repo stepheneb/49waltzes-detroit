@@ -7,18 +7,32 @@ mapdata = {
   "height": 2748,
   "registration": {
     "topleft": {
-      "latitude": 42.439265,
+      "address": "Norfolk &amp; Garfield St, Redford Charter Township, MI 48240, USA",
       "longitude": -83.290114,
+      "latitude": 42.439265,
       "x_pixel": 83,
-      "y_pixel": 79,
-      "address": "Norfolk &amp; Garfield St, Redford Charter Township, MI 48240, USA"
+      "y_pixel": 79
+    },
+    "topright": {
+      "address": "Vernier Rd &amp; Marter Rd, Grosse Pointe Woods, MI 48236, USA",
+      "longitude": -82.896602,
+      "latitude": 42.441077,
+      "x_pixel": 4783,
+      "y_pixel": 181
+    },
+    "bottomleft": {
+      "address": "S Telegraph Rd &amp; Colgate St, Dearborn Heights, MI 48125, USA",
+      "longitude": -83.27099800000001,
+      "latitude": 42.279921,
+      "x_pixel": 236,
+      "y_pixel": 2655
     },
     "bottomright": {
-      "latitude": 42.310282,
-      "longitude": -82.951882,
+      "address": "Tecumseh Rd E &amp; Jefferson Blvd, Windsor, ON N8T, Canada",
+      "longitude": -82.951809,
+      "latitude": 42.310462,
       "x_pixel": 4116,
-      "y_pixel": 2279,
-      "address": "Tecumseh Rd E &amp; Jefferson Blvd, Windsor, ON N8T, Canada"
+      "y_pixel": 2279
     }
   }
 };
