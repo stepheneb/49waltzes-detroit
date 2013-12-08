@@ -13,9 +13,9 @@ var map,
 
 function updateWaltzes() {
   waltzLine
-      .attr("stroke-width", fontSizeInPixels/5 + "px")
-      .attr("opacity", function(waltz) { return waltz.opacity; })
-      .attr("points", function(waltz) { return waltz.points });
+    .attr("stroke-width", fontSizeInPixels/5 + "px")
+    .attr("opacity", function(waltz) { return waltz.opacity; })
+    .attr("points", function(waltz) { return waltz.points });
 }
 
 function updateLocationCircles() {
@@ -317,25 +317,6 @@ function findClosestLocation(clickPos) {
     }
   }
   return waltzLocations[index];
-}
-
-function updateWaltzOpacity(loc) {
-  var waltzNum = waltzForLocation(loc),
-      waltzOpacity = 1,
-      i;
-  renderedWaltzes.unshift(waltzNum);
-  if (renderedWaltzes.length > numberOfWaltzes) {
-    renderedWaltzes.length = numberOfWaltzes;
-  }
-  for(i = 0; i < renderedWaltzes.length; i++) {
-    waltzNum = renderedWaltzes[i];
-    waltzes[waltzNum-1].opacity = waltzOpacity;
-    waltzOpacity -= 1/numberOfWaltzes;
-    if (waltzOpacity < 0) {
-      waltzOpacity = 0;
-    }
-  }
-  updateWaltzes();
 }
 
 function updateWaltz(eventType, eventData) {
