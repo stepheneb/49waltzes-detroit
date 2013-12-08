@@ -132,11 +132,15 @@ function hideTooltip() {
 
 function resetSelection() {
   var loc = waltzLocations[0];
+
   loc.movementIndex = 0;
-  lastWaltzNum = 1;
+  lastWaltzNum = 0;
   selected = {};
   selected.location = loc;
   selected.movement = waltzMovements[loc.movements[0]];
+  waltzes[0].movementsPlayed = 0;
+  waltzes[0].interviewsPlayed = 0;
+  waltzes[0].movementsPlayed = ["A"];
   return selected;
 }
 
@@ -219,7 +223,13 @@ function handleKeyboardEvents(evt) {
       break;
 
       case 39:                    // right arrow
-      nextMovement();
+      if (!selected) {
+        resetSelection();
+        updateWaltz("movement");
+        lastWaltzNum = 1;
+      } else {
+        nextMovement();
+      }
       console.log("map: right-arrow");
       return handled(evt);
       break;
@@ -265,6 +275,7 @@ function handleKeyboardEvents(evt) {
         if (!selected) {
           resetSelection();
           updateWaltz("movement");
+          lastWaltzNum = 1;
         }
         showTooltip(selected.location);
         saveWaltzLocation(selected.location, "testing");
@@ -340,6 +351,22 @@ function updateWaltz(eventType, eventData) {
   console.log("map: " + generateLocationString(loc));
 }
 
+function nextMovLetter(letter) {
+  switch (letter) {
+    case "A":
+    return "B";
+    break;
+
+    case "B":
+    return "C";
+    break;
+
+    case "C":
+    return "A";
+    break;
+  }
+}
+
 function nextMovement() {
   var loc,
       mov,
@@ -350,22 +377,6 @@ function nextMovement() {
       numOfVideos,
       eventType,
       i;
-
-  function nextMovLetter(letter) {
-    switch (letter) {
-      case "A":
-      return "B";
-      break;
-
-      case "B":
-      return "C";
-      break;
-
-      case "C":
-      return "A";
-      break;
-    }
-  }
 
   if (!selected) {
     resetSelection();
