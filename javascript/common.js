@@ -37,8 +37,7 @@ var contentContainer,
     mapScaleFactorX,
     mapScaleFactorY,
 
-    xScale,
-    yScale,
+    tranformationMatrix4,
 
     fontSizeInPixels,
 
@@ -62,14 +61,20 @@ function resizeDocumentFont() {
   document.body.style.fontSize = fontSizeInPixels + 'px';
 }
 
+function getPixelLocFromGeo(lon, lat) {
+  var point = vec3.transformMat4(vec3.create(), [lon, lat, 1], tranformationMatrix4);
+  return [
+    point[0]/point[2],
+    point[1]/point[2]
+  ]
+}
+
 function initializeLocations() {
   waltzLocations = waltzLocationAndMovementData.locations;
   waltzLocations.forEach(function (loc) {
-    var xPixel = xScale.invert(loc.longitude),
-        yPixel = yScale.invert(loc.latitude);
-
-    loc.x = xPixel*mapScaleFactorX;
-    loc.y = yPixel*mapScaleFactorY;
+    var point = getPixelLocFromGeo(loc.longitude, loc.latitude);
+    loc.x = point[0]*mapScaleFactorX;
+    loc.y = point[1]*mapScaleFactorY;
     loc.movementIndex = 0;
   });
 }
@@ -101,6 +106,30 @@ function calculateNumOfVideosForwaltz() {
   });
 }
 
+
+function setupTransformation() {
+  var topleft = mapdata.registration.topleft;
+      topright = mapdata.registration.topright;
+      bottomleft = mapdata.registration.bottomleft;
+      bottomright = mapdata.registration.bottomright;
+      originalMapWidth = mapdata.width;
+      originalMapHeight = mapdata.height;
+
+  mapScaleFactorX = contentWidth/originalMapWidth;
+  mapScaleFactorY = contentHeight/originalMapHeight;
+
+  tranformationMatrix4 = transform2d(
+    topleft.longitude, topleft.latitude,
+    topright.longitude, topright.latitude,
+    bottomleft.longitude, bottomleft.latitude,
+    bottomright.longitude, bottomright.latitude,
+
+    topleft.x_pixel, topleft.y_pixel,
+    topright.x_pixel, topright.y_pixel,
+    bottomleft.x_pixel, bottomleft.y_pixel,
+    bottomright.x_pixel, bottomright.y_pixel);
+}
+
 function setup() {
   contentContainer = d3.select('#content-container');
   contentWidth = contentContainer.node().offsetWidth;
@@ -110,21 +139,7 @@ function setup() {
   circleRadius = contentWidth/100;
   circleStrokeWidth = circleRadius/4;
 
-  topleft = mapdata.registration.topleft;
-  bottomright = mapdata.registration.bottomright;
-  originalMapWidth = mapdata.width;
-  originalMapHeight = mapdata.height;
-
-  mapScaleFactorX = contentWidth/originalMapWidth;
-  mapScaleFactorY = contentHeight/originalMapHeight;
-
-  xScale = d3.scale.linear();
-  xScale.domain([topleft.x_pixel, bottomright.x_pixel])
-  xScale.range([topleft.longitude, bottomright.longitude])
-
-  yScale = d3.scale.linear();
-  yScale.domain([topleft.y_pixel, bottomright.y_pixel])
-  yScale.range([topleft.latitude, bottomright.latitude])
+  setupTransformation();
 
   resizeDocumentFont();
 
