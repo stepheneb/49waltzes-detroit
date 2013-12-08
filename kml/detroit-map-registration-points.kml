@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+  <Placemark id="22">
+    <name>Vernier Rd &amp; Marter Rd, Grosse Pointe Woods, MI 48236, USA</name>
+    <address>Vernier Rd &amp; Marter Rd, Grosse Pointe Woods, MI 48236, USA</address>
+    <styleUrl>#geocode</styleUrl>
+    <MultiGeometry>
+      <Point>
+        <coordinates>-82.896602,42.441077,0</coordinates>
+      </Point>
+      <LinearRing>
+        <coordinates>
+          -82.89912,42.438559,0 -82.89912,42.443595,0 -82.89408400000001,42.443595,0 -82.89408400000001,42.438559,0 -82.89912,42.438559,0 
+        </coordinates>
+      </LinearRing>
+    </MultiGeometry>
+    <AddressDetails xmlns="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" Accuracy="6">
+      <Country>
+        <CountryNameCode>US</CountryNameCode>
+        <AdministrativeArea>
+          <AdministrativeAreaName>Michigan</AdministrativeAreaName>
+          <SubAdministrativeArea>
+            <SubAdministrativeAreaName>Wayne</SubAdministrativeAreaName>
+            <Locality>
+              <LocalityName>Grosse Pointe Woods</LocalityName>
+              <Thoroughfare>
+                <ThoroughfareName>Vernier Rd <![CDATA[&]]> Marter Rd</ThoroughfareName>
+              </Thoroughfare>
+            </Locality>
+          </SubAdministrativeArea>
+        </AdministrativeArea>
+      </Country>
+    </AddressDetails>
+  </Placemark>
+  <Placemark id="21">
+    <name>Norfolk &amp; Garfield St, Redford Charter Township, MI 48240, USA</name>
+    <address>Norfolk &amp; Garfield St, Redford Charter Township, MI 48240, USA</address>
+    <styleUrl>#geocode</styleUrl>
+    <MultiGeometry>
+      <Point>
+        <coordinates>-83.290114,42.439265,0</coordinates>
+      </Point>
+      <LinearRing>
+        <coordinates>
+          -83.292632,42.436747,0 -83.292632,42.441783,0 -83.28759599999999,42.441783,0 -83.28759599999999,42.436747,0 -83.292632,42.436747,0
+        </coordinates>
+      </LinearRing>
+    </MultiGeometry>
+    <AddressDetails xmlns="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" Accuracy="6">
+      <Country>
+        <CountryNameCode>US</CountryNameCode>
+        <AdministrativeArea>
+          <AdministrativeAreaName>Michigan</AdministrativeAreaName>
+          <SubAdministrativeArea>
+            <SubAdministrativeAreaName>Wayne</SubAdministrativeAreaName>
+            <Locality>
+              <LocalityName>Redford Charter Township</LocalityName>
+              <Thoroughfare>
+                <ThoroughfareName>Norfolk <![CDATA[&]]> Garfield St</ThoroughfareName>
+              </Thoroughfare>
+            </Locality>
+          </SubAdministrativeArea>
+        </AdministrativeArea>
+      </Country>
+    </AddressDetails>
+  </Placemark>
+  <Placemark id="21">
+    <name>S Telegraph Rd &amp; Colgate St, Dearborn Heights, MI 48125, USA</name>
+    <address>S Telegraph Rd &amp; Colgate St, Dearborn Heights, MI 48125, USA</address>
+    <styleUrl>#geocode</styleUrl>
+    <MultiGeometry>
+      <Point>
+        <coordinates>-83.27099800000001,42.279921,0</coordinates>
+      </Point>
+      <LinearRing>
+        <coordinates>
+          -83.273516,42.277403,0 -83.273516,42.282439,0 -83.26848,42.282439,0 -83.26848,42.277403,0 -83.273516,42.277403,0 
+        </coordinates>
+      </LinearRing>
+    </MultiGeometry>
+    <AddressDetails xmlns="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" Accuracy="6">
+      <Country>
+        <CountryNameCode>US</CountryNameCode>
+        <AdministrativeArea>
+          <AdministrativeAreaName>Michigan</AdministrativeAreaName>
+          <SubAdministrativeArea>
+            <SubAdministrativeAreaName>Wayne</SubAdministrativeAreaName>
+            <Locality>
+              <LocalityName>Dearborn Heights</LocalityName>
+              <Thoroughfare>
+                <ThoroughfareName>S Telegraph Rd <![CDATA[&]]> Colgate St</ThoroughfareName>
+              </Thoroughfare>
+            </Locality>
+          </SubAdministrativeArea>
+        </AdministrativeArea>
+      </Country>
+    </AddressDetails>
+  </Placemark>
+  <Placemark id="21">
+    <name>Tecumseh Rd E &amp; Jefferson Blvd, Windsor, ON N8T, Canada</name>
+    <address>Tecumseh Rd E &amp; Jefferson Blvd, Windsor, ON N8T, Canada</address>
+    <styleUrl>#geocode</styleUrl>
+    <MultiGeometry>
+      <Point>
+        <coordinates>-82.951809,42.310462,0</coordinates>
+      </Point>
+      <LinearRing>
+        <coordinates>
+          -82.95432700000001,42.307944,0 -82.95432700000001,42.31298,0 -82.949291,42.31298,0 -82.949291,42.307944,0 -82.95432700000001,42.307944,0 
+        </coordinates>
+      </LinearRing>
+    </MultiGeometry>
+    <AddressDetails xmlns="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" Accuracy="6">
+      <Country>
+        <CountryNameCode>CA</CountryNameCode>
+        <AdministrativeArea>
+          <AdministrativeAreaName>Ontario</AdministrativeAreaName>
+          <SubAdministrativeArea>
+            <SubAdministrativeAreaName>Essex County</SubAdministrativeAreaName>
+            <Locality>
+              <LocalityName>Windsor</LocalityName>
+              <DependentLocality>
+                <DependentLocalityName>East Windsor</DependentLocalityName>
+                <Thoroughfare>
+                  <ThoroughfareName>Tecumseh Rd E <![CDATA[&]]> Jefferson Blvd</ThoroughfareName>
+                </Thoroughfare>
+                <PostalCode>
+                  <PostalCodeNumber>N8T</PostalCodeNumber>
+                </PostalCode>
+              </DependentLocality>
+            </Locality>
+          </SubAdministrativeArea>
+        </AdministrativeArea>
+      </Country>
+    </AddressDetails>
+  </Placemark>
+</kml>
