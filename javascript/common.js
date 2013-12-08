@@ -37,7 +37,8 @@ var contentContainer,
     mapScaleFactorX,
     mapScaleFactorY,
 
-    tranformationMatrix4,
+    mainTransformationMatrix4,
+    scaledTransformationMatrix4,
 
     fontSizeInPixels,
 
@@ -62,7 +63,7 @@ function resizeDocumentFont() {
 }
 
 function getPixelLocFromGeo(lon, lat) {
-  var point = vec3.transformMat4(vec3.create(), [lon, lat, 1], tranformationMatrix4);
+  var point = vec3.transformMat4(vec3.create(), [lon, lat, 1], scaledTransformationMatrix4);
   return [
     point[0]/point[2],
     point[1]/point[2]
@@ -70,11 +71,12 @@ function getPixelLocFromGeo(lon, lat) {
 }
 
 function initializeLocations() {
+  var scale = vec3.fromValues(mapScaleFactorX, mapScaleFactorY, 1);
   waltzLocations = waltzLocationAndMovementData.locations;
   waltzLocations.forEach(function (loc) {
-    var point = getPixelLocFromGeo(loc.longitude, loc.latitude);
-    loc.x = point[0]*mapScaleFactorX;
-    loc.y = point[1]*mapScaleFactorY;
+    var point = getPixelLocFromGeo(loc.longitude, loc.latitude, scaledTransformationMatrix4);
+    loc.x = point[0];
+    loc.y = point[1];
     loc.movementIndex = 0;
   });
 }
@@ -106,7 +108,6 @@ function calculateNumOfVideosForwaltz() {
   });
 }
 
-
 function setupTransformation() {
   var topleft = mapdata.registration.topleft;
       topright = mapdata.registration.topright;
@@ -118,17 +119,16 @@ function setupTransformation() {
   mapScaleFactorX = contentWidth/originalMapWidth;
   mapScaleFactorY = contentHeight/originalMapHeight;
 
-  tranformationMatrix4 = transform2d(
+  scaledTransformationMatrix4 = transform2d(
     topleft.longitude, topleft.latitude,
     topright.longitude, topright.latitude,
     bottomleft.longitude, bottomleft.latitude,
     bottomright.longitude, bottomright.latitude,
-
-    topleft.x_pixel, topleft.y_pixel,
-    topright.x_pixel, topright.y_pixel,
-    bottomleft.x_pixel, bottomleft.y_pixel,
-    bottomright.x_pixel, bottomright.y_pixel);
-}
+    topleft.x_pixel*mapScaleFactorX, topleft.y_pixel*mapScaleFactorY,
+    topright.x_pixel*mapScaleFactorX, topright.y_pixel*mapScaleFactorY,
+    bottomleft.x_pixel*mapScaleFactorX, bottomleft.y_pixel*mapScaleFactorY,
+    bottomright.x_pixel*mapScaleFactorX, bottomright.y_pixel*mapScaleFactorY);
+  }
 
 function setup() {
   contentContainer = d3.select('#content-container');
