@@ -7,18 +7,101 @@ var map,
     circle,
     label,
     waltzLine,
+    waltzLineData = [],
     renderedWaltzes = [],
     tooltip,
-    selected = null;
+    selected = null,
+    renderedPointsKey = {
+      "A": 0,
+      "B": 1,
+      "C": 2
+    },
+    nextMovLetterKey = {
+      "A": "B",
+      "B": "C",
+      "C": "A"
+    };
 
-function updateWaltzes() {
+function renderWaltzLines() {
+  waltzLine = svg.selectAll("polygon.waltz")
+      .data(waltzes, function (d) {
+        return d.waltzNum; });
+
+  waltzLine.enter().append("polygon")
+      .attr("class", "waltz")
+      .attr("stroke-linejoin", "round");
+
   waltzLine
-    .attr("stroke-width", fontSizeInPixels/5 + "px")
-    .attr("opacity", function(waltz) { return waltz.opacity; })
-    .attr("points", function(waltz) { return waltz.points });
+      .attr("stroke", function(waltz) { return waltz.color; })
+      .attr("stroke-width", function(waltz) { return waltz.width; })
+      .attr("opacity", function(waltz) {
+        return waltz.opacity; })
+      .attr("points", function(waltz) { return waltz.renderedPoints; });
+
+  waltzLine.exit()
+    .remove();
 }
 
-function updateLocationCircles() {
+function resetWaltzData() {
+  waltzes.forEach(function (waltz) {
+    var waltzNum = waltz.waltzNum;
+    waltz.points =
+      locationsForWaltz(waltzNum)
+        .map(function (loc) { return [loc.x, loc.y]; });
+  });
+}
+
+function updateRestOfRenderedWaltzes() {
+  var waltz,
+      color = "#227",
+      opacity = 0.8,
+      width = fontSizeInPixels/5,
+      i;
+  for (i = 1; i < renderedWaltzes.length; i++) {
+    waltz = waltzes[renderedWaltzes[i]-1];
+    waltz.color = color;
+    waltz.opacity = opacity;
+    waltz.width -= fontSizeInPixels/100;
+    opacity -= 0.04;
+    if (opacity <= 0) {
+      for (; i < renderedWaltzes.length; i++) {
+        waltz.renderedPoints = [];
+      }
+      return;
+    }
+  }
+}
+
+function resetCurrentWaltz(waltzNum, movLetter) {
+  var currentWaltz = waltzes[waltzNum-1];
+  renderedWaltzes.unshift(waltzNum);
+  currentWaltz.color = "#31f";
+  currentWaltz.opacity = 1;
+  currentWaltz.width = fontSizeInPixels/3;
+  currentWaltz.interviewsPlayed.length = 0;
+  currentWaltz.movementsPlayed.length = 0;
+  currentWaltz.movementsPlayed.push(movLetter);
+  currentWaltz.renderedPoints = currentWaltz.points[renderedPointsKey[movLetter]].slice(0);
+  updateRestOfRenderedWaltzes();
+}
+
+function updateWaltzData(waltzNum, movLetter) {
+  var currentWaltz = waltzes[waltzNum-1];
+  currentWaltz.renderedPoints.push(currentWaltz.points[renderedPointsKey[movLetter]].slice(0));
+  currentWaltz.renderedPoints = flattenArray(currentWaltz.renderedPoints);
+  updateRestOfRenderedWaltzes();
+}
+
+function pulseSelectedLocationCircle() {
+  setInterval(function(){
+    d3.select("circle.selected.waltz.location")
+      .attr("fill","black")
+      .transition()
+      .duration(1000)
+      .attr("fill","red");},1000);
+}
+
+function renderLocationCircles() {
   nodeEnter
     .attr("transform", function(loc) {
       return "translate(" + loc.x + "," + loc.y + ")";
@@ -29,7 +112,7 @@ function updateLocationCircles() {
       return selected && selected.location === loc;
     })
     .classed("waltz", function(loc) {
-      return selected && selected.movement.waltz === waltzForLocation(loc);
+      return selected && selected.movement.waltz === waltzNumForLocation(loc);
     })
     .attr("r", circleRadius)
     .style("stroke-width", function(loc) {
@@ -38,34 +121,13 @@ function updateLocationCircles() {
       } else {
         return circleStrokeWidth;
       }
-    })
+    });
 
   label
     .attr("transform","translate(0," + fontSizeInPixels/2 + ")")
     .classed("selected", function(loc) {
-      return selected && selected.location === loc ? true : false
+      return selected && selected.location === loc ? true : false;
     });
-
-  updateWaltzes();
-}
-
-function updateWaltzOpacity(loc) {
-  var waltzNum = waltzForLocation(loc),
-      waltzOpacity = 1,
-      i;
-  renderedWaltzes.unshift(waltzNum);
-  if (renderedWaltzes.length > numberOfWaltzes) {
-    renderedWaltzes.length = numberOfWaltzes;
-  }
-  for(i = 0; i < renderedWaltzes.length; i++) {
-    waltzNum = renderedWaltzes[i];
-    waltzes[waltzNum-1].opacity = waltzOpacity;
-    waltzOpacity -= 1/numberOfWaltzes;
-    if (waltzOpacity < 0) {
-      waltzOpacity = 0;
-    }
-  }
-  updateWaltzes();
 }
 
 function resizeTooltip(loc) {
@@ -113,7 +175,7 @@ function showTooltip(loc) {
   if (testing) {
     htmlContent = generateWaltzKeyForMovement(mov) + " (" + mov.index + "): " + loc.address +
        "<br/>" + latLonFormatter(loc.latitude) + ", " + latLonFormatter(loc.longitude) +
-       "<br/>" + pixelFormatter(loc.x) + ", " + pixelFormatter(loc.y)
+       "<br/>" + pixelFormatter(loc.x) + ", " + pixelFormatter(loc.y);
   }
   tooltip.html(htmlContent);
   resizeTooltip(loc);
@@ -138,9 +200,8 @@ function resetSelection() {
   selected = {};
   selected.location = loc;
   selected.movement = waltzMovements[loc.movements[0]];
-  waltzes[0].movementsPlayed = 0;
-  waltzes[0].interviewsPlayed = 0;
-  waltzes[0].movementsPlayed = ["A"];
+  renderedWaltzes = [];
+  resetCurrentWaltz(1, "A");
   return selected;
 }
 
@@ -217,7 +278,6 @@ function handleKeyboardEvents(evt) {
       decrementSelection();
       console.log("map: left-arrow");
       return handled(evt);
-      break;
 
       case 38:                    // up arrow
       break;
@@ -232,7 +292,6 @@ function handleKeyboardEvents(evt) {
       }
       console.log("map: right-arrow");
       return handled(evt);
-      break;
 
       case 40:                    // down arrow
       break;
@@ -293,9 +352,9 @@ function resizeSVG() {
 
 function handleResize() {
   setup();
-  resetWaltzPoints();
+  resetWaltzData();
   resizeSVG();
-  updateLocationCircles();
+  renderLocationCircles();
   if (selected) {
     resizeTooltip(selected.location);
   }
@@ -320,32 +379,14 @@ function findClosestLocation(clickPos) {
 }
 
 function updateWaltz(eventType, eventData) {
-  var loc = selected.location,
-      mov = movementForLocation(loc);
-  // currentWaltz = waltzes[waltzForLocation(loc)-1];
-  // currentWaltz.movementsPlayed.push(movementForLocation(selected.location).movement);
-  updateLocationCircles();
+  var loc = selected.location;
+
+  renderLocationCircles();
+  renderWaltzLines();
   showTooltip(loc);
-  updateWaltzOpacity(loc);
   saveWaltzLocation(loc, eventType, eventData);
   console.log("map: updateWaltz: eventType: " + eventType + ", eventData: " + eventData);
   console.log("map: " + generateLocationString(loc));
-}
-
-function nextMovLetter(letter) {
-  switch (letter) {
-    case "A":
-    return "B";
-    break;
-
-    case "B":
-    return "C";
-    break;
-
-    case "C":
-    return "A";
-    break;
-  }
 }
 
 function nextMovement() {
@@ -376,22 +417,18 @@ function nextMovement() {
       interviewsPlayed.push(movLetter);
     } else if (movementsPlayed.length < 3) {
       eventType = "movement";
-      movLetter = nextMovLetter(movLetter);
+      movLetter = nextMovLetterKey[movLetter];
       movementsPlayed.push(movLetter);
       mov = movementForWaltz(mov.waltz, movLetter);
+      updateWaltzData(mov.waltz, movLetter);
     } else {
-      movementsPlayed.length = 0;
-      interviewsPlayed.length = 0;
       waltzNum = mov.waltz + 1;
       if (waltzNum > numberOfWaltzes) {
         waltzNum = 1;
       }
       movLetter = "A";
+      resetCurrentWaltz(waltzNum, movLetter);
       mov = movementForWaltz(waltzNum, movLetter);
-      currentWaltz = waltzes[waltzNum-1];
-      currentWaltz.interviewsPlayed.length = 0;
-      currentWaltz.movementsPlayed.length = 0;
-      currentWaltz.movementsPlayed.push(movLetter);
       eventType = "movement";
     }
     selected.movement = mov;
@@ -429,7 +466,7 @@ function setupStorageEventListener() {
 
 function finishStartup() {
   setup();
-  resetWaltzPoints();
+  resetWaltzData();
   setupFullScreenSupport();
 
   fullScreenLink = d3.select('body').append("div")
@@ -457,16 +494,6 @@ function finishStartup() {
       .style("opacity", 0)
       .style("z-index", 3);
 
-  waltzLine = svg.selectAll("polygon.waltz")
-      .data(waltzes)
-    .enter().append("polygon")
-      .attr("class", "waltz")
-      .attr("data-waltz", function(waltz) { return waltz.waltz; })
-      .attr("stroke","#17e")
-      .attr("stroke-linejoin", "round");
-
-  updateWaltzes();
-
   node = svg.selectAll("g")
       .data(waltzLocations);
 
@@ -487,7 +514,7 @@ function finishStartup() {
           .on("mouseout", function(loc) {
           })
           .on("mousedown", function(loc) {
-          })
+          });
 
   label = nodeEnter
       .append("text")
@@ -497,7 +524,7 @@ function finishStartup() {
         .text(function(loc) {
             var mov = movementForLocation(loc);
             return mov.interview ? "i": "";
-          })
+          });
 
   svg.on("mousedown", function (e) {
     var clickPos = d3.mouse(this),
@@ -506,9 +533,6 @@ function finishStartup() {
         waltzNum,
         currentWaltz,
         movLetter,
-        movementsPlayed,
-        interviewsPlayed,
-        numOfVideos,
         eventType,
         i;
 
@@ -518,13 +542,8 @@ function finishStartup() {
       selected = {};
       mov = movementForLocation(loc);
       movLetter = mov.movement;
-      currentWaltz = waltzes[mov.waltz-1];
-      numOfVideos = currentWaltz.numOfVideos;
-      movementsPlayed = currentWaltz.movementsPlayed;
-      interviewsPlayed = currentWaltz.interviewsPlayed;
-      movementsPlayed.length = 0;
-      interviewsPlayed.length = 0;
-      movementsPlayed.push(movLetter);
+      waltzNum = mov.waltz;
+      resetCurrentWaltz(waltzNum, movLetter);
       selected.movement = mov;
       selected.location = waltzLocations[mov.location];
       selected.location.movementIndex = selected.location.movements.indexOf(mov.index);

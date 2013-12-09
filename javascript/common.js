@@ -57,6 +57,10 @@ var contentContainer,
     pixelFormatter = d3.format("f"),
     latLonFormatter = d3.format(".3f");
 
+function flattenArray(a) {
+  return a.reduce(function (j,k) { return j.concat(k); }, []);
+}
+
 function resizeDocumentFont() {
   fontSizeInPixels = contentWidth/960 * 12;
   document.body.style.fontSize = fontSizeInPixels + 'px';
@@ -67,7 +71,7 @@ function getPixelLocFromGeo(lon, lat) {
   return [
     point[0]/point[2],
     point[1]/point[2]
-  ]
+  ];
 }
 
 function initializeLocations() {
@@ -88,22 +92,9 @@ function initializeMovements() {
   });
 }
 
-function resetWaltzOpacity() {
-  waltzes.forEach(function (waltz) {
-    waltz.opacity = 0;
-  });
-}
-
-function resetWaltzPoints() {
-  waltzes.forEach(function (waltz) {
-    var waltzNum = waltz.waltz;
-    waltz.points = locationsForWaltz(waltzNum).map(function(loc) { return [loc.x, loc.y].join(",") }).join(" ");
-  });
-}
-
 function calculateNumOfVideosForwaltz() {
   waltzes.forEach(function (waltz) {
-    var waltzNum = waltz.waltz;
+    var waltzNum = waltz.waltzNum;
     waltz.numOfVideos = 3 + interviewsForWaltz(waltzNum-1);
   });
 }
@@ -175,7 +166,7 @@ function movementForLocation(loc) {
   return movementByIndex(index);
 }
 
-function waltzForLocation(loc) {
+function waltzNumForLocation(loc) {
   var index = loc.movements[loc.movementIndex];
   return movementByIndex(index).waltz;
 }
@@ -183,11 +174,11 @@ function waltzForLocation(loc) {
 function locationsForWaltz(waltz) {
   return waltzLocations.filter(function(loc) {
     return movementForLocation(loc).waltz === waltz;
-  })
+  });
 }
 
 function interviewForMovement(movement) {
-  return interviewData[movement.waltz + movement.movement]
+  return interviewData[movement.waltz + movement.movement];
 }
 
 function interviewsForWaltz(waltz) {
@@ -208,7 +199,7 @@ function movementForWaltz(waltzNum, movLetter) {
   var movements;
   movements = waltzMovements.filter(function(mov) {
     return (mov.waltz === waltzNum && mov.movement === movLetter);
-  })
+  });
   if (movements.length > 0) {
     return movements[0];
   } else {
@@ -245,10 +236,13 @@ function saveWaltzLocation(loc, eventType, eventData) {
 (function () {
   for(var i = 1; i <= numberOfWaltzes; i++) {
     waltzes[i-1] = {
-      waltz: i,
+      waltzNum: i,
+      color: "#13f",
       opacity: 0,
       movementsPlayed: [],
-      interviewsPlayed: []
+      interviewsPlayed: [],
+      points: [],
+      renderedPoints: []
     };
     waltzList[i-1] = [i-1];
   }
