@@ -94,11 +94,15 @@ function updateWaltzData(waltzNum, movLetter) {
 
 function pulseSelectedLocationCircle() {
   setInterval(function(){
-    d3.select("circle.selected.waltz.location")
-      .attr("fill","black")
-      .transition()
-      .duration(1000)
-      .attr("fill","red");},1000);
+    var selectedCircle = d3.select("circle.selected.waltz.location");
+    selectedCircle
+        .transition()
+        .duration(500)
+        .style("fill-opacity", 1.0)
+        .transition()
+        .duration(500)
+        .style("fill-opacity", 0.2);
+  },1000);
 }
 
 function renderLocationCircles() {
@@ -525,6 +529,8 @@ function finishStartup() {
             var mov = movementForLocation(loc);
             return mov.interview ? "i": "";
           });
+
+  pulseSelectedLocationCircle();
 
   svg.on("mousedown", function (e) {
     var clickPos = d3.mouse(this),
