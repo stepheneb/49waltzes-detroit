@@ -57,9 +57,17 @@ var contentContainer,
     pixelFormatter = d3.format("f"),
     latLonFormatter = d3.format(".3f");
 
+// utility functions
+
+function cloneObject(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 function flattenArray(a) {
   return a.reduce(function (j,k) { return j.concat(k); }, []);
 }
+
+// initialization and setup functions
 
 function resizeDocumentFont() {
   fontSizeInPixels = contentWidth/960 * 12;
