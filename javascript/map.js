@@ -449,6 +449,7 @@ function nextMovement() {
 
   if (!selected) {
     resetSelection();
+    loc = selected.location;
     updateWaltz("movement");
   } else {
     loc = selected.location;
@@ -478,6 +479,7 @@ function nextMovement() {
       mov = movementForWaltz(waltzNum, movLetter);
       kindOfVideo = "movement";
     }
+    stepThroughMovementsForThisLocation(loc);
     selected.movement = mov;
     selected.location = waltzLocations[mov.location];
     selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
@@ -601,7 +603,6 @@ function finishStartup() {
       selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
       updateWaltz("playVideo", { type: "movement", letter: movLetter });
       lastWaltzNum = mov.waltz;
-      stepThroughMovementsForThisLocation(loc);
     }
   });
 
