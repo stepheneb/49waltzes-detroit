@@ -255,3 +255,9 @@ function saveWaltzLocation(loc, eventType, eventData) {
     waltzList[i-1] = [i-1];
   }
 })();
+
+function checkWaltzPoints() {
+  return waltzes.map(function(v, i) {
+    return v.points.length < 3 ? i : null;
+  }).filter(function(v) { return v; });
+}
