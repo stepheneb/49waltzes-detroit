@@ -195,12 +195,10 @@ function resizeTooltip(loc) {
 
 function showTooltip(loc) {
   var mov = movementForLocation(loc),
-      htmlContent = generateWaltzKeyForMovement(mov) + ": " + loc.address;
+      htmlContent = loc.address;
 
   if (testing) {
-    htmlContent = generateWaltzKeyForMovement(mov) + " (" + mov.index + "): " + loc.address +
-       "<br/>" + latLonFormatter(loc.latitude) + ", " + latLonFormatter(loc.longitude) +
-       "<br/>" + pixelFormatter(loc.x) + ", " + pixelFormatter(loc.y);
+    htmlContent = generateWaltzKeyForMovement(mov) + " (" + mov.index + "): " + loc.address;
   }
   tooltip.html(htmlContent);
   resizeTooltip(loc);
