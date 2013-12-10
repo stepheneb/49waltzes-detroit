@@ -9,6 +9,8 @@ var map,
     waltzLine,
     waltzLineData = [],
     renderedWaltzes = [],
+    visitedWaltzLine,
+    visitedWaltzData = [],
     tooltip,
     selected = null,
     renderedPointsKey = {
@@ -23,6 +25,24 @@ var map,
     };
 
 function renderWaltzLines() {
+  visitedWaltzData.unshift(currentWaltz);
+  visitedWaltzLine = svg.selectAll("polygon.currentWaltz")
+      .data(visitedWaltzData, function (d) {
+        return d.waltzNum; });
+
+  visitedWaltzLine.enter().append("polygon")
+      .attr("class", "currentWaltz")
+      .attr("stroke-linejoin", "round");
+
+  visitedWaltzLine
+      .attr("stroke", "#888")
+      .attr("stroke-width", function(waltz) { return waltz.width/2; })
+      .attr("opacity", 0.5)
+      .attr("points", function(waltz) { return waltz.points; });
+
+  visitedWaltzLine.exit()
+    .remove();
+
   waltzLine = svg.selectAll("polygon.waltz")
       .data(waltzes, function (d) {
         return d.waltzNum; });
@@ -67,13 +87,14 @@ function updateRestOfRenderedWaltzes() {
       for (; i < renderedWaltzes.length; i++) {
         waltz.renderedPoints = [];
       }
+      visitedWaltzData.length = i;
       return;
     }
   }
 }
 
 function resetCurrentWaltz(waltzNum, movLetter) {
-  var currentWaltz = waltzes[waltzNum-1];
+  currentWaltz = waltzes[waltzNum-1];
   renderedWaltzes.unshift(waltzNum);
   currentWaltz.color = "#31f";
   currentWaltz.opacity = 1;
@@ -86,7 +107,7 @@ function resetCurrentWaltz(waltzNum, movLetter) {
 }
 
 function updateWaltzData(waltzNum, movLetter) {
-  var currentWaltz = waltzes[waltzNum-1];
+  currentWaltz = waltzes[waltzNum-1];
   currentWaltz.renderedPoints.push(currentWaltz.points[renderedPointsKey[movLetter]].slice(0));
   currentWaltz.renderedPoints = flattenArray(currentWaltz.renderedPoints);
   updateRestOfRenderedWaltzes();
@@ -586,7 +607,6 @@ function finishStartup() {
         currentMov,
         newMov,
         waltzNum,
-        currentWaltz,
         movLetter,
         eventType,
         i;
