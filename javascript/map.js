@@ -25,7 +25,6 @@ var map,
     };
 
 function renderWaltzLines() {
-  visitedWaltzData.unshift(currentWaltz);
   visitedWaltzLine = svg.selectAll("polygon.currentWaltz")
       .data(visitedWaltzData, function (d) {
         return d.waltzNum; });
@@ -62,13 +61,28 @@ function renderWaltzLines() {
     .remove();
 }
 
-function resetWaltzData() {
+function resizeWaltzData() {
+  var i,
+      j;
   waltzes.forEach(function (waltz) {
     var waltzNum = waltz.waltzNum;
     waltz.points =
       locationsForWaltz(waltzNum)
         .map(function (loc) { return [loc.x, loc.y]; });
   });
+  for (i = 0; i < visitedWaltzData.length; i++) {
+    vistedWaltz = visitedWaltzData[i];
+    vistedWaltz.points = waltzes[vistedWaltz.waltzNum-1].points;
+  }
+  for (i = 0; i < renderedWaltzes.length; i++) {
+    renderedWaltz = waltzes[renderedWaltzes[i]-1];
+    renderedWaltz.renderedPoints = [];
+    for (j = 0; j < renderedWaltz.movementsPlayed.length; j++) {
+      movLetter = renderedWaltz.movementsPlayed[j];
+      renderedWaltz.renderedPoints.push(renderedWaltz.points[renderedPointsKey[movLetter]]);
+    }
+    renderedWaltz.renderedPoints = flattenArray(renderedWaltz.renderedPoints);
+  }
 }
 
 function updateRestOfRenderedWaltzes() {
@@ -378,9 +392,10 @@ function resizeSVG() {
 
 function handleResize() {
   setup();
-  resetWaltzData();
+  resizeWaltzData();
   resizeSVG();
   renderLocationCircles();
+  renderWaltzLines();
   if (selected) {
     resizeTooltip(selected.location);
   }
@@ -406,6 +421,7 @@ function findClosestLocation(clickPos) {
 
 function updateWaltz(eventType, eventData) {
   var loc = selected.location;
+  visitedWaltzData.unshift(currentWaltz);
   renderLocationCircles();
   renderWaltzLines();
   showTooltip(loc);
@@ -537,7 +553,7 @@ function setupStorageEventListener() {
 
 function finishStartup() {
   setup();
-  resetWaltzData();
+  resizeWaltzData();
   setupFullScreenSupport();
 
   fullScreenLink = d3.select('body').append("div")
