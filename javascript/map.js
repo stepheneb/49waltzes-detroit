@@ -232,7 +232,7 @@ function incrementSelection() {
     selected.location = waltzLocations[movement.location];
     selected.location.movementIndex = selected.location.movements.indexOf(movement.index);
   }
-  updateWaltz("movement");
+  updateWaltz("playVideo", { type: "movement" });
 }
 
 function decrementSelection() {
@@ -249,7 +249,7 @@ function decrementSelection() {
     selected.location = waltzLocations[movement.location];
     selected.location.movementIndex = selected.location.movements.indexOf(movement.index);
   }
-  updateWaltz("movement");
+  updateWaltz("playVideo", { type: "movement" });
 }
 
 function stepThroughMovementsForThisLocation(loc) {
@@ -262,7 +262,8 @@ function stepThroughMovementsForThisLocation(loc) {
 }
 
 function handleKeyboardEvents(evt) {
-  var newIndex, loc;
+  var newIndex,
+      loc;
 
   function handled(evt) {
     evt.preventDefault();
@@ -289,7 +290,7 @@ function handleKeyboardEvents(evt) {
       case 39:                    // right arrow
       if (!selected) {
         resetSelection();
-        updateWaltz("movement");
+        updateWaltz("playVideo", { type: "movement" });
         lastWaltzNum = 1;
       } else {
         nextMovement();
@@ -302,24 +303,27 @@ function handleKeyboardEvents(evt) {
 
       case 49:                    // "1"
       if (evt.altKey) {          // alt or option--1, video-resolution: 480x270
+        if (!selected) resetSelection();
         videoResolution = "480x270";
-        updateWaltz("movement");
+        updateWaltz("playVideo", { type: "movement" });
         return handled(evt);
       }
       break;
 
       case 50:                    // "2"
       if (evt.altKey) {          // alt or option--2, video-resolution: 960x540
+        if (!selected) resetSelection();
         videoResolution = "960x540";
-        updateWaltz("movement");
+        updateWaltz("playVideo", { type: "movement" });
         return handled(evt);
       }
       break;
 
       case 51:                    // "3"
       if (evt.altKey) {          // alt or option--1, video-resolution: 1920x1080
+        if (!selected) resetSelection();
         videoResolution = "1920x1080";
-        updateWaltz("movement");
+        updateWaltz("playVideo", { type: "movement" });
         return handled(evt);
       }
       break;
@@ -327,7 +331,7 @@ function handleKeyboardEvents(evt) {
       case 82:                    // "r"
       if (evt.altKey) {          // alt or option--r, new random movement
         randomSelection();
-        updateWaltz("movement");
+        updateWaltz("playVideo", { type: "movement" });
         return handled(evt);
       }
       break;
@@ -337,8 +341,7 @@ function handleKeyboardEvents(evt) {
         testing = !testing;
         if (!selected) {
           resetSelection();
-          updateWaltz("movement");
-          lastWaltzNum = 1;
+          updateWaltz("playVideo", { type: "movement" });
         }
         showTooltip(selected.location);
         saveWaltzLocation(selected.location, "testing");
@@ -384,13 +387,53 @@ function findClosestLocation(clickPos) {
 
 function updateWaltz(eventType, eventData) {
   var loc = selected.location;
-
   renderLocationCircles();
   renderWaltzLines();
   showTooltip(loc);
   saveWaltzLocation(loc, eventType, eventData);
+  if (lastWaltzNum === 0) lastWaltzNum = 1;
   console.log("map: updateWaltz: eventType: " + eventType + ", eventData: " + eventData);
   console.log("map: " + generateLocationString(loc));
+}
+
+function preloadMovement() {
+  var mov,
+      nextMov,
+      waltzNum,
+      movLetter,
+      movementsPlayed,
+      interviewsPlayed,
+      numOfVideos,
+      kindOfVideo,
+      nextSelection = cloneObject(selected),
+      i;
+
+  mov = movementForLocation(nextSelection.location);
+  waltzNum = mov.waltz;
+  movLetter = mov.movement;
+  currentWaltz = waltzes[mov.waltz-1];
+  numOfVideos = currentWaltz.numOfVideos;
+  movementsPlayed = currentWaltz.movementsPlayed;
+  interviewsPlayed = currentWaltz.interviewsPlayed;
+
+  if (mov.interview && interviewsPlayed.indexOf(movLetter) === -1) {
+    kindOfVideo = "interview";
+  } else if (movementsPlayed.length < 3) {
+    kindOfVideo = "movement";
+    movLetter = nextMovLetterKey[movLetter];
+  } else {
+    kindOfVideo = "movement";
+    waltzNum++;
+    if (waltzNum > numberOfWaltzes) {
+      waltzNum = 1;
+    }
+    movLetter = "A";
+  }
+  nextMov = movementForWaltz(waltzNum, movLetter);
+  nextSelection.movement = nextMov;
+  nextSelection.location = waltzLocations[mov.location];
+  nextSelection.location.movementIndex = nextSelection.location.movements.indexOf(mov.index);
+  saveWaltzLocation(nextSelection.location, "preloadVideo", { type: kindOfVideo, nextSelection: cloneObject(nextSelection) });
 }
 
 function nextMovement() {
@@ -401,7 +444,7 @@ function nextMovement() {
       movementsPlayed,
       interviewsPlayed,
       numOfVideos,
-      eventType,
+      kindOfVideo,
       i;
 
   if (!selected) {
@@ -417,10 +460,10 @@ function nextMovement() {
     interviewsPlayed = currentWaltz.interviewsPlayed;
 
     if (mov.interview && interviewsPlayed.indexOf(movLetter) === -1) {
-      eventType = "interview";
+      kindOfVideo = "interview";
       interviewsPlayed.push(movLetter);
     } else if (movementsPlayed.length < 3) {
-      eventType = "movement";
+      kindOfVideo = "movement";
       movLetter = nextMovLetterKey[movLetter];
       movementsPlayed.push(movLetter);
       mov = movementForWaltz(mov.waltz, movLetter);
@@ -433,12 +476,12 @@ function nextMovement() {
       movLetter = "A";
       resetCurrentWaltz(waltzNum, movLetter);
       mov = movementForWaltz(waltzNum, movLetter);
-      eventType = "movement";
+      kindOfVideo = "movement";
     }
     selected.movement = mov;
     selected.location = waltzLocations[mov.location];
     selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
-    updateWaltz(eventType, movLetter);
+    updateWaltz("playVideo", { type: kindOfVideo, letter: movLetter });
     lastWaltzNum = mov.waltz;
   }
 }
@@ -457,12 +500,15 @@ function setupStorageEventListener() {
         break;
 
       case "videoEvent":
-        videoEvent = waltzLocation.videoEvent;
-        console.log("map: videoEvent: " + videoEvent);
-        if (videoEvent == "ended") {
+        console.log("map: videoEvent: " + waltzLocation.videoEvent);
+        switch (waltzLocation.videoEvent) {
+        case "preload":
+          preloadMovement();
+          break;
+        case "ended":
           nextMovement();
+          break;
         }
-        break;
       }
     }
   });
@@ -553,7 +599,7 @@ function finishStartup() {
       selected.movement = mov;
       selected.location = waltzLocations[mov.location];
       selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
-      updateWaltz("movement", movLetter);
+      updateWaltz("playVideo", { type: "movement", letter: movLetter });
       lastWaltzNum = mov.waltz;
       stepThroughMovementsForThisLocation(loc);
     }
