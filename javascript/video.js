@@ -9,6 +9,7 @@ var mainVideo,
     mp4Source2,
     webmSource2,
     mainVideoAlmostOver = false,
+    mainVideoStarted = false,
     preloadedMovementWaltzKey,
     preloadedInterviewWaltzKey,
     selected = null,
@@ -150,6 +151,7 @@ function loadVideoInterview(selection, node) {
 }
 
 function transitionVideoOn() {
+  mainVideoStarted = false;
   mainVideo.transition()
      .duration(200)
      .style("opacity", 1.0)
@@ -205,9 +207,14 @@ function videoReport() {
 function videoTimeListener(node) {
   var duration = mainVideoNode.duration,
       currentTime = mainVideoNode.currentTime;
+
+  if (currentTime && currentTime/duration >= 0.05 && mainVideoStarted === false) {
+    mainVideoStarted = true;
+    timeToPreloadVideo();
+    videoReport();
+  }
   if (currentTime && currentTime/duration >= 0.80 && mainVideoAlmostOver === false) {
     mainVideoAlmostOver = true;
-    timeToPreloadVideo();
     videoReport();
   }
 }
