@@ -171,25 +171,30 @@ function swapVideos() {
     mainVideoNode = video2Node;
     nextVideo = video1;
     nextVideoNode = video1Node;
-    // video1.transition()
-    //    .duration(100)
-    //    .style("opacity", 0.0);
-    // video2.transition()
-    //   .duration(100)
-    //   .style("opacity", 1.0);
+    video1.transition()
+       .duration(200)
+       .style("opacity", 0.0)
+       .each("end", function() {
+         video1.style("display","none");
+        });
+    video2.transition()
+      .duration(200)
+      .style("opacity", 1.0);
   } else {
     video1.style("display","block");
-    video2.style("display","none");
     mainVideo = video1;
     mainVideoNode = video1Node;
     nextVideo = video2;
     nextVideoNode = video2Node;
-    // video2.transition()
-    //    .duration(100)
-    //    .style("opacity", 0.0);
-    // video1.transition()
-    //   .duration(100)
-    //   .style("opacity", 1.0);
+    video2.transition()
+       .duration(200)
+       .style("opacity", 0.0)
+       .each("end", function() {
+         video2.style("display","none");
+        });
+    video1.transition()
+      .duration(200)
+      .style("opacity", 1.0);
   }
 }
 
