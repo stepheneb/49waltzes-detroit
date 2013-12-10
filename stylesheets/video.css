@@ -16,6 +16,7 @@ div#content-container {
 
 div#content-container video {
   position: inherit;
+  display: block;
   padding: 0em;
   margin: 0em;
   width: 100%;
