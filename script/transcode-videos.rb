@@ -1,9 +1,48 @@
 #!/usr/bin/env ruby
-require 'fileutils'
+#
+# Transcode uncompressed movement and interview videos for 49 Waltzes: Detroit
+#
+# Examples:
+#
+# - originals from: /Volumes/SEAGATE2TB
+# - transcoded to: ./video
+#
+#   ./script/transcode-videos.rb -i /Volumes/SEAGATE2TB
+#
+# - originals from: /Volumes/SEAGATE2TB
+# - transcoded to: /Volumes/SEAGATE2TB/video
+#
+#   ./script/transcode-videos.rb -i /Volumes/SEAGATE2TB -o /Volumes/SEAGATE2TB/video
+#
 
-PROJECT_ROOT = "/Volumes/GRAZ2TB"
-ORIGINALS_PATH  = File.join(PROJECT_ROOT, 'OUTPUTS FOR STEVE')
-ORIGINAL_INTERVIEWS_PATH  = File.join(PROJECT_ROOT, 'DETROIT INTERVIEW SECTIONS')
+require 'fileutils'
+require 'optparse'
+
+@input_directory = "/Volumes/GRAZ2TB"
+
+THIS_DIR = File.expand_path('..', __FILE__)
+@transcoded_output_directory = File.expand_path('../video',  THIS_DIR)
+
+@dry_run = false
+
+opts = OptionParser.new
+opts.on("-i", "--input-directory=PATH")	{ |val| @input_directory = val }
+opts.on("-o", "--output-directory=DIR")	{ |val| @transcoded_output_directory = val }
+opts.on("-d", "dry-run")	{ |val| @dry_run = val }
+
+opts.on_tail("-h", "--help", "Show this message") do
+  puts opts
+  exit
+end
+
+opts.parse(ARGV)
+
+@original_movements_path  = File.join(@input_directory, 'OUTPUTS FOR STEVE')
+@original_interviews_path  = File.join(@input_directory, 'DETROIT INTERVIEW SECTIONS')
+
+raise "\n\n***: original videos dir not found: #{@input_directory}\n\n" unless File.exists? @input_directory
+raise "\n\n***: original movements not found: #{@original_movements_path}\n\n" unless File.exists? @original_movements_path
+raise "\n\n***: original interviews not found: #{@original_interviews_path}\n\n" unless File.exists? @original_interviews_path
 
 OUTPUT_DESCRIPTIONS = [
   ["webm", "10M", "1920x1080"],
@@ -14,10 +53,9 @@ OUTPUT_DESCRIPTIONS = [
   ["mp4", "500k", "480x270"]
 ]
 
-
 def run_cmd(cmd)
   puts cmd
-  system(cmd)
+  system(cmd) unless @dry_run
 end
 
 def movement_code(filename)
@@ -97,7 +135,7 @@ def process_original_video_batch_outputs(input_path, movement_code, index_str, o
   output_paths = []
   outputs.each do |output|
     output_format, bitrate, output_size = output
-    output_dir = "video/#{output_format}-#{output_size}-#{bitrate}"
+    output_dir = "#{@transcoded_output_directory}/#{output_format}-#{output_size}-#{bitrate}"
     if subfolder
       output_dir = output_dir + '/' + subfolder
     end
@@ -131,7 +169,7 @@ def process_original_video_batch_outputs(input_path, movement_code, index_str, o
 end
 
 # 1A-10-BIT-UNCOMP.mov ... 49C-10-BIT-UNCOMP.mov
-originals = Dir[ORIGINALS_PATH + "/*.mov"]
+originals = Dir[@original_movements_path + "/*.mov"]
 
 originals.sort! {|a,b| generate_index(movement_code(a)) <=> generate_index(movement_code(b))}
 
@@ -147,7 +185,7 @@ end
 
 puts "processing original interviews ..."
 puts
-original_interviews = Dir[ORIGINAL_INTERVIEWS_PATH + "/*.mov"]
+original_interviews = Dir[@original_interviews_path + "/*.mov"]
 
 original_interviews.each do |original_interview_path|
   movement_code = File.basename(original_interview_path)[/^(.*?) /,1] + "-interview"
