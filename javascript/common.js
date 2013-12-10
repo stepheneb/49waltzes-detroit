@@ -181,7 +181,8 @@ function waltzNumForLocation(loc) {
 
 function locationsForWaltz(waltz) {
   return waltzLocations.filter(function(loc) {
-    return movementForLocation(loc).waltz === waltz;
+    var locationHasWaltzMovement = loc.movements.filter(function(m) { return waltzMovements[m-1].waltz === waltz; }).length > 0;
+    return locationHasWaltzMovement;
   });
 }
 
@@ -258,6 +259,6 @@ function saveWaltzLocation(loc, eventType, eventData) {
 
 function checkWaltzPoints() {
   return waltzes.map(function(v, i) {
-    return v.points.length < 3 ? i : null;
+    return v.points.length !== 3 ? i : null;
   }).filter(function(v) { return v; });
 }
