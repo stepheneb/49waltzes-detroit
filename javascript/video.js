@@ -386,7 +386,9 @@ window.addEventListener("load", function(event) {
         if (!isFullscreen()) {
           requestFullscreenMethod.call(document.body);
         } else {
-          document.cancelFullscreenMethod();
+          if (testing) {
+            document.cancelFullscreenMethod();
+          }
         }
       });
 
