@@ -470,6 +470,7 @@ function nextMovement() {
       mov = movementForWaltz(mov.waltz, movLetter);
       updateWaltzData(mov.waltz, movLetter);
     } else {
+      stepThroughMovementsForThisLocation(loc);
       waltzNum = mov.waltz + 1;
       if (waltzNum > numberOfWaltzes) {
         waltzNum = 1;
@@ -479,7 +480,6 @@ function nextMovement() {
       mov = movementForWaltz(waltzNum, movLetter);
       kindOfVideo = "movement";
     }
-    stepThroughMovementsForThisLocation(loc);
     selected.movement = mov;
     selected.location = waltzLocations[mov.location];
     selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
@@ -582,8 +582,9 @@ function finishStartup() {
 
   svg.on("mousedown", function (e) {
     var clickPos = d3.mouse(this),
-        loc = findClosestLocation(clickPos),
-        mov,
+        newLoc = findClosestLocation(clickPos),
+        currentMov,
+        newMov,
         waltzNum,
         currentWaltz,
         movLetter,
@@ -592,17 +593,24 @@ function finishStartup() {
 
     hideTooltip();
     console.log("map: mousedown: " + clickPos);
-    if (loc !== selected) {
-      selected = {};
-      mov = movementForLocation(loc);
-      movLetter = mov.movement;
-      waltzNum = mov.waltz;
+    if (newLoc !== selected) {
+      if (selected) {
+        currentMov = movementForLocation(selected.location);
+      }
+      newMov = movementForLocation(newLoc);
+      if (currentMov && newMov.waltz !== currentMov.waltz) {
+        stepThroughMovementsForThisLocation(selected.location);
+      }
+      movLetter = newMov.movement;
+      waltzNum = newMov.waltz;
       resetCurrentWaltz(waltzNum, movLetter);
-      selected.movement = mov;
-      selected.location = waltzLocations[mov.location];
-      selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
+
+      selected = {};
+      selected.movement = newMov;
+      selected.location = waltzLocations[newMov.location];
+      selected.location.movementIndex = selected.location.movements.indexOf(newMov.index);
       updateWaltz("playVideo", { type: "movement", letter: movLetter });
-      lastWaltzNum = mov.waltz;
+      lastWaltzNum = newMov.waltz;
     }
   });
 
