@@ -35,8 +35,8 @@ function renderWaltzLines() {
 
   visitedWaltzLine
       .attr("stroke", "#888")
-      .attr("stroke-width", function(waltz) { return waltz.width/2; })
-      .attr("opacity", 0.5)
+      .attr("stroke-width", function(waltz) { return waltz.width/1.5; })
+      .attr("opacity", 0.6)
       .attr("points", function(waltz) { return waltz.points; });
 
   visitedWaltzLine.exit()
@@ -737,9 +737,9 @@ function finishStartup() {
           // selecting movement in current waltz
           movLetter = newMov.movement;
           currentWaltz = waltzes[newMov.waltz-1];
-          // if (renderedWaltzes.length === 0) {
+          if (renderedWaltzes.length === 0) {
             resetCurrentWaltz(newMov.waltz, movLetter);
-          // }
+          }
           updateWaltzData(newMov.waltz, movLetter);
           selected.movement = newMov;
           selected.location = newLoc;
