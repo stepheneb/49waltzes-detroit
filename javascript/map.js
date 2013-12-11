@@ -226,7 +226,7 @@ function showTooltip(loc) {
   tooltip.transition()
      .duration(200)
      .style("opacity", 1.0)
-     .style("background-color", "rgba(255,255,255, 0.4)");
+     .style("background-color", "rgba(255,255,255, 0)");
 }
 
 function hideTooltip() {
