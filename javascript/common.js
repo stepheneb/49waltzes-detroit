@@ -83,13 +83,16 @@ function getPixelLocFromGeo(lon, lat) {
 }
 
 function initializeLocations() {
-  var scale = vec3.fromValues(mapScaleFactorX, mapScaleFactorY, 1);
+  var scale = vec3.fromValues(mapScaleFactorX, mapScaleFactorY, 1),
+      i = 0;
   waltzLocations = waltzLocationAndMovementData.locations;
   waltzLocations.forEach(function (loc) {
     var point = getPixelLocFromGeo(loc.longitude, loc.latitude, scaledTransformationMatrix4);
     loc.x = point[0];
     loc.y = point[1];
     loc.movementIndex = 0;
+    loc.index = i;
+    i++;
   });
 }
 
