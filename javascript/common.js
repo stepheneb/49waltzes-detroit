@@ -6,7 +6,7 @@
 //   "960x540"
 //   "1920x1080"
 
-var videoResolution = "480x270";
+var videoResolution = "1920x1080";
 
 // When testing = true
 // A label with waltz/movement, address, and video resolution
@@ -18,7 +18,7 @@ var videoResolution = "480x270";
 // No label or controls appear on the video page and simpler
 // movement popup labels appear on the map page.
 
-var testing = true;
+var testing = false;
 
 var contentContainer,
     contentWidth,
