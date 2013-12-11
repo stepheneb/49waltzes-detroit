@@ -97,8 +97,8 @@ function updateRestOfRenderedWaltzes() {
     waltz.color = color;
     waltz.opacity = opacity;
     waltz.width = width;
-    // width *= 0.98;
-    opacity -= 0.075;
+    width *= 0.95;
+    opacity -= 0.08;
     if (opacity <= 0) {
       maxQueueLength = i;
       for (; i < renderedWaltzes.length; i++) {
@@ -120,8 +120,6 @@ function resetCurrentWaltz(waltzNum, movLetter) {
   currentWaltz.width = fontSizeInPixels/3;
   currentWaltz.interviewsPlayed.length = 0;
   currentWaltz.movementsPlayed.length = 0;
-  currentWaltz.movementsPlayed.push(movLetter);
-  currentWaltz.renderedPoints = flattenArray(currentWaltz.points[renderedPointsKey[movLetter]].slice(0));
   updateRestOfRenderedWaltzes();
 }
 
@@ -169,7 +167,7 @@ function renderLocationCircles() {
       return selected && selected.location === loc;
     })
     .classed("waltz", function(loc) {
-      return selected && selected.movement.waltz === waltzNumForLocation(loc);
+      return selected && locationIsPartOfWaltz(loc, selected.movement.waltz);
     })
     .attr("r", circleRadius)
     .style("stroke-width", function(loc) {
@@ -184,6 +182,13 @@ function renderLocationCircles() {
     .attr("transform","translate(0," + fontSizeInPixels/2 + ")")
     .classed("selected", function(loc) {
       return selected && selected.location === loc ? true : false;
+    })
+    .classed("waltz", function(loc) {
+      return selected && locationIsPartOfWaltz(loc, selected.movement.waltz);
+    })
+    .text(function(loc) {
+      var mov = movementForLocation(loc);
+      return mov.interview ? "i": "";
     });
 }
 
@@ -340,6 +345,7 @@ function handleKeyboardEvents(evt) {
       case 39:                    // right arrow
       if (!selected) {
         resetSelection();
+        updateWaltzData(1, "A");
         updateWaltz("playVideo", { type: "movement" });
         lastWaltzNum = 1;
       } else {
@@ -546,20 +552,20 @@ function nextMovement() {
       movLetter = mov.movement;
       updateWaltzData(mov.waltz, movLetter);
     } else {
-      stepThroughMovementsForThisLocation(loc);
       waltzNum = mov.waltz + 1;
       if (waltzNum > numberOfWaltzes) {
         waltzNum = 1;
       }
       movLetter = "A";
       resetCurrentWaltz(waltzNum, movLetter);
+      resetLocationMovementIndiciesForWaltz(waltzNum);
+      // stepThroughMovementsForThisLocation(loc);
       mov = movementForWaltz(waltzNum, movLetter);
       updateWaltzData(mov.waltz, movLetter);
       kindOfVideo = "movement";
     }
     selected.movement = mov;
     selected.location = waltzLocations[mov.location];
-    selected.location.movementIndex = selected.location.movements.indexOf(mov.index);
     updateWaltz("playVideo", { type: kindOfVideo, letter: movLetter });
     lastWaltzNum = mov.waltz;
   }
@@ -651,11 +657,7 @@ function finishStartup() {
       .append("text")
         .attr("class", "location")
         .attr("transform","translate(0," + fontSizeInPixels/2 + ")")
-        .style("text-anchor","middle")
-        .text(function(loc) {
-            var mov = movementForLocation(loc);
-            return mov.interview ? "i": "";
-          });
+        .style("text-anchor","middle");
 
   pulseSelectedLocationCircle();
 
@@ -680,24 +682,24 @@ function finishStartup() {
       newMov = movementForLocation(newLoc);
       if (currentMov && newMov.waltz !== currentMov.waltz) {
         //  selecting movement *not* in current waltz
-        stepThroughMovementsForThisLocation(selected.location);
         movLetter = newMov.movement;
         waltzNum = newMov.waltz;
         resetCurrentWaltz(waltzNum, movLetter);
+        resetLocationMovementIndiciesForWaltz(waltzNum);
+        updateWaltzData(newMov.waltz, movLetter);
+        stepThroughMovementsForThisLocation(selected.location);
         selected.movement = newMov;
         selected.location = waltzLocations[newMov.location];
-        selected.location.movementIndex = selected.location.movements.indexOf(newMov.index);
         updateWaltz("playVideo", { type: "movement", letter: movLetter });
         lastWaltzNum = newMov.waltz;
       } else {
         // selecting movement in current waltz
         movLetter = newMov.movement;
         currentWaltz = waltzes[newMov.waltz-1];
-        if (renderedWaltzes.length > 0) {
-          updateWaltzData(newMov.waltz, movLetter);
-        } else {
+        if (renderedWaltzes.length === 0) {
           resetCurrentWaltz(newMov.waltz, movLetter);
         }
+        updateWaltzData(newMov.waltz, movLetter);
         selected.movement = newMov;
         selected.location = newLoc;
         selected.location.movementIndex = selected.location.movements.indexOf(newMov.index);
