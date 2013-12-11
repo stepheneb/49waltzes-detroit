@@ -103,7 +103,7 @@ function initializeMovements() {
 function calculateNumOfVideosForwaltz() {
   waltzes.forEach(function (waltz) {
     var waltzNum = waltz.waltzNum;
-    waltz.numOfVideos = 3 + interviewsForWaltz(waltzNum-1);
+    waltz.numOfVideos = 3 + interviewsForWaltz(waltzNum-1).length;
   });
 }
 
