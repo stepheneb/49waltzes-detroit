@@ -195,6 +195,25 @@ function locationsForWaltz(waltz) {
     }
   });
 }
+
+function waltzesForLocation(loc) {
+  return waltzMovements.filter(function(m) { return m.location === loc.index; })
+    .map(function(m) { return m.waltz; });
+}
+
+function movementsForWaltz(waltzNum) {
+  return waltzMovements.filter(function(m) { return m.waltz === waltzNum; });
+}
+
+function resetLocationMovementIndiciesForWaltz(waltzNum) {
+  movementsForWaltz(waltzNum).forEach(function (mov) {
+    var loc = waltzLocations[mov.location];
+    loc.movementIndex = loc.movements.indexOf(mov.index);
+  });
+}
+
+function locationIsPartOfWaltz(loc, waltzNum) {
+  return waltzesForLocation(loc).indexOf(waltzNum) !== -1;
 }
 
 function interviewForMovement(movement) {
