@@ -183,10 +183,18 @@ function waltzNumForLocation(loc) {
 }
 
 function locationsForWaltz(waltz) {
-  return waltzLocations.filter(function(loc) {
+  var locations = waltzLocations.filter(function(loc) {
     var locationHasWaltzMovement = loc.movements.filter(function(m) { return waltzMovements[m-1].waltz === waltz; }).length > 0;
     return locationHasWaltzMovement;
   });
+  return locations.sort(function (a, b) {
+    if (movementForLocation(a).movement < movementForLocation(b).movement) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
+}
 }
 
 function interviewForMovement(movement) {
