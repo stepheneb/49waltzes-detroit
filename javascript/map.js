@@ -87,21 +87,26 @@ function resizeWaltzData() {
 
 function updateRestOfRenderedWaltzes() {
   var waltz,
-      color = "#227",
-      opacity = 0.8,
+      color = "#128",
+      opacity = 0.7,
       width = fontSizeInPixels/5,
+      maxQueueLength,
       i;
   for (i = 1; i < renderedWaltzes.length; i++) {
     waltz = waltzes[renderedWaltzes[i]-1];
     waltz.color = color;
     waltz.opacity = opacity;
-    waltz.width -= fontSizeInPixels/100;
-    opacity -= 0.04;
+    waltz.width = width;
+    // width *= 0.98;
+    opacity -= 0.075;
     if (opacity <= 0) {
+      maxQueueLength = i;
       for (; i < renderedWaltzes.length; i++) {
+        waltz = waltzes[renderedWaltzes[i]-1];
         waltz.renderedPoints = [];
       }
-      visitedWaltzData.length = i;
+      renderedWaltzes.length = maxQueueLength;
+      visitedWaltzData.length = maxQueueLength;
       return;
     }
   }
@@ -140,10 +145,16 @@ function pulseSelectedLocationCircle() {
     selectedCircle
         .transition()
         .duration(500)
-        .style("fill-opacity", 1.0)
+        .style("fill-opacity", 0.6)
+        .style("fill", "#ff8000")
+        .style("stroke-width", circleStrokeWidth*1.1)
+        .attr("r", circleRadius*0.9)
         .transition()
         .duration(500)
-        .style("fill-opacity", 0.2);
+        .style("fill-opacity", 0.3)
+        .style("fill", "#80ffff")
+        .style("stroke-width", circleStrokeWidth)
+        .attr("r", circleRadius*1.0);
   },1000);
 }
 

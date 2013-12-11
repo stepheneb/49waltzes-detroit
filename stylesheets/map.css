@@ -64,25 +64,23 @@ svg circle.location {
   opacity: 0;
   fill: #ff4f0e;
   fill-opacity: 0.6;
-  stroke: #666666; }
+  stroke: #666666;
+  stroke-opacity: 1.0; }
   svg circle.waltz {
-    opacity: 0.5;
+    opacity: 0.6;
     fill: #ff0030;
     fill-opacity: 0.2;
-    stroke: #ff2f0e;
-    stroke-opacity: 1.0; }
+    stroke: #ff2f0e; }
   svg circle.selected {
     opacity: 1;
     fill: #ff0030;
     fill-opacity: 0.2;
-    stroke: #ff2f0e;
-    stroke-opacity: 1.0; }
+    stroke: #ff2f0e; }
   svg circle:hover {
     opacity: 1;
     fill: #ff0030;
     fill-opacity: 0.2;
-    stroke: #444444;
-    stroke-opacity: 1.0; }
+    stroke: #ff0000; }
   svg circle.selected:hover {
     opacity: 1;
     fill: #ff0030;
