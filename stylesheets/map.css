@@ -24,6 +24,28 @@ div#content-container img {
   height: auto;
 }
 
+
+div#touchme {
+  position: absolute;
+  display: inline-block;
+  right: 1em;
+  bottom: 1.5em  ;
+  text-align: left;
+  width: auto;
+  height: auto;
+  color: black;
+  padding: 0.2em 0.5em;
+  text-shadow: #fff -1px 1px 1px, #fff 1px -1px 1px, rgba(0,0,0,0.3) 10px 15px 25px;
+  background: rgba(240, 240, 240, 0.8);
+  font-family: 'Roboto';
+  font-size: 3em;
+  font-weight: 800;
+  pointer-events: none;
+  border-radius: 0.75em;
+  z-index: 5;
+}
+
+
 div.tooltip {
   position: absolute;
   left: 0;
@@ -44,6 +66,11 @@ div.tooltip {
   border-radius: 1.0em;
   pointer-events: none;
   z-index: 3;
+}
+
+div.details {
+  padding-left: 1em;
+  font-size: 80%;
 }
 
 #svg-container {
