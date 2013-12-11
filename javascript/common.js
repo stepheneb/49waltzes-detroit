@@ -205,6 +205,14 @@ function movementsForWaltz(waltzNum) {
   return waltzMovements.filter(function(m) { return m.waltz === waltzNum; });
 }
 
+function resetLocationMovementIndicies() {
+  waltzLocations.forEach(function(loc) {
+    loc.movementIndex = 0;
+    loc.previousWaltzNum = 0;
+    // loc.previousWaltzNum = waltzesForLocation(loc)[0];
+  });
+}
+
 function resetLocationMovementIndiciesForWaltz(waltzNum) {
   movementsForWaltz(waltzNum).forEach(function (mov) {
     var loc = waltzLocations[mov.location];

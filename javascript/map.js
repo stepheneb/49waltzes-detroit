@@ -66,6 +66,7 @@ function resizeWaltzData() {
       j;
   waltzes.forEach(function (waltz) {
     var waltzNum = waltz.waltzNum;
+    resetLocationMovementIndiciesForWaltz(waltzNum);
     waltz.points =
       locationsForWaltz(waltzNum)
         .map(function (loc) { return [loc.x, loc.y]; });
@@ -85,13 +86,21 @@ function resizeWaltzData() {
   }
 }
 
-function updateRestOfRenderedWaltzes() {
+function updateRestOfRenderedWaltzes(selectedWaltzNum) {
   var waltz,
       color = "#128",
       opacity = 0.7,
       width = fontSizeInPixels/5,
       maxQueueLength,
       i;
+  if (renderedWaltzes.length > 1) {
+    if (renderedWaltzes.slice(1).indexOf(selectedWaltzNum) !== -1) {
+      renderedWaltzes.splice(renderedWaltzes.slice(1).indexOf(selectedWaltzNum)+1,1);
+    }
+    if (visitedWaltzData.slice(1).indexOf(selectedWaltzNum) !== -1) {
+      visitedWaltzData.splice(visitedWaltzData.slice(1).indexOf(selectedWaltzNum)+1,1);
+    }
+  }
   for (i = 1; i < renderedWaltzes.length; i++) {
     waltz = waltzes[renderedWaltzes[i]-1];
     waltz.color = color;
@@ -120,7 +129,8 @@ function resetCurrentWaltz(waltzNum, movLetter) {
   currentWaltz.width = fontSizeInPixels/3;
   currentWaltz.interviewsPlayed.length = 0;
   currentWaltz.movementsPlayed.length = 0;
-  updateRestOfRenderedWaltzes();
+  currentWaltz.renderedPoints = [];
+  updateRestOfRenderedWaltzes(waltzNum);
 }
 
 function movementNotYetPlayed(waltz, movLetter) {
@@ -134,7 +144,7 @@ function updateWaltzData(waltzNum, movLetter) {
     currentWaltz.renderedPoints.push(currentWaltz.points[renderedPointsKey[movLetter]].slice(0));
   }
   currentWaltz.renderedPoints = flattenArray(currentWaltz.renderedPoints);
-  updateRestOfRenderedWaltzes();
+  updateRestOfRenderedWaltzes(waltzNum);
 }
 
 function pulseSelectedLocationCircle() {
@@ -232,12 +242,15 @@ function resizeTooltip(loc) {
 
 function showTooltip(loc) {
   var mov = movementForLocation(loc),
-      htmlContent = loc.address;
+      htmlContent = generateWaltzKeyForMovement(mov) + ": " + loc.address;
 
-  if (testing) {
-    htmlContent = generateWaltzKeyForMovement(mov) + " (" + mov.index + "): " + loc.address;
-  }
   tooltip.html(htmlContent);
+  if (testing) {
+    tooltip.append("div")
+      .attr("class", "details")
+      .html("mov: " + mov.index + " loc: " + loc.index +
+            "<br/> pixel: " + pixelFormatter(loc.x) + ", " + pixelFormatter(loc.y));
+  }
   resizeTooltip(loc);
   tooltip.transition()
      .duration(200)
@@ -315,6 +328,13 @@ function stepThroughMovementsForThisLocation(loc) {
     }
   }
 }
+
+function stepThroughMovementsForThisLocation2(loc) {
+  if (loc.movements.length > 1 && loc.savedMovementIndex === loc.movementIndex) {
+    stepThroughMovementsForThisLocation(loc);
+  }
+}
+
 
 function handleKeyboardEvents(evt) {
   var newIndex,
@@ -536,6 +556,8 @@ function nextMovement() {
     updateWaltz("movement");
   } else {
     loc = selected.location;
+    // stepThroughMovementsForThisLocation2(loc);
+    // if (newLoc.savedMovementIndex !== newLoc.movementIndex;)
     mov = movementForLocation(loc);
     movLetter = mov.movement;
     currentWaltz = waltzes[mov.waltz-1];
@@ -548,6 +570,7 @@ function nextMovement() {
       interviewsPlayed.push(movLetter);
     } else if (movementsPlayed.length < 3) {
       kindOfVideo = "movement";
+      resetLocationMovementIndiciesForWaltz(currentWaltz.waltzNum);
       mov = nextUnplayedMovementForWaltz(currentWaltz);
       movLetter = mov.movement;
       updateWaltzData(mov.waltz, movLetter);
@@ -599,9 +622,28 @@ function setupStorageEventListener() {
   });
 }
 
+function setupWaltzForThisLocation(loc) {
+  var waltzList,
+      waltzNum = loc.previousWaltzNum;
+  if (loc.movements.length > 1) {
+    waltzList = waltzesForLocation(loc);
+    index = waltzList.indexOf(loc.previousWaltzNum);
+    if (index !== -1) {
+      index++;
+      if (index >= loc.movements.length) {
+        index = 0;
+      }
+      waltzNum = waltzList[index];
+    }
+  }
+  resetLocationMovementIndiciesForWaltz(waltzNum);
+  return waltzNum;
+}
+
 function finishStartup() {
   setup();
   resizeWaltzData();
+  resetLocationMovementIndicies();
   setupFullScreenSupport();
 
   fullScreenLink = d3.select('body').append("div")
@@ -666,6 +708,7 @@ function finishStartup() {
         newLoc = findClosestLocation(clickPos),
         currentMov,
         newMov,
+        previousWaltzNum,
         waltzNum,
         movLetter,
         eventType,
@@ -676,34 +719,50 @@ function finishStartup() {
     if (newLoc !== selected) {
       if (selected) {
         currentMov = movementForLocation(selected.location);
+        setupWaltzForThisLocation(newLoc);
+        newMov = movementForLocation(newLoc);
+        waltzNum = newMov.waltz;
+        if (currentMov.waltz !== newMov.waltz) {
+          //  selecting movement at new location and waltz -- *not* in current waltz
+          newLoc.previousWaltzNum = waltzNum;
+          movLetter = newMov.movement;
+          waltzNum = newMov.waltz;
+          resetCurrentWaltz(waltzNum, movLetter);
+          updateWaltzData(newMov.waltz, movLetter);
+          selected.movement = newMov;
+          selected.location = waltzLocations[newMov.location];
+          updateWaltz("playVideo", { type: "movement", letter: movLetter });
+          lastWaltzNum = newMov.waltz;
+        } else {
+          // selecting movement in current waltz
+          movLetter = newMov.movement;
+          currentWaltz = waltzes[newMov.waltz-1];
+          // if (renderedWaltzes.length === 0) {
+            resetCurrentWaltz(newMov.waltz, movLetter);
+          // }
+          updateWaltzData(newMov.waltz, movLetter);
+          selected.movement = newMov;
+          selected.location = newLoc;
+          //selected.location.movementIndex = selected.location.movements.indexOf(newMov.index);
+          updateWaltz("playVideo", { type: "movement", letter: movLetter });
+          stepThroughMovementsForThisLocation(selected.location);
+          lastWaltzNum = newMov.waltz;
+        }
       } else {
+        // first selection after program start
         selected = {};
-      }
-      newMov = movementForLocation(newLoc);
-      if (currentMov && newMov.waltz !== currentMov.waltz) {
-        //  selecting movement *not* in current waltz
+        newMov = movementForLocation(newLoc);
         movLetter = newMov.movement;
         waltzNum = newMov.waltz;
+        previousWaltzNum = waltzNum;
         resetCurrentWaltz(waltzNum, movLetter);
         resetLocationMovementIndiciesForWaltz(waltzNum);
-        updateWaltzData(newMov.waltz, movLetter);
-        stepThroughMovementsForThisLocation(selected.location);
-        selected.movement = newMov;
-        selected.location = waltzLocations[newMov.location];
-        updateWaltz("playVideo", { type: "movement", letter: movLetter });
-        lastWaltzNum = newMov.waltz;
-      } else {
-        // selecting movement in current waltz
-        movLetter = newMov.movement;
-        currentWaltz = waltzes[newMov.waltz-1];
-        if (renderedWaltzes.length === 0) {
-          resetCurrentWaltz(newMov.waltz, movLetter);
-        }
-        updateWaltzData(newMov.waltz, movLetter);
+        newLoc.previousWaltzNum = previousWaltzNum;
+        updateWaltzData(waltzNum, movLetter);
         selected.movement = newMov;
         selected.location = newLoc;
-        selected.location.movementIndex = selected.location.movements.indexOf(newMov.index);
         updateWaltz("playVideo", { type: "movement", letter: movLetter });
+        // stepThroughMovementsForThisLocation(selected.location);
         lastWaltzNum = newMov.waltz;
       }
     }
