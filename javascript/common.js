@@ -205,6 +205,10 @@ function movementsForWaltz(waltzNum) {
   return waltzMovements.filter(function(m) { return m.waltz === waltzNum; });
 }
 
+function waltzForMovement(mov) {
+  return waltzes[mov.waltz-1];
+}
+
 function resetLocationMovementIndicies() {
   waltzLocations.forEach(function(loc) {
     loc.movementIndex = 0;

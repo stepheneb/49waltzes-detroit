@@ -692,23 +692,45 @@ function finishStartup() {
   svg.on("mousedown", function (e) {
     var clickPos = d3.mouse(this),
         newLoc = findClosestLocation(clickPos),
-        currentMov,
         newMov,
+        previousMov,
+        previousWaltz,
         previousWaltzNum,
         waltzNum,
         movLetter,
         eventType,
         i;
 
+    function inSameMovement() {
+      return newMov.index === previousMov.index;
+    }
+
+    function inSameWaltz() {
+      return previousMov.waltz === newMov.waltz;
+    }
+
+    function interviewNotPlayed(movLetter) {
+      return currentWaltz.interviewsPlayed.indexOf(movLetter) === -1;
+    }
+
+    function markInterviewNotPlayed(movLetter) {
+      var interviewIndex = currentWaltz.interviewsPlayed.indexOf(movLetter);
+      if (interviewIndex !== -1) {
+        currentWaltz.interviewsPlayed.splice(interviewIndex, 1);
+      }
+    }
+
     hideTooltip();
     console.log("map: mousedown: " + clickPos);
     if (newLoc !== selected) {
       if (selected) {
-        currentMov = movementForLocation(selected.location);
+        previousMov = movementForLocation(selected.location);
+        previousWaltz = waltzForMovement(previousMov);
+        previousWaltzNum = previousWaltz.waltzNum;
         setupWaltzForThisLocation(newLoc);
         newMov = movementForLocation(newLoc);
         waltzNum = newMov.waltz;
-        if (currentMov.waltz !== newMov.waltz) {
+        if (!inSameWaltz()) {
           //  selecting movement at new location and waltz -- *not* in current waltz
           newLoc.previousWaltzNum = waltzNum;
           movLetter = newMov.movement;
@@ -726,17 +748,20 @@ function finishStartup() {
           if (renderedWaltzes.length === 0) {
             resetCurrentWaltz(newMov.waltz, movLetter);
           }
-          if (newMov.interview && newMov.index === currentMov.index && currentWaltz.interviewsPlayed.indexOf(movLetter) === -1) {
-            kindOfVideo = "interview";
-            currentWaltz.interviewsPlayed.push(movLetter);
-            updateWaltzData(newMov.waltz, movLetter);
+          if (inSameMovement()) {
+            if (newMov.interview && interviewNotPlayed(movLetter)) {
+              kindOfVideo = "interview";
+              currentWaltz.interviewsPlayed.push(movLetter);
+              updateWaltzData(newMov.waltz, movLetter);
+            } else {
+              kindOfVideo = "movement";
+              updateWaltzData(newMov.waltz, movLetter);
+              markInterviewNotPlayed(movLetter);
+            }
           } else {
             kindOfVideo = "movement";
             updateWaltzData(newMov.waltz, movLetter);
-            interviewIndex = currentWaltz.interviewsPlayed.indexOf(movLetter);
-            if (interviewIndex !== -1) {
-              currentWaltz.interviewsPlayed.splice(interviewIndex, 1);
-            }
+            markInterviewNotPlayed(previousMov.movement);
           }
           selected.movement = newMov;
           selected.location = newLoc;
