@@ -726,10 +726,21 @@ function finishStartup() {
           if (renderedWaltzes.length === 0) {
             resetCurrentWaltz(newMov.waltz, movLetter);
           }
-          updateWaltzData(newMov.waltz, movLetter);
+          if (newMov.interview && newMov.index === currentMov.index && currentWaltz.interviewsPlayed.indexOf(movLetter) === -1) {
+            kindOfVideo = "interview";
+            currentWaltz.interviewsPlayed.push(movLetter);
+            updateWaltzData(newMov.waltz, movLetter);
+          } else {
+            kindOfVideo = "movement";
+            updateWaltzData(newMov.waltz, movLetter);
+            interviewIndex = currentWaltz.interviewsPlayed.indexOf(movLetter);
+            if (interviewIndex !== -1) {
+              currentWaltz.interviewsPlayed.splice(interviewIndex, 1);
+            }
+          }
           selected.movement = newMov;
           selected.location = newLoc;
-          updateWaltz("playVideo", { type: "movement", letter: movLetter });
+          updateWaltz("playVideo", { type: kindOfVideo, letter: movLetter });
           stepThroughMovementsForThisLocation(selected.location);
           lastWaltzNum = newMov.waltz;
         }
