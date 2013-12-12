@@ -288,6 +288,7 @@ function saveWaltzLocation(loc, eventType, eventData) {
       opacity: 0,
       movementsPlayed: [],
       interviewsPlayed: [],
+      rendered: false,
       points: [],
       renderedPoints: []
     };

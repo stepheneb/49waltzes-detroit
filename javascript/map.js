@@ -10,7 +10,6 @@ var map,
     waltzLineData = [],
     renderedWaltzes = [],
     visitedWaltzLine,
-    visitedWaltzData = [],
     tooltip,
     selected = null,
     renderedPointsKey = {
@@ -25,26 +24,27 @@ var map,
     };
 
 function renderWaltzLines() {
-  visitedWaltzLine = svg.selectAll("polygon.currentWaltz")
-      .data(visitedWaltzData, function (d) {
-        return d.waltzNum; });
+  var ghostFactor = fontSizeInPixels/4;
+  visitedWaltzLine = svg.selectAll("polygon.visited")
+      .data(waltzes, function (d) { return d.waltzNum; });
 
   visitedWaltzLine.enter().append("polygon")
-      .attr("class", "currentWaltz")
+      .attr("class", "visited")
+      .attr("stroke", "#555")
+      .attr("stroke-linecap", "round")
       .attr("stroke-linejoin", "round");
 
   visitedWaltzLine
-      .attr("stroke", "#888")
-      .attr("stroke-width", function(waltz) { return waltz.width/1.5; })
-      .attr("opacity", 0.6)
-      .attr("points", function(waltz) { return waltz.points; });
+      .attr("opacity", function(waltz) { return waltz.opacity*0.6; })
+      .attr("stroke-width", ghostFactor + "px")
+      .attr("stroke-dasharray", ghostFactor/5 + "," + ghostFactor*1.5)
+      .attr("points", function(waltz) { return waltz.rendered ? waltz.points : []; });
 
   visitedWaltzLine.exit()
     .remove();
 
   waltzLine = svg.selectAll("polygon.waltz")
-      .data(waltzes, function (d) {
-        return d.waltzNum; });
+      .data(waltzes, function (d) { return d.waltzNum; });
 
   waltzLine.enter().append("polygon")
       .attr("class", "waltz")
@@ -52,9 +52,8 @@ function renderWaltzLines() {
 
   waltzLine
       .attr("stroke", function(waltz) { return waltz.color; })
-      .attr("stroke-width", function(waltz) { return waltz.width; })
-      .attr("opacity", function(waltz) {
-        return waltz.opacity; })
+      .attr("stroke-width", function(waltz) { return waltz.width + "px"; })
+      .attr("opacity", function(waltz) { return waltz.opacity; })
       .attr("points", function(waltz) { return waltz.renderedPoints; });
 
   waltzLine.exit()
@@ -71,10 +70,6 @@ function resizeWaltzData() {
       locationsForWaltz(waltzNum)
         .map(function (loc) { return [loc.x, loc.y]; });
   });
-  for (i = 0; i < visitedWaltzData.length; i++) {
-    vistedWaltz = visitedWaltzData[i];
-    vistedWaltz.points = waltzes[vistedWaltz.waltzNum-1].points;
-  }
   for (i = 0; i < renderedWaltzes.length; i++) {
     renderedWaltz = waltzes[renderedWaltzes[i]-1];
     renderedWaltz.renderedPoints = [];
@@ -97,9 +92,6 @@ function updateRestOfRenderedWaltzes(selectedWaltzNum) {
     if (renderedWaltzes.slice(1).indexOf(selectedWaltzNum) !== -1) {
       renderedWaltzes.splice(renderedWaltzes.slice(1).indexOf(selectedWaltzNum)+1,1);
     }
-    if (visitedWaltzData.slice(1).indexOf(selectedWaltzNum) !== -1) {
-      visitedWaltzData.splice(visitedWaltzData.slice(1).indexOf(selectedWaltzNum)+1,1);
-    }
   }
   for (i = 1; i < renderedWaltzes.length; i++) {
     waltz = waltzes[renderedWaltzes[i]-1];
@@ -109,14 +101,11 @@ function updateRestOfRenderedWaltzes(selectedWaltzNum) {
     width *= 0.95;
     opacity -= 0.08;
     if (opacity <= 0) {
+      renderedWaltzes.pop();
+      waltz.opacity = 0;
+      waltz.rendered = false;
       maxQueueLength = i;
-      for (; i < renderedWaltzes.length; i++) {
-        waltz = waltzes[renderedWaltzes[i]-1];
-        waltz.renderedPoints = [];
-      }
-      renderedWaltzes.length = maxQueueLength;
-      visitedWaltzData.length = maxQueueLength;
-      return;
+      waltz.renderedPoints = [];
     }
   }
 }
@@ -435,8 +424,9 @@ function resizeSVG() {
 
 function handleResize() {
   setup();
-  resizeWaltzData();
   resizeSVG();
+  resizeWaltzData();
+  updateRestOfRenderedWaltzes();
   renderLocationCircles();
   renderWaltzLines();
   if (selected) {
@@ -464,11 +454,7 @@ function findClosestLocation(clickPos) {
 
 function updateWaltz(eventType, eventData) {
   var loc = selected.location;
-  if (visitedWaltzData.length === 0) {
-    visitedWaltzData.unshift(currentWaltz);
-  } else if (visitedWaltzData[0].waltzNum !== currentWaltz.waltzNum) {
-    visitedWaltzData.unshift(currentWaltz);
-  }
+  currentWaltz.rendered = true;
   renderLocationCircles();
   renderWaltzLines();
   showTooltip(loc);
