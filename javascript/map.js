@@ -385,7 +385,7 @@ function handleKeyboardEvents(evt) {
       break;
 
       case 51:                    // "3"
-      if (evt.altKey) {          // alt or option--1, video-resolution: 1920x1080
+      if (evt.altKey) {           // alt or option--1, video-resolution: 1920x1080
         if (!selected) resetSelection();
         videoResolution = "1920x1080";
         updateWaltz("playVideo", { type: "movement" });
@@ -394,7 +394,7 @@ function handleKeyboardEvents(evt) {
       break;
 
       case 82:                    // "r"
-      if (evt.altKey) {          // alt or option--r, new random movement
+      if (evt.altKey) {           // alt or option--r, new random movement
         randomSelection();
         updateWaltz("playVideo", { type: "movement" });
         return handled(evt);
@@ -402,7 +402,7 @@ function handleKeyboardEvents(evt) {
       break;
 
       case 84:                    // "t"
-      if (evt.altKey) {          // alt or option-t, toggle testing flag
+      if (evt.altKey) {           // alt or option-t, toggle testing flag
         testing = !testing;
         if (!selected) {
           resetSelection();
@@ -729,7 +729,6 @@ function finishStartup() {
           updateWaltzData(newMov.waltz, movLetter);
           selected.movement = newMov;
           selected.location = newLoc;
-          //selected.location.movementIndex = selected.location.movements.indexOf(newMov.index);
           updateWaltz("playVideo", { type: "movement", letter: movLetter });
           stepThroughMovementsForThisLocation(selected.location);
           lastWaltzNum = newMov.waltz;
@@ -748,7 +747,6 @@ function finishStartup() {
         selected.movement = newMov;
         selected.location = newLoc;
         updateWaltz("playVideo", { type: "movement", letter: movLetter });
-        // stepThroughMovementsForThisLocation(selected.location);
         lastWaltzNum = newMov.waltz;
       }
     }
