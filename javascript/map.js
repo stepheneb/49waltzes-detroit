@@ -802,6 +802,11 @@ function finishStartup() {
   window.onresize = handleResize;
   addFullScreenChangeListener(handleResize);
   document.onkeydown = handleKeyboardEvents;
+
+  // disable tap and hold context menu
+  window.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  }, false);
 }
 
 window.addEventListener("load", function(event) {
