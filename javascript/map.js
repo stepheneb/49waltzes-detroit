@@ -243,7 +243,7 @@ function showTooltip(loc) {
   resizeTooltip(loc);
   tooltip.transition()
      .duration(200)
-     .style("opacity", 1.0)
+     .style("opacity", 0.7)
      .style("background-color", "rgba(255,255,255, 0)");
 }
 
