@@ -130,7 +130,7 @@ function loadVideoInterview(selection, node) {
   }
 
   subtitleTrack.attr("src", selection.movement.interview.webvtt);
-  subtitleTrack.attr("default", true);
+  subtitleTrack.property("default", true);
 
   switch (location.videoResolution) {
   case "480x270":
@@ -418,9 +418,11 @@ window.addEventListener("load", function(event) {
 
   subtitleTrack1 = video1.append("track")
       .attr("id", "v1-track1")
-      .attr("kind", "subtitles");
-      // .attr("srclang", 'es')
-      // .attr("label", "Spanish");
+      .attr("kind", "subtitles")
+      .attr("srclang", 'es')
+      .attr("src", "")
+      .attr("label", "Spanish")
+      .property("default", true);
 
   webmSource1 = video1.append("source")
       .attr("id", "webm")
@@ -439,9 +441,12 @@ window.addEventListener("load", function(event) {
 
   subtitleTrack2 = video2.append("track")
       .attr("id", "v2-track")
-      .attr("kind", "subtitles");
-      // .attr("srclang", 'es')
-      // .attr("label", "Spanish");
+      .attr("kind", "subtitles")
+      .attr("src", "")
+      .attr("srclang", 'es')
+      .attr("label", "Spanish")
+      .property("default", true);
+
 
   video2Node = video2.node();
 
