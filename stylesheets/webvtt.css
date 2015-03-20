@@ -1,0 +1,13 @@
+
+::cue {
+  height: auto;
+  color: #ddd;
+  padding: 0.3em 1em 0.3em 1em;
+  font-size: 1em;
+  font-family: 'Roboto';
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  background: rgba(64, 64, 64, 0.2);
+  pointer-events: none;
+  z-index: 5;
+}
