@@ -187,7 +187,7 @@ function renderLocationCircles() {
     })
     .text(function(loc) {
       var mov = movementForLocation(loc);
-      return mov.interview ? "i": "";
+      return mov.interview === undefined ? "" : "i";
     });
 }
 
