@@ -5,9 +5,7 @@ use Rack::Static, :urls => [""], :root => PUBLIC_PATH, :index =>'index.html'
 
 Rack::Mime::MIME_TYPES.merge!({
   ".ttf" => "font/ttf",
-  ".mml" => "application/xml",
-  ".cml" => "application/xml",
-  ".e2d" => "application/xml"
+  ".vtt" => "text/vtt"
 })
 
 app = Rack::Directory.new PUBLIC_PATH
