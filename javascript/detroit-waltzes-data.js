@@ -534,77 +534,92 @@ interviewData = {
   "6B": {
     "index": "017",
     "waltz": "6B",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/6B.vtt"
   },
   "16A": {
     "index": "046",
     "waltz": "16A",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/16A.vtt"
   },
   "17B": {
     "index": "050",
     "waltz": "17B",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/17B.vtt"
   },
   "22A": {
     "index": "064",
     "waltz": "22A",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/22A.vtt"
   },
   "22C": {
     "index": "066",
     "waltz": "22C",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/22C.vtt"
   },
   "23A": {
     "index": "067",
     "waltz": "23A",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/23A.vtt"
   },
   "24A": {
     "index": "070",
     "waltz": "24A",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/24A.vtt"
   },
   "24C": {
     "index": "072",
     "waltz": "24C",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/24C.vtt"
   },
   "27C": {
     "index": "081",
     "waltz": "27C",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/27C.vtt"
   },
   "28A": {
     "index": "082",
     "waltz": "28A",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/28A.vtt"
   },
   "28C": {
     "index": "084",
     "waltz": "28C",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/28C.vtt"
   },
   "30A": {
     "index": "088",
     "waltz": "30A",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/30A.vtt"
   },
   "33A": {
     "index": "097",
     "waltz": "33A",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/33A.vtt"
   },
   "44C": {
     "index": "132",
     "waltz": "44C",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/44C.vtt"
   },
   "47A": {
     "index": "139",
     "waltz": "47A",
-    "movement": null
+    "movement": null,
+    "webvtt": "webvtt/spanish/47A.vtt"
   }
 };
 
