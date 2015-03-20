@@ -4,10 +4,12 @@ var mainVideo,
     video1Node,
     mp4Source1,
     webmSource1,
+    subtitleTrack1,
     video2,
     vide2oNode,
     mp4Source2,
     webmSource2,
+    subtitleTrack2,
     mainVideoAlmostOver = false,
     mainVideoStarted = false,
     preloadedMovementWaltzKey,
@@ -64,15 +66,20 @@ function loadVideoMovement(selection, node) {
   var location = selection.location,
       movement = selection.movement,
       webmSource,
-      mp4Source;
+      mp4Source,
+      subtitleTrack;
 
   if (node === video1Node) {
     webmSource = webmSource1;
     mp4Source = mp4Source1;
+    subtitleTrack = subtitleTrack1;
   } else {
     webmSource = webmSource2;
     mp4Source = mp4Source2;
+    subtitleTrack = subtitleTrack2;
   }
+
+  subtitleTrack.attr("src", '');
 
   switch (location.videoResolution) {
   case "480x270":
@@ -108,16 +115,22 @@ function loadVideoMovement(selection, node) {
 function loadVideoInterview(selection, node) {
   var location = selection.location,
       movement = selection.movement,
+      subtitleTrack,
       webmSource,
       mp4Source;
 
   if (node === video1Node) {
     webmSource = webmSource1;
     mp4Source = mp4Source1;
+    subtitleTrack = subtitleTrack1;
   } else {
     webmSource = webmSource2;
     mp4Source = mp4Source2;
+    subtitleTrack = subtitleTrack2;
   }
+
+  subtitleTrack.attr("src", selection.movement.interview.webvtt);
+  subtitleTrack.attr("default", true);
 
   switch (location.videoResolution) {
   case "480x270":
@@ -403,9 +416,15 @@ window.addEventListener("load", function(event) {
 
   video1Node = video1.node();
 
+  subtitleTrack1 = video1.append("track")
+      .attr("id", "v1-track1")
+      .attr("kind", "subtitles");
+      // .attr("srclang", 'es')
+      // .attr("label", "Spanish");
+
   webmSource1 = video1.append("source")
-          .attr("id", "webm")
-          .attr("type", 'video/webm;');
+      .attr("id", "webm")
+      .attr("type", 'video/webm;');
 
   mp4Source1 = video1.append("source")
       .attr("id", "mp4")
@@ -417,6 +436,12 @@ window.addEventListener("load", function(event) {
       .attr("controls", null)
       .attr("preload", "auto")
       .style("opacity", 0.0);
+
+  subtitleTrack2 = video2.append("track")
+      .attr("id", "v2-track")
+      .attr("kind", "subtitles");
+      // .attr("srclang", 'es')
+      // .attr("label", "Spanish");
 
   video2Node = video2.node();
 
